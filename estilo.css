@@ -1,21 +1,5 @@
 /*Iván Palomino Rodríguez*/
 
-.titulo1 {
-  display: flex;
-  justify-content: center;
-  color: rgba(8, 7, 5, 0.582);
-}
-.titulo2{
-  display: flex;
-  justify-content: center;
-  color: rgba(8, 7, 5, 0.582);
-}
-.clase {
-  color: rgb(158, 221, 179);
-}
-div{
-  background-color: #aa9e9e;
-}
 
 body{
   height:100%;
@@ -23,38 +7,3 @@ body{
   justify-content: center;
   background-color: #2b27277a;
 }
-.botones{
-  padding-top: 10px;
-  display: flex;
-justify-content: space-between;
-height: 40px;
-width: 100%;
-}
-button{
-  flex: 1;
-  margin: 0 10px;
-}
-p{
-  color: blue
-}
-h2{
-  color: aqua;
-}
-
-
-/*.lista ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.lista li {
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  align-items: flex-start;
-}
-
-.lista img {
-  margin-left: 20px;
-}*/
