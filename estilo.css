@@ -1,20 +1,34 @@
-/* Estilos generales */
-#cabecera{
-  text-align: left;
+#cabecera {
+  display: flex; /* Activar flexbox */
+  align-items: center; /* Centrar verticalmente los elementos */
   background: #2f4f4f;
-  word-spacing: 50px;
   padding: 20px;
 }
 
-.enlace{
+#enlaces {
+  display: flex; /* Flex para los enlaces */
+  gap: 20px; /* Espacio entre enlaces */
+  margin-right: auto;
+}
+
+.enlace {
   color: aliceblue;
-  word-spacing: 8px;
   font-size: 20px;
   text-decoration: none;
 }
 
-.titulo{
+.titulo {
   text-align: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size:24px
+  font-size: 24px;
+}
+
+.twitter {
+  margin-left: auto; /* Empuja el icono hacia la derecha */
+  width: 20px;
+  height: auto;
+}
+
+#divDescripcion{
+  text-align: left;
 }
