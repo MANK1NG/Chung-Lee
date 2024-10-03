@@ -1,7 +1,10 @@
+body{
+  background-color:black;
+}
 #cabecera {
   display: flex;
   align-items: center; 
-  background: #2f4f4f;
+  background: #ce203c;
   padding: 20px;
 }
 
@@ -12,7 +15,7 @@
 }
 
 .enlace {
-  color: aliceblue;
+  color: #e7d052;
   font-size: 20px;
   text-decoration: none;
 }
@@ -21,12 +24,20 @@
   text-align: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 50px;
+  color: white;
+
 }
 
 .twitter {
   margin-left: auto;
-  width: 20px;
+  width: 40px;
   height: auto;
+}
+#estudio{
+  display: flex;
+  margin-right: 20px;
+  color: #e7d052;
+  font-size: 20px;
 }
 
 #divDescripcion{
@@ -38,13 +49,15 @@
 #descripcion{
   flex: 1;
   margin-right: 20px;
+  color: white;
 }
 #divImagen{
   flex: 1;
-  text-align: right;
+  text-align: center;
 }
-#descripcion {
-  font-size: 40px;
+#descripcionTxt {
+  font-size: 32px;
+  color: white;
 }
 #imgDescripcion{
   max-width: 100%; 
@@ -69,6 +82,7 @@
 #nombre1, #nombre2, #nombre3, #nombre4, #foto1, #foto3,  #foto2,  #foto4 {
   margin: 10px 0; 
   font-size: 18px;
+  color: white;
 }
 
 #foto1, #foto3,  #foto2,  #foto4 {
