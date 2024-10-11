@@ -1,4 +1,4 @@
-<span style="color: red;"># STICK-Dō - CHUNG-LEE</span>
+#<span style="color: red;"> STICK-Dō - CHUNG-LEE</span>
 
 #### 🐱‍👤 REFERENCIAS 🐱‍👤 
 El proyecto es un trabajo universitario, los recursos utilizados de otras fuentes estarán referenciados al final del fichero.
