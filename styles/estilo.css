@@ -26,11 +26,12 @@ body{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 50px;
   color: white;
+  text-size-adjust: 50px;
 
 }
 
 .twitter {
-  margin-left: auto;
+  margin-left: 5px;
   width: 40px;
   height: auto;
   border-radius: 5px;
