@@ -1,0 +1,101 @@
+body{
+  background-color:black;
+}
+#cabecera {
+  display: flex;
+  align-items: center; 
+  background: #ce203c;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#enlaces {
+  display: flex; 
+  gap: 20px; 
+  margin-right: auto;
+}
+
+.enlace {
+  color: #e7d052;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.titulo {
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 50px;
+  color: white;
+
+}
+
+.twitter {
+  margin-left: auto;
+  width: 40px;
+  height: auto;
+  border-radius: 5px;
+
+}
+#estudio{
+  display: flex;
+  margin-right: 20px;
+  color: #e7d052;
+  font-size: 20px;
+}
+
+#divDescripcion{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#descripcion{
+  flex: 1;
+  margin-right: 20px;
+  color: white;
+}
+#divImagen{
+  flex: 1;
+  text-align: center;
+  
+
+}
+#descripcionTxt {
+  font-size: 32px;
+  color: white;
+}
+#imgDescripcion{
+  max-width: 100%; 
+  height: auto; 
+  max-height: 500px;
+  border-radius: 5px;
+
+}
+
+
+#columnas {
+  display: flex;
+  justify-content: space-between; 
+  margin: 20px 0; 
+}
+
+#col1, #col2 {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  width: 45%; 
+}
+
+#nombre1, #nombre2, #nombre3, #nombre4, #foto1, #foto3,  #foto2,  #foto4 {
+  margin: 10px 0; 
+  font-size: 18px;
+  color: white;
+}
+
+#foto1, #foto3,  #foto2,  #foto4 {
+  font-size: 16px; /
+}
+.blankspace{
+  height: 800px;
+  width: auto;
+}
