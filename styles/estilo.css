@@ -1,5 +1,5 @@
 body{
-  background-color:black;
+  background-color: #dec120;
 }
 #cabecera {
   display: flex;
@@ -28,6 +28,13 @@ body{
   color: white;
   text-size-adjust: 50px;
 
+}
+
+#tituloImg{
+  display: block;
+  margin: 0 auto 20px; 
+  max-width: 15%; 
+  height: auto; 
 }
 
 .twitter {
@@ -99,4 +106,15 @@ body{
 .blankspace{
   height: 800px;
   width: auto;
+}
+
+#juego {
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #ce203c; 
+  /*calculos para hacer la pantalla en 4:3*/
+  width: 80vw;
+  height: calc(80vw * 0.75); 
+  max-width: 800px; 
+  max-height: 600px; 
 }
