@@ -52,6 +52,7 @@ body{
 }
 
 #divDescripcion{
+  margin-left: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,6 +70,7 @@ body{
 
 }
 #descripcionTxt {
+
   font-size: 32px;
   color: white;
 }
@@ -112,9 +114,8 @@ body{
   display: block;
   margin: 0 auto;
   border: 2px solid #ce203c; 
-  /*calculos para hacer la pantalla en 4:3*/
-  width: 80vw;
-  height: calc(80vw * 0.75); 
+  width: auto;
+  height: auto; 
   max-width: 800px; 
   max-height: 600px; 
 }

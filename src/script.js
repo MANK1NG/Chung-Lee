@@ -1,5 +1,6 @@
 // Archivo JavaScript donde puedes inicializar el canvas
 import Menu from './escenas/menu.js'
+import Templo from './escenas/templo.js';
 
 let z = 1; let x = 3 / z;
 
@@ -8,13 +9,14 @@ const config ={
   type :Phaser.CANVAS,
   canvas: document.getElementById("juego"),
   scale: {
-    
-      width: Math.floor((360 * x)  / 1488 * window.innerWidth),
+    width: 1024,
+    height: 768
+      /*width: Math.floor((360 * x)  / 1488 * window.innerWidth),
       height: Math.floor((189 * x) / 783 * window.innerHeight),
-      zoom: z
+      zoom: z*/
   },
- 
-  scene: [Menu],
+  
+  scene: [Templo, Menu],
   physics: {  
     default: 'arcade', 
     arcade: { 
