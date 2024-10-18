@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family: 'Manga-Style';
+  src: url('../Fonts/Manga-Style.woff') format('woff'),
+       
+}
 body{
   background-color: #dec120;
 }
@@ -21,11 +27,17 @@ body{
   text-decoration: none;
 }
 
+
+
+body {
+  font-family: 'Manga_Style', sans-serif;
+}
+
 .titulo {
   text-align: center;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Manga-Style';
   font-size: 50px;
-  color: white;
+  color: rgb(0, 0, 0);
   text-size-adjust: 50px;
 
 }
@@ -61,7 +73,7 @@ body{
 #descripcion{
   flex: 1;
   margin-right: 20px;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 #divImagen{
   flex: 1;
@@ -72,7 +84,7 @@ body{
 #descripcionTxt {
 
   font-size: 32px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 #imgDescripcion{
   max-width: 100%; 
@@ -99,7 +111,7 @@ body{
 #nombre1, #nombre2, #nombre3, #nombre4, #foto1, #foto3,  #foto2,  #foto4 {
   margin: 10px 0; 
   font-size: 18px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 #foto1, #foto3,  #foto2,  #foto4 {
