@@ -1,3 +1,4 @@
+import Personaje from "./img/personaje.jpg";
 
 export default class Templo extends Phaser.Scene{
 
@@ -7,11 +8,15 @@ export default class Templo extends Phaser.Scene{
     }
     preload(){
         this.load.image('templo', './assests/templo.png');
+
+        this.load.image('personaje', './img/personaje.jpg');
     }
 
     create(){
         console.log("me he creado templo");
 
         this.add.image(0, 0, 'templo').setOrigin(0, 0);
+
+        let personaje = new Personaje(this, 50, 0);
     }
 }
