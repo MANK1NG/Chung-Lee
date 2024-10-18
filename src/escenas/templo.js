@@ -9,7 +9,7 @@ export default class Templo extends Phaser.Scene{
     preload(){
         this.load.image('templo', './assests/templo.png');
 
-        this.load.image('personaje', '../../img/personaje.jpg');
+        this.load.image('personaje', '../../img/personaje.png');
     }
 
     create(){

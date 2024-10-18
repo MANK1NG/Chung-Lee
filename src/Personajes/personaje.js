@@ -1,4 +1,4 @@
-export default class Personaje extends Phaser.GameObjects.Image {
+export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     constructor(scene,x, y) {
         super(scene,x, y, 'personaje');//???
 
@@ -6,15 +6,15 @@ export default class Personaje extends Phaser.GameObjects.Image {
         this.attack = false;//Ataque activo
         
         this.scene.add.existing(this);//Escena necesaria?
+		this.scene.physics.add.existing(this);
 
         this.w = this.scene.input.keyboard.addKey('W');
         this.s = this.scene.input.keyboard.addKey('S');
         this.a = this.scene.input.keyboard.addKey('A');
         this.d = this.scene.input.keyboard.addKey('D');
 
-		scene.physics.add.existing(this);
 
-        this.body.setCollideWorldBounds();
+        this.body.setCollideWorldBounds(true);
 
         this.bodyOffset = this.body.width/4;
         this.bodyWidth = this.body.width/2;
@@ -40,11 +40,11 @@ export default class Personaje extends Phaser.GameObjects.Image {
             this.body.setVelocityX(0);
         }
         //bajar rapido si esta en el aire
-        if(this.s.isDown && this.body.onAir()){
+        if(this.s.isDown && !this.body.blocked.down){
             this.body.setVelocityY(this.speed);
         }
         //Salto
-        if(this.w.isDown && this.body.onFloor()){
+        if(this.w.isDown && this.body.blocked.down){
             this.body.setVelocity(-this.speed);
         }
     }
