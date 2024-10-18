@@ -1,17 +1,18 @@
 export default class Personaje extends Phaser.GameObjects.Image {
-    constructor(x, y) {
-        super(x, y, 'personaje');//???
+    constructor(scene,x, y) {
+        super(scene,x, y, 'personaje');//???
 
         this.speed = 140;//Velocidad
         this.attack = false;//Ataque activo
-        this.add.existing(this);//Escena necesaria?
+        
+        this.scene.add.existing(this);//Escena necesaria?
 
-        this.w = this.input.keyboard.addKey('W');
-        this.s = this.input.keyboard.addKey('S');
-        this.a = this.input.keyboard.addKey('A');
-        this.d = this.input.keyboard.addKey('D');
+        this.w = this.scene.input.keyboard.addKey('W');
+        this.s = this.scene.input.keyboard.addKey('S');
+        this.a = this.scene.input.keyboard.addKey('A');
+        this.d = this.scene.input.keyboard.addKey('D');
 
-        physics.add.existing(this);
+		scene.physics.add.existing(this);
 
         this.body.setCollideWorldBounds();
 
