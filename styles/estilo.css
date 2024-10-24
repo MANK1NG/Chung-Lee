@@ -1,7 +1,7 @@
 
 @font-face {
-  font-family: 'Manga-Style';
-  src: url('../Fonts/Manga-Style.woff') format('woff'),
+  font-family: 'Shojumaru-Regular';
+  src: url('../Fonts/Shojumaru-Regular.woff') format('woff'),
        
 }
 body{
@@ -30,12 +30,12 @@ body{
 
 
 body {
-  font-family: 'Manga_Style', sans-serif;
+  font-family: 'Shojumaru-Regular', sans-serif;
 }
 
 .titulo {
   text-align: center;
-  font-family: 'Manga-Style';
+  font-family: 'Shojumaru-Regular';
   font-size: 50px;
   color: rgb(0, 0, 0);
   text-size-adjust: 50px;
