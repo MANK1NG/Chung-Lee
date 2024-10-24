@@ -1,8 +1,15 @@
 
 @font-face {
+  font-family: 'go3v2';
+  src: url('../Fonts/go3v2.woff') format('woff');  
+}
+@font-face {
+  font-family: 'Music-Warrior';
+  src: url('../Fonts/Music-Warrior.woff') format('woff');
+}
+@font-face {
   font-family: 'Shojumaru-Regular';
-  src: url('../Fonts/Shojumaru-Regular.woff') format('woff'),
-       
+  src: url('../Fonts/Shojumaru-Regular.woff') format('woff');
 }
 body{
   background-color: #dec120;
@@ -10,7 +17,7 @@ body{
 #cabecera {
   display: flex;
   align-items: center; 
-  background: #ce203c;
+  background: #ce202c;
   padding: 20px;
   border-radius: 5px;
 }
@@ -35,7 +42,7 @@ body {
 
 .titulo {
   text-align: center;
-  font-family: 'Shojumaru-Regular';
+  font-family: 'go3v2';
   font-size: 50px;
   color: rgb(0, 0, 0);
   text-size-adjust: 50px;
@@ -82,7 +89,7 @@ body {
 
 }
 #descripcionTxt {
-
+  font-family:'Music-Warrior' ;
   font-size: 32px;
   color: rgb(0, 0, 0);
 }
