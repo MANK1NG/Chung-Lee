@@ -71,7 +71,7 @@ body {
 }
 
 #divDescripcion{
-  margin-left: auto;
+  margin-left: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;

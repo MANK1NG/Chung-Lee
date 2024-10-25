@@ -12,6 +12,8 @@ export default class Templo extends Phaser.Scene{
         this.load.image('personaje', '../../img/personaje.png');
 
         this.load.image('katana', '../../img/katana.png');
+
+        this.load.image('sai', '../../img/sai.png');
     }
 
     create(){
@@ -19,7 +21,7 @@ export default class Templo extends Phaser.Scene{
 
         this.add.image(0, 0, 'templo').setOrigin(0, 0);
 
-        let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA)
+        let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.SAI)
         //Crear mapa, cada suelo.create hace un objeto en esa posicion, setSacle su tamaño, collider para que no atraviese.
         const suelo = this.physics.add.staticGroup();
 

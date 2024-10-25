@@ -1,4 +1,5 @@
 import Katana from "../armas/katana.js"
+import Sai from "../armas/sai.js"
 
 export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     //Enumerator para cambiar de arma
@@ -48,7 +49,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 return new Katana(scene, this.x, this.y);
 
             case Personaje.WeaponType.SAI:
-                break;
+                return new Sai(scene, this.x, this.y);
 
             case Personaje.WeaponType.KUSARIGAMA:
                 break;
