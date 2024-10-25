@@ -1,0 +1,33 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "fileStates": {
+        "cuboNegro.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "cuboNegro.tsx": {
+            "scaleInDock": 1
+        },
+        "templo.json": {
+            "scale": 0.296875,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 517.0526315789473,
+                "y": 382.3157894736844
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/ivani/OneDrive/Documentos/GitHub/Chung-Lee/assests",
+    "map.height": 24,
+    "map.lastUsedFormat": "json",
+    "map.width": 32,
+    "property.type": "bool",
+    "recentFiles": [
+        "templo.json",
+        "cuboNegro.tsj"
+    ],
+    "tileset.embedInMap": true
+}
