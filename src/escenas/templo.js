@@ -21,7 +21,8 @@ export default class Templo extends Phaser.Scene{
 
         this.add.image(0, 0, 'templo').setOrigin(0, 0);
 
-        let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.SAI)
+        let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'});
+        let personaje2 = new Personaje(this, 50, 0, Personaje.WeaponType.SAI, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'});
         //Crear mapa, cada suelo.create hace un objeto en esa posicion, setSacle su tamaño, collider para que no atraviese.
         const suelo = this.physics.add.staticGroup();
 
@@ -34,5 +35,6 @@ export default class Templo extends Phaser.Scene{
         sueloDcha.setScale(14, 4.4).refreshBody(); 
     
         this.physics.add.collider(personaje, suelo); 
+        this.physics.add.collider(personaje2, suelo); 
     }
 }

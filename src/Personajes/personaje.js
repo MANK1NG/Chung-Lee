@@ -9,7 +9,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         KUSARIGAMA: 'kusarigama',
         TANEGASHIMA: 'tanegashima',
     };
-    constructor(scene,x, y, weaponType) {
+    constructor(scene,x, y, weaponType, keys) {
         super(scene,x, y, 'personaje');//???
 
         this.speedX = 500;//Velocidad
@@ -21,11 +21,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(0.2);
 
-        this.w = this.scene.input.keyboard.addKey('W');
-        this.s = this.scene.input.keyboard.addKey('S');
-        this.a = this.scene.input.keyboard.addKey('A');
-        this.d = this.scene.input.keyboard.addKey('D');
-        this.v = this.scene.input.keyboard.addKey('V');
+        this.w = this.scene.input.keyboard.addKey(keys.keyUp);
+        this.s = this.scene.input.keyboard.addKey(keys.keyDown);
+        this.a = this.scene.input.keyboard.addKey(keys.keyLeft);
+        this.d = this.scene.input.keyboard.addKey(keys.keyRight);
+        this.v = this.scene.input.keyboard.addKey(keys.keyAttack);
 
 
         this.body.setCollideWorldBounds(true);
