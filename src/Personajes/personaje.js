@@ -77,24 +77,33 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocityX(0);
         }
         //bajar rapido si esta en el aire
-        if(this.s.isDown && !this.body.blocked.down){
-            this.body.setVelocityY(this.speedY);
+        if(Phaser.Input.Keyboard.JustDown(this.s) && !this.body.blocked.down){
+            this.body.setVelocityY(this.speedY * 2);
             this.body.setVelocityX(0);
+            
         }
         //Salto
-        if(this.w.isDown && this.body.blocked.down){
+        if(Phaser.Input.Keyboard.JustDown(this.w) && this.body.blocked.down){
             this.body.setVelocity(-this.speedY);
-            this.body.setVelocityX(0);
+            if(!this.a.isDown && !this.d.isDown){
+                this.body.setVelocityX(0);
+            }
         }
 
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
         this.weapon.setFlip(!this.flipX, false); // Voltear según la dirección del personaje
 
-        //ataque katana
-        if (this.v.isDown) {
+        //Ataque potenciado
+        if(Phaser.Input.Keyboard.DownDuration(this.v, 500)){
+            this.attack = true;
+            this.weapon.potenciatedAttack(this);
+        }
+        //Ataque normal
+        else if (this.v.isDown && !Phaser.Input.Keyboard.DownDuration(this.v, 500)) {
             this.attack = true;
             this.weapon.attack(this); // Llama al ataque del arma actual
         }
+        
     }
 }

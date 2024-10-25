@@ -6,11 +6,15 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this); // Añadir físicas si es necesario
 
         this.setScale(0.2); // Escalar katana si es necesario
-
+     
         this.attackDuration = 200; // Duración del ataque en milisegundos
     }
 
     attack(personaje) {
+         
+    }
+
+    potenciatedAttack(personaje) {
          
     }
 }
