@@ -40,8 +40,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         this.weapon = this.createWeapon(scene,weaponType);
 
-        this.weapon.body.setAllowGravity(false);
     }
+
     //Metodo que cambia el arma segun el caso
     createWeapon(scene, weaponType) {
         switch (weaponType) {
@@ -93,7 +93,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
-        this.weapon.setFlip(!this.flipX, false); // Voltear según la dirección del personaje
 
         //Ataque potenciado
         if(Phaser.Input.Keyboard.DownDuration(this.v, 500)){
@@ -101,7 +100,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             this.weapon.potenciatedAttack(this);
         }
         //Ataque normal
-        else if (this.v.isDown && !Phaser.Input.Keyboard.DownDuration(this.v, 500)) {
+        if (Phaser.Input.Keyboard.JustDown(this.v)) {
             this.attack = true;
             this.weapon.attack(this); // Llama al ataque del arma actual
         }
