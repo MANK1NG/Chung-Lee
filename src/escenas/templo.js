@@ -11,8 +11,6 @@ export default class Templo extends Phaser.Scene{
 
         this.load.image('personaje', '../../img/personaje.png');
 
-        this.load.image('katana', '../../img/katana.png');
-
         this.load.image('sai', '../../img/sai.png');
 
 
@@ -36,7 +34,7 @@ export default class Templo extends Phaser.Scene{
 
 
         let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'});
-        let personaje2 = new Personaje(this, 50, 0, Personaje.WeaponType.SAI, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'});
+        let personaje2 = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'});
        
         this.physics.add.collider(personaje, this.backgroundLayer);
         this.physics.add.collider(personaje2, this.backgroundLayer);

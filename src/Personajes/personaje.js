@@ -95,7 +95,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.weapon.y = this.y - 20;
 
         //Ataque potenciado
-        if(Phaser.Input.Keyboard.DownDuration(this.v, 500)){
+        if(Phaser.Input.Keyboard.DownDuration(this.v, 150000)){
             this.attack = true;
             this.weapon.potenciatedAttack(this);
         }
