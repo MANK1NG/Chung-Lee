@@ -13,13 +13,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         super(scene,x, y, 'personaje');//???
 
         this.speedX = 500;//Velocidad
-        this.speedY = 800;
+        this.speedY = 500;
         this.attack = false;//Ataque activo
         
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);
 
-        this.setScale(0.2);
+        this.setScale(0.4);
 
         this.w = this.scene.input.keyboard.addKey(keys.keyUp);
         this.s = this.scene.input.keyboard.addKey(keys.keyDown);
@@ -39,7 +39,46 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.body.setGravity(0, 1000);
 
         this.weapon = this.createWeapon(scene,weaponType);
+        this.createAnimations();
+    }
 
+    createAnimations(){
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 0, end: 11 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: -1 // Repetir indefinidamente
+        });
+        this.anims.create({
+            key: 'caminar',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 16, end: 31 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: -1 // Repetir indefinidamente
+        });
+        this.anims.create({
+            key: 'ataque',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 32, end: 40 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: 0 // Repetir indefinidamente
+        });
+        this.anims.create({
+            key: 'salto',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 48, end: 55 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: -1 // Repetir indefinidamente
+        });
+        this.anims.create({
+            key: 'caida',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 64, end: 73 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: -1 // Repetir indefinidamente
+        });
+        this.anims.create({
+            key: 'ataqueAire',
+            frames: this.anims.generateFrameNumbers('personaje', { start: 80, end: 88 }), // Index de frames para la animación
+            frameRate: 20, // Velocidad de la animación
+            repeat: 0 // Repetir indefinidamente
+        });
     }
 
     //Metodo que cambia el arma segun el caso
@@ -64,31 +103,51 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
         //izquierda
-        if(this.a.isDown){
-            this.setFlip(false, false);
-            this.body.setVelocityX(-this.speedX);
+        if(this.body.velocity.x === 0 && this.body.blocked.down && !this.attack){
+            this.anims.play('idle', true);
         }
-        //derecha
-        if(this.d.isDown){
-            this.setFlip(true, false);
-            this.body.setVelocityX(this.speedX);
+        if(this.body.velocity.y < 0 && !this.body.blocked.down && !this.attack){
+            this.anims.play('salto', true);
         }
-        //quieto si no hay input
-        if(Phaser.Input.Keyboard.JustUp(this.a) || Phaser.Input.Keyboard.JustUp(this.d)){
-            this.body.setVelocityX(0);
+        if(this.body.velocity.y > 0 && !this.body.blocked.down && !this.attack){
+            this.anims.play('caida', true);
         }
-        //bajar rapido si esta en el aire
-        if(Phaser.Input.Keyboard.JustDown(this.s) && !this.body.blocked.down){
-            this.body.setVelocityY(this.speedY * 2);
-            this.body.setVelocityX(0);
-            
-        }
-        //Salto
-        if(Phaser.Input.Keyboard.JustDown(this.w) && this.body.blocked.down){
-            this.body.setVelocity(-this.speedY);
-            if(!this.a.isDown && !this.d.isDown){
+        if(!this.attack){
+            if(this.a.isDown){
+                this.setFlip(false, false);
+                this.body.setVelocityX(-this.speedX);
+                if(this.body.blocked.down){
+                    this.anims.play('caminar', true);
+                }
+            }
+            //derecha
+            if(this.d.isDown){
+                this.setFlip(true, false);
+                this.body.setVelocityX(this.speedX);
+                if(this.body.blocked.down) {
+                    this.anims.play('caminar', true);
+                }
+            }
+            //quieto si no hay input
+            if(Phaser.Input.Keyboard.JustUp(this.a) || Phaser.Input.Keyboard.JustUp(this.d)){
                 this.body.setVelocityX(0);
             }
+            //bajar rapido si esta en el aire
+            if(Phaser.Input.Keyboard.JustDown(this.s) && !this.body.blocked.down){
+                this.body.setVelocityY(this.speedY * 2);
+                this.body.setVelocityX(0);
+                
+            }
+            //Salto
+            if(Phaser.Input.Keyboard.JustDown(this.w) && this.body.blocked.down){
+                this.body.setVelocity(-this.speedY);
+                if(!this.a.isDown && !this.d.isDown){
+                    this.body.setVelocityX(0);
+                }
+            }
+        }
+        else{
+            this.body.setVelocityX(0);
         }
 
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
@@ -102,8 +161,19 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         //Ataque normal
         if (Phaser.Input.Keyboard.JustDown(this.v)) {
             this.attack = true;
+            if(this.body.blocked.down){
+                this.anims.play('ataque', true);
+            }
+            else{
+                this.anims.play('ataqueAire', true);
+            }
             this.weapon.attack(this); // Llama al ataque del arma actual
         }
-        
+
+        this.on('animationcomplete', (anim, frame) => {
+            if (anim.key === 'ataque' || anim.key === 'ataqueAire') {
+                this.attack = false; // Permitir otras animaciones al completar el ataque
+            }
+        });
     }
 }

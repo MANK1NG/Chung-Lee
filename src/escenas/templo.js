@@ -9,7 +9,10 @@ export default class Templo extends Phaser.Scene{
     preload(){
         this.load.image('temploFondo', './assests/templo2.png');
 
-        this.load.image('personaje', '../../img/personaje.png');
+        this.load.spritesheet('personaje', '../../KatanaAnim/SpriteSheet_Katana.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
 
         this.load.image('sai', '../../img/sai.png');
 
