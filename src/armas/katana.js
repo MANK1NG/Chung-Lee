@@ -8,17 +8,18 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
     }
 
     attack(personaje) {
+        console.log("basico");
         // Solo añadir físicas si no se ha añadido previamente
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
             this.body.setAllowGravity(false);
 
             // Activar el cuerpo físico para el ataque
-            this.body.setSize(600, 750); // Ajustar el tamaño del cuerpo si es necesario
+            this.body.setSize(360, 650); // Ajustar el tamaño del cuerpo si es necesario
             if(personaje.flipX){
-                this.body.setOffset(10, -250); // Ajustar posición del cuerpo en el sprite
+                this.body.setOffset(0, -250); // Ajustar posición del cuerpo en el sprite
             }
             else{
-                this.body.setOffset(-420, -250);
+                this.body.setOffset(-320, -250);
             }
             this.body.enable = true; // Habilitar el cuerpo para que sea detectable en la física
 
@@ -30,6 +31,18 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
     }
 
     potenciatedAttack(personaje) {
-        
+        console.log("potenciado");
+        this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
+        this.body.setAllowGravity(false);
+    
+    // Activar el cuerpo físico para el ataque
+        this.body.setSize(360, 650); // Ajustar el tamaño del cuerpo si es necesario
+        if(personaje.flipX){
+            this.body.setOffset(0, -250); // Ajustar posición del cuerpo en el sprite
+        }
+        else{
+             this.body.setOffset(-320, -250);
+        }
+        this.body.enable = true;
     }
 }
