@@ -7,8 +7,60 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
         this.attackDuration = 100; // Duración del ataque en milisegundos
     }
 
+    getAnimationConfig(personaje){
+        return {
+            idle: {
+                key: 'idle',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 0, end: 11 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            caminar: {
+                key: 'caminar',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 16, end: 31 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            ataque: {
+                key: 'ataque',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 32, end: 40 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: 0 // Repetir indefinidamente
+            },
+            salto: {
+                key: 'salto',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 48, end: 55 }), // Index de frames para la animación
+                frameRate: 12, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            caida: {
+                key: 'caida',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 64, end: 73 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            ataqueAire: {
+                key: 'ataqueAire',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 80, end: 88 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: 0 // Repetir indefinidamente
+            },
+            ataquePotenciado: {
+                key: 'ataquePotenciado',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 112, end: 123 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            ataquePotenciadoRun: {
+                key: 'ataquePotenciadoRun',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 128, end: 143 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+        };
+    }
+
     attack(personaje) {
-        console.log("basico");
         // Solo añadir físicas si no se ha añadido previamente
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
             this.body.setAllowGravity(false);
@@ -31,7 +83,6 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
     }
 
     potenciatedAttack(personaje) {
-        console.log("potenciado");
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
     
@@ -41,7 +92,7 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
             this.body.setOffset(0, -250); // Ajustar posición del cuerpo en el sprite
         }
         else{
-             this.body.setOffset(-320, -250);
+            this.body.setOffset(-320, -250);
         }
         this.body.enable = true;
     }

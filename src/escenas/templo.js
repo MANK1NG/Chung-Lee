@@ -9,7 +9,12 @@ export default class Templo extends Phaser.Scene{
     preload(){
         this.load.image('temploFondo', './assests/templo2.png');
 
-        this.load.spritesheet('personaje', '../../KatanaAnim/SpriteSheet_Katana.png', {
+        this.load.spritesheet('personaje1', '../../KatanaAnim/SpriteSheet_Katana_N.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+
+        this.load.spritesheet('personaje2', '../../KatanaAnim/SpriteSheet_Katana_R.png', {
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
@@ -36,8 +41,8 @@ export default class Templo extends Phaser.Scene{
        this.backgroundLayer.setCollisionByProperty({ colision: true });
 
 
-        let personaje = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'});
-        let personaje2 = new Personaje(this, 50, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'});
+        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
+        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2');
        
         this.physics.add.collider(personaje, this.backgroundLayer);
         this.physics.add.collider(personaje2, this.backgroundLayer);
