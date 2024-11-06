@@ -11,6 +11,11 @@
   font-family: 'Shojumaru-Regular';
   src: url('../Fonts/Shojumaru-Regular.woff') format('woff');
 }
+@font-face {
+  font-family: 'Ming-Imperial';
+  src: url('../Fonts/Ming-Imperial.woff') format('woff');
+}
+
 body{
   background-color: #000000;
 }
