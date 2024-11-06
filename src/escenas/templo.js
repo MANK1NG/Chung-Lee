@@ -5,6 +5,8 @@ export default class Templo extends Phaser.Scene{
 
     constructor(){
         super({key: 'templo'});
+       
+
     }
     preload(){
         this.load.image('temploFondo', './assests/templo2.png');
@@ -46,20 +48,20 @@ export default class Templo extends Phaser.Scene{
        
         this.physics.add.collider(personaje, this.backgroundLayer);
         this.physics.add.collider(personaje2, this.backgroundLayer);
-        
-        //Crear mapa, cada suelo.create hace un objeto en esa posicion, setSacle su tamaño, collider para que no atraviese.
-       /* const suelo = this.physics.add.staticGroup();
+        this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
+            console.log("katana, personaje2")
+        });
+        this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
+            console.log("katana, personaje")
+        });
 
-        const sueloIzq = suelo.create(244, 700); 
-    
-        sueloIzq.setScale(15.3, 4.4).refreshBody(); 
-
-        const sueloDcha = suelo.create(800, 700); 
-    
-        sueloDcha.setScale(14, 4.4).refreshBody(); 
-    
-        this.physics.add.collider(personaje, suelo); 
-        this.physics.add.collider(personaje2, suelo);*/ 
     }
+
+
+    update(){
+
+    }
+
+    
 }
 

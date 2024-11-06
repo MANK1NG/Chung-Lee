@@ -48,6 +48,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.chargeStartTime = 0;
         this.isCharging = false;
         this.setupAttackEvents();
+        
+    }
+    getWeapon(){
+        return this.weapon;
     }
 
     setupAttackEvents() {
@@ -231,4 +235,5 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
     }
+   
 }
