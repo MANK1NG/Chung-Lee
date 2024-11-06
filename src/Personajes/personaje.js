@@ -21,6 +21,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.potenciatedAttackStop = false;
         this.potAnims = false;
         this.canAttack = true;
+        this.attackMovement = false;
         
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);
@@ -73,14 +74,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             if (this.isCharging && !this.attack) {
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
-                this.body.setVelocityY(0);
                 this.body.setAllowGravity(false);
                 if(this.body.blocked.down){
                     this.anims.play('ataque');
                 } else {
                     this.anims.play('ataqueAire');
                 }
-        
+                this.attackMovement = true;
                 this.attack = true;
                 this.isAttacking = true;
         
@@ -111,7 +111,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         this.on('animationcomplete', (anim, frame) => {
             if (anim.key === 'ataque' || anim.key === 'ataqueAire') {
+                this.weapon.body.enable = false;
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
+                this.attackMovement = false;
+                this.body.setVelocityX(0);
             }
         });
     }
@@ -152,6 +155,15 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
         //izquierda
+        if(this.attackMovement){
+            this.body.setVelocityY(0);
+            if(this.flipX){
+                this.body.setVelocityX(this.speedX);
+            }
+            else{
+                this.body.setVelocityX(-this.speedX);
+            }
+        }
         if(this.potAnims){
             if(this.a.isDown  && !this.flipX){
                 this.body.setVelocityX(-this.speedX);

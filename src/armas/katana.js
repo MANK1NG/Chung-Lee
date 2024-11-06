@@ -4,7 +4,6 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(0.2); // Escalar katana si es necesario
      
-        this.attackDuration = 100; // Duración del ataque en milisegundos
     }
 
     getAnimationConfig(personaje){
@@ -74,11 +73,6 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
                 this.body.setOffset(-320, -250);
             }
             this.body.enable = true; // Habilitar el cuerpo para que sea detectable en la física
-
-            // Lógica para desactivar el cuerpo después de la duración del ataque
-            this.scene.time.delayedCall(this.attackDuration, () => {
-                this.body.enable = false; // Desactivar el cuerpo en lugar de destruirlo
-            });
         
     }
 
