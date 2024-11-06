@@ -44,6 +44,12 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 20, // Velocidad de la animación
                 repeat: 0 // Repetir indefinidamente
             },
+            knockBack: {
+                key: 'knockBack',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 96, end: 110}),
+                frameRate: 20,
+                repeat: 0
+            },
             ataquePotenciado: {
                 key: 'ataquePotenciado',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 112, end: 123 }), // Index de frames para la animación

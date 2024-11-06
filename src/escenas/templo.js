@@ -45,23 +45,30 @@ export default class Templo extends Phaser.Scene{
 
         let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2');
-       
+        
+        let attackPersonaje1 = true;
+        let attackPersonaje2 = true;
         this.physics.add.collider(personaje, this.backgroundLayer);
         this.physics.add.collider(personaje2, this.backgroundLayer);
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
             console.log("katana, personaje2")
+            if(personaje.flipX){
+                personaje2.hit(personaje2.speedX);
+            }
+            else {
+                personaje2.hit(-personaje2.speedX)
+            }
         });
         this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
             console.log("katana, personaje")
+            if(personaje2.flipX){
+                personaje.hit(personaje.speedX);
+            }
+            else {
+                personaje.hit(-personaje.speedX)
+            }
         });
 
     }
-
-
-    update(){
-
-    }
-
-    
 }
 

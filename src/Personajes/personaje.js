@@ -22,6 +22,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.potAnims = false;
         this.canAttack = true;
         this.attackMovement = false;
+        this.knockBack = false;
+        this.knockBackSpeedY = 100;
+        this.knockBackSpeedX;
         
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);
@@ -84,7 +87,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 } else {
                     this.anims.play('ataqueAire');
                 }
-                this.attackMovement = true;
+                if(!this.body.blocked.down){
+                    this.attackMovement = true;
+                }
                 this.attack = true;
                 this.isAttacking = true;
         
@@ -156,9 +161,29 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    hit(speed){
+        this.knockBackSpeedX = speed;
+        this.knockBack = true;
+    }
+
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
         //izquierda
+        if(this.knockBack){
+            this.anims.play('knockBack', true);
+            this.body.setVelocityX(this.knockBackSpeedX);
+            this.body.setVelocityY(-this.knockBackSpeedY);
+            this.knockBackSpeedY -= 10;
+            if(this.body.blocked.down || !this.body.blocked.down && this.knockBackSpeedY < -100){
+                this.setVelocityX(0);
+            }
+            this.on('animationcomplete', (anim, frame) => {
+                if (anim.key === 'knockBack') {
+                    this.knockBack = false;
+                    this.knockBackSpeedY = 100;
+                }
+            });
+        }
         if(this.attackMovement){
             this.body.setVelocityY(0);
             if(this.flipX){
@@ -184,7 +209,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('ataquePotenciado', true);
             }
         }
-        if(!this.isAttacking){
+        if(!this.isAttacking && !this.knockBack){
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
             }
