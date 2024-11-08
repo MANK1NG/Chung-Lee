@@ -48,8 +48,13 @@ export default class Templo extends Phaser.Scene{
         
         let attackPersonaje1 = true;
         let attackPersonaje2 = true;
-        this.physics.add.collider(personaje, this.backgroundLayer);
-        this.physics.add.collider(personaje2, this.backgroundLayer);
+        this.physics.add.collider(personaje, this.backgroundLayer, () =>{
+            personaje.body.setVelocityY(0);
+            //console.log("colisiona");
+        });
+        this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
+            personaje2.body.setVelocityY(0);
+        });
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
             console.log("katana, personaje2")
             if(personaje.flipX){

@@ -59,7 +59,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
     setupAttackEvents() {
         this.v.on('down', () => {
-            if (!this.isCharging && !this.attack && this.canAttack) { // Añadir comprobación de canAttack
+            if (!this.isCharging && !this.attack && this.canAttack && !this.KnockBack) { // Añadir comprobación de canAttack
                 this.chargeStartTime = Date.now();
                 this.isCharging = true;
         
@@ -78,7 +78,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         });
     
         this.v.on('up', () => {
-            if (this.isCharging && !this.attack) {
+            if (this.isCharging && !this.attack && !this.knockBack) {
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
                 this.body.setAllowGravity(false);
@@ -124,6 +124,17 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
                 this.body.setVelocityX(0);
+                console.log("fin ataque");
+            }
+            if (anim.key === 'knockBack') {
+                this.knockBack = false;
+                if(this.isAttacking){
+                    this.weapon.body.enable = false;
+                }
+                this.isAttacking = false;
+                this.attackMovement = false;
+                this.knockBackSpeedY = 100;
+                console.log("fin knockBack");
             }
         });
     }
@@ -173,18 +184,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             this.anims.play('knockBack', true);
             this.body.setVelocityX(this.knockBackSpeedX);
             this.body.setVelocityY(-this.knockBackSpeedY);
-            this.knockBackSpeedY -= 10;
+            this.knockBackSpeedY -= tiempoFrames * 0.6;
             if(this.body.blocked.down || !this.body.blocked.down && this.knockBackSpeedY < -100){
                 this.setVelocityX(0);
             }
-            this.on('animationcomplete', (anim, frame) => {
-                if (anim.key === 'knockBack') {
-                    this.knockBack = false;
-                    this.knockBackSpeedY = 100;
-                }
-            });
         }
-        if(this.attackMovement){
+        if(this.attackMovement && !this.knockBack){
             this.body.setVelocityY(0);
             if(this.flipX){
                 this.body.setVelocityX(this.speedX);
