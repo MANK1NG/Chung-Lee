@@ -43,9 +43,8 @@ export default class Templo extends Phaser.Scene{
        this.backgroundLayer.setCollisionByProperty({ colision: true });
 
 
-        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
-        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2');
-        
+        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true, 5);
+        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false, 5);
         let attackPersonaje1 = true;
         let attackPersonaje2 = true;
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
@@ -56,7 +55,10 @@ export default class Templo extends Phaser.Scene{
             personaje2.body.setVelocityY(0);
         });
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
-            console.log("katana, personaje2")
+            personaje2.hitPersonaje();
+            let valor2 = personaje2.getVidas();
+            console.log(valor2);
+
             if(personaje.flipX){
                 personaje2.hit(personaje2.speedX);
             }
@@ -65,7 +67,9 @@ export default class Templo extends Phaser.Scene{
             }
         });
         this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
-            console.log("katana, personaje")
+            personaje.hitPersonaje();
+            let valor = personaje.getVidas();
+            console.log(valor);
             if(personaje2.flipX){
                 personaje.hit(personaje.speedX);
             }
@@ -73,7 +77,9 @@ export default class Templo extends Phaser.Scene{
                 personaje.hit(-personaje.speedX)
             }
         });
-
+        if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+            this.scene.restart();
+        }
     }
 }
 

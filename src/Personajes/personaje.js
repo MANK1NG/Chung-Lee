@@ -11,7 +11,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     };
     constructor(scene,x, y, weaponType, keys, spriteSheetKey, orientacion) {
         super(scene,x, y, spriteSheetKey);//???
-
+        this.vidas = 5;
         this.flipX = orientacion;
         this.spriteSheetKey = spriteSheetKey;
         this.speedX = 500;//Velocidad
@@ -52,6 +52,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.isCharging = false;
         this.setupAttackEvents();
         
+    }
+
+    hitPersonaje(){
+        this.vidas = this.vidas-1;
+    }
+    getVidas(){
+        return this.vidas;
     }
     getWeapon(){
         return this.weapon;
