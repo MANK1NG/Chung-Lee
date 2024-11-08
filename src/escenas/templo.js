@@ -5,7 +5,7 @@ export default class Templo extends Phaser.Scene{
 
     constructor(){
         super({key: 'templo'});
-       
+       this.collisionActiva = false;
 
     }
     preload(){
@@ -43,8 +43,8 @@ export default class Templo extends Phaser.Scene{
        this.backgroundLayer.setCollisionByProperty({ colision: true });
 
 
-        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true, 5);
-        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false, 5);
+        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
+        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false);
         let attackPersonaje1 = true;
         let attackPersonaje2 = true;
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
@@ -55,6 +55,8 @@ export default class Templo extends Phaser.Scene{
             personaje2.body.setVelocityY(0);
         });
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
+            if (!this.collisionActiva) {
+                this.collisionActiva = true;
             personaje2.hitPersonaje();
             let valor2 = personaje2.getVidas();
             console.log(valor2);
@@ -65,21 +67,43 @@ export default class Templo extends Phaser.Scene{
             else {
                 personaje2.hit(-personaje2.speedX)
             }
-        });
-        this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
-            personaje.hitPersonaje();
-            let valor = personaje.getVidas();
-            console.log(valor);
-            if(personaje2.flipX){
-                personaje.hit(personaje.speedX);
-            }
-            else {
-                personaje.hit(-personaje.speedX)
-            }
+        }
+        this.time.delayedCall(500, () => {
+            this.collisionActiva = false;
+            
         });
         if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
             this.scene.restart();
         }
+        });
+    
+            this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
+                if (!this.collisionActiva) {
+                    this.collisionActiva = true;
+                personaje.hitPersonaje();
+                let valor = personaje.getVidas();
+                console.log(valor);
+                if(personaje2.flipX){
+                    personaje.hit(personaje.speedX);
+                }
+                else {
+                    personaje.hit(-personaje.speedX)
+                }
+            }
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+               
+            });
+            if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+                this.scene.restart();
+            }
+            });
+           
+        
+        
+       
+        
+        
     }
 }
 
