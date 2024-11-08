@@ -54,6 +54,9 @@ export default class Templo extends Phaser.Scene{
         this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
             personaje2.body.setVelocityY(0);
         });
+
+
+        
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
             if (!this.collisionActiva) {
                 this.collisionActiva = true;
@@ -77,27 +80,27 @@ export default class Templo extends Phaser.Scene{
         }
         });
     
-            this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
-                if (!this.collisionActiva) {
-                    this.collisionActiva = true;
-                personaje.hitPersonaje();
-                let valor = personaje.getVidas();
-                console.log(valor);
-                if(personaje2.flipX){
-                    personaje.hit(personaje.speedX);
-                }
-                else {
-                    personaje.hit(-personaje.speedX)
-                }
+        this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
+            if (!this.collisionActiva) {
+                this.collisionActiva = true;
+            personaje.hitPersonaje();
+            let valor = personaje.getVidas();
+            console.log(valor);
+            if(personaje2.flipX){
+                personaje.hit(personaje.speedX);
             }
-            this.time.delayedCall(500, () => {
-                this.collisionActiva = false;
-               
-            });
-            if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
-                this.scene.restart();
+            else {
+                personaje.hit(-personaje.speedX)
             }
-            });
+        }
+        this.time.delayedCall(500, () => {
+            this.collisionActiva = false;
+            
+        });
+        if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+            this.scene.restart();
+        }
+        });
            
         
         
