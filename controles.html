@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <title>Stick-Do</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="img/Stick-Do logo nb.png">
   <link rel="stylesheet" href="styles/estilo.css"> 
-  <script src="src/script.js" type="module"></script> 
  
+  <script src="./lib/phaser.js"></script>
+
 </head>
 
 <body>
@@ -17,20 +19,28 @@
       <a class="enlace" href="descripcion.html" target="_self">Descripcion</a>
       <a class="enlace" href="autores.html" target="_self">Autores y creditos</a>
     </div>
+
+    
     <p id="estudio">Chung Lee Studios →</p>
+    
     <a href="https://x.com/ChungLee04"><img src="https://img.freepik.com/vector-gratis/nuevo-diseno-icono-x-logotipo-twitter-2023_1017-45418.jpg?size=626&ext=jpg" class="twitter"></a>
     <a href="https://github.com/MANK1NG/Chung-Lee"><img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" class="twitter"></a>
+
+  </div>
+  <div id="controles">
+    <img id="imgControles" src="/img/teclado.png" alt="Controles del teclado" />
+        <div id="textoControles">
+      <div class="jugador1">
+        <h3>Jugador 1</h3>
+        <p>W A D - movimiento<br>s - caer más rápido<br>v - atacar / mantenido: ataque especial<br>c - coger carta</p>
+      </div>
+      <div class="jugador2">
+        <h3>Jugador 2</h3>
+        <p> ←↑→ - movimiento<br>↓ - caer más rápido<br>p - atacar / mantenido: ataque especial<br>o - coger carta</p>
+      </div>
+    </div>
   </div>
 
-    <p class="titulo">DESCRIPCION</p>
-  <div id="divDescripcion">
-    <div id="descripcion">
-      <p id="descripcionTxt">Juego de lucha multijugador local. Cada jugador peleará con un único personaje el cual podrá cambiar su estilo de combate dependiendo de la carta que escoja. Estas cartas irán apareciendo en pantalla y solo un el jugador más rápido podrá obtenerla.</p>
-    </div>
-  <div id="divImagen">
-      <img id="imgDescripcion" src="/img/descripcion.png" />
-  </div>
-  </div>
 </body>
 <!--2024-2025-->
 </html>

@@ -127,7 +127,8 @@ body {
 }
 
 #foto1, #foto3,  #foto2,  #foto4 {
-  font-size: 16px; /
+  width: 30%;
+  height: auto;
 }
 .blankspace{
   height: 800px;
@@ -142,4 +143,30 @@ body {
   height: auto; 
   max-width: 800px; 
   max-height: 600px; 
+}
+
+
+#controles {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+}
+
+#imgControles {
+  margin-top: 100px;
+  width: 800px;
+  height: auto;
+}
+
+#textoControles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.jugador1{
+
+  color: red;
+}
+.jugador2{
+  color: blue;
 }
