@@ -17,7 +17,7 @@ const config ={
   },
   
   scene: [Templo, Menu],
-  physics: {  
+  physics: { 
     default: 'arcade', 
     arcade: { 
         gravity: { y: 200 }, 

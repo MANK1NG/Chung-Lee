@@ -9,6 +9,7 @@ export default class Templo extends Phaser.Scene{
 
     }
     preload(){
+
         this.load.image('temploFondo', './assests/templo21.png');
 
         this.load.spritesheet('personaje1', './KatanaAnim/SpriteSheet_Katana_N.png', {
@@ -21,7 +22,7 @@ export default class Templo extends Phaser.Scene{
             frameHeight: 460  // Alto de cada fotograma
         });
 
-        this.load.image('sai', '../img/sai.png');
+        this.load.image('sai', './img/sai.png');
 
 
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
@@ -29,6 +30,7 @@ export default class Templo extends Phaser.Scene{
     }
 
     create(){
+
         console.log("me he creado templo");
        this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
 

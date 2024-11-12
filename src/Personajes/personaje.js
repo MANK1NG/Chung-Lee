@@ -25,7 +25,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBack = false;
         this.knockBackSpeedY = 100;
         this.knockBackSpeedX;
-        
+
+
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);
 
