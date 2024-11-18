@@ -3,15 +3,25 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y,'sai');// Llama al constructor de Phaser.Physics.Arcade.Sprite
         // this.daño = daño;
         // this.rango = rango;
-        //this.scene.physics.add.existing(this);// le mete fisicas al sprite
-
+        
         this.setScale(0.3);//escala del sprite 
         //this.setOrigin() su posicion
-
+        
         this.attackDuration = 100;
     }
     attack(personaje){
-        
+        this.scene.physics.add.existing(this);// le mete fisicas al sprite
+        this.body.setAllowGravity(false); // quitamos gravedad
+
+        //colisiones
+        this.body.setSize(170,230);
+        if(personaje.flipX){ //si el sprite mira a la izq
+            this.body.setOffset(10,150);//ajuste hitbox(x,y) si es (+) mueve a la drch y viceversa (en y arriba(-) y abajo(+))
+        }
+        else{//si mira a la drch
+            this.body.setOffset(-140, 150);
+        }
+        this.body.enable = true; //activa cuerpo fisico del obj para que detecte colisiones
     }
 
     potenciatedAttack(personaje){
@@ -34,12 +44,12 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
             repeat: -1, //para que la haga infinita
            },
 
-        //    ataque: {
-        //     key: 'ataque',
-        //     frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 32, end: 42}),
-        //     frameRate: 20,
-        //     repeat: 0,
-        //    },
+           ataque: {
+            key: 'ataque',
+            frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 32, end: 42}),
+            frameRate: 20,
+            repeat: 0,
+            },
            
            salto: {
             key: 'salto',

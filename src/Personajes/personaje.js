@@ -25,6 +25,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBack = false;
         this.knockBackSpeedY = 100;
         this.knockBackSpeedX;
+        this.tieneSai = false;//poner en true para que vaya ataque sai
 
 
         this.scene.add.existing(this);//Escena necesaria?
@@ -131,7 +132,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.weapon.body.enable = false;
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
-                this.body.setVelocityX(0);
+                if(!this.tieneSai){
+
+                    this.body.setVelocityX(0);
+                }
                 console.log("fin ataque");
             }
             if (anim.key === 'knockBack') {
@@ -168,7 +172,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 return new Katana(scene, this.x, this.y);
 
             case Personaje.WeaponType.SAI:
-                return new Sai(scene, this.x, this.y);
+                {
+                    return new Sai(scene, this.x, this.y);
+                }
 
             case Personaje.WeaponType.KUSARIGAMA:
                 break;
@@ -187,6 +193,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
+       
         //izquierda
         if(this.knockBack){
             this.anims.play('knockBack', true);
@@ -197,7 +204,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(0);
             }
         }
-        if(this.attackMovement && !this.knockBack){
+        if(this.attackMovement && !this.knockBack){//si no hay sai se para al atacar
             this.body.setVelocityY(0);
             if(this.flipX){
                 this.body.setVelocityX(this.speedX);
@@ -222,7 +229,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('ataquePotenciado', true);
             }
         }
-        if(!this.isAttacking && !this.knockBack){
+        if(!this.isAttacking && !this.knockBack && this.tieneSai){
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
             }
@@ -266,7 +273,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 }
             }
         }
-        else if(this.attack && !this.potAnims){
+        else if(this.attack && !this.potAnims && !this.tieneSai){
             this.body.setVelocityX(0);
         }
 
