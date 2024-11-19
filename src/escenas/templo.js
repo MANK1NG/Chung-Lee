@@ -60,7 +60,8 @@ export default class Templo extends Phaser.Scene{
 
         
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
-            if (!this.collisionActiva) {
+            const weapon = personaje.getWeapon();
+            if (!this.collisionActiva && weapon.attackType === 'normal') {
                 this.collisionActiva = true;
             personaje2.hitPersonaje();
             let valor2 = personaje2.getVidas();
@@ -83,7 +84,8 @@ export default class Templo extends Phaser.Scene{
         });
     
         this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
-            if (!this.collisionActiva) {
+            const weapon = personaje2.getWeapon();
+            if (!this.collisionActiva && weapon.attackType === 'normal') {
                 this.collisionActiva = true;
             personaje.hitPersonaje();
             let valor = personaje.getVidas();
@@ -103,12 +105,15 @@ export default class Templo extends Phaser.Scene{
             this.scene.restart();
         }
         });
-           
-        
-        
-       
-        
-        
+
+        this.physics.add.collider(personaje2.getWeapon(), personaje.getWeapon(), ()=>{
+            const weapon = personaje2.getWeapon();
+            if (weapon.attackType === 'potenciado') {
+                console.log("Colision dos ataques");
+                personaje.getWeapon().body.enable = false;
+                personaje2.ActiveDeflectAnim();
+            }
+        });
     }
 }
 

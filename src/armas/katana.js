@@ -3,7 +3,7 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, 'katana'); // Cambia 'katana' por tu sprite de katana
 
         this.setScale(0.2); // Escalar katana si es necesario
-     
+        this.attackType = null;
     }
 
     getAnimationConfig(personaje){
@@ -62,11 +62,18 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 20, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
+            ataquePotenciadoHit: {
+                key: 'ataquePotenciadoHit',
+                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 145, end: 154 }), // Index de frames para la animación
+                frameRate: 20, // Velocidad de la animación
+                repeat: 0 // Repetir indefinidamente
+            }
         };
     }
 
     attack(personaje) {
         // Solo añadir físicas si no se ha añadido previamente
+        this.attackType = 'normal';
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
             this.body.setAllowGravity(false);
 
@@ -83,6 +90,7 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
     }
 
     potenciatedAttack(personaje) {
+        this.attackType = 'potenciado';
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
     
