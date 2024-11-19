@@ -30,11 +30,11 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
 
     getAnimationConfig(personaje){
         return {
-           idle: {
+           idle: { 
             key: 'idle',//nombre de animacion
-            frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 0, end: 11} ),//coge el dibujo entero de esa anim
+            frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 0, end: 11} ),//coge el dibujo entero de esa anim, this es la scene
             frameRate: 20,//tasa frames
-            repeat: -1,//la hace en bucle
+            repeat: -1,//ciclo cíclico
            },
            
            caminar: {
@@ -48,7 +48,7 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
             key: 'ataque',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 32, end: 42}),
             frameRate: 20,
-            repeat: 0,
+            repeat: 0, //ciclo sencillo
             },
            
            salto: {
@@ -64,6 +64,13 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
             frameRate: 20,
             repeat: -1,
            },
+
+        //    ataqueAire: {
+        //     key: "ataqueAire",
+        //     frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 80, end: 89} ),
+        //     frameRate: 20,
+        //     repeat: 0,
+        //    },
 
         }
     }
