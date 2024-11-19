@@ -162,6 +162,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 frameRate: config.frameRate,  // Velocidad de la animación
                 repeat: config.repeat  // Repetición de la animación
             });
+            console.log(key);
         }
     }
 
@@ -191,9 +192,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBack = true;
     }
 
+    ActiveDeflectAnim(){
+        this.anims.play('ataquePotenciadoHit', true);
+    }
+
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
-       
+        
         //izquierda
         if(this.knockBack){
             this.anims.play('knockBack', true);
@@ -229,7 +234,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('ataquePotenciado', true);
             }
         }
-        if(!this.isAttacking && !this.knockBack && this.tieneSai){
+        if(!this.isAttacking && !this.knockBack){
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
             }
