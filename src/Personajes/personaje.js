@@ -54,7 +54,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.createAnimations();
 
         //Tiempo que hay que pulsar la tecla de ataque para el ataque potenciado en milisegundos
-        this.chargeTimeThreshold = 350;
+        this.chargeTimeThreshold = 200;
         this.chargeStartTime = 0;
         this.isCharging = false;
         this.setupAttackEvents();
@@ -153,10 +153,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.isAttacking = false;
                 this.attackMovement = false;
                 this.knockBackSpeedY = 100;
+                this.deflect = false;
                 console.log("fin knockBack");
             }
             if(anim.key === 'ataquePotenciadoHit') {
                 this.deflect = false;
+                console.log("fin ataquePotenciadoHit");
             }
         });
     }

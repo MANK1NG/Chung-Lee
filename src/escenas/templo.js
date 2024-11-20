@@ -50,9 +50,9 @@ export default class Templo extends Phaser.Scene{
         this.backgroundLayer.setCollisionByProperty({ colision: true });
         
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
         //Crear personaje 2
-        let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false);
+        let personaje2 = new Personaje(this, 900, 400, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false);
         //COLISIONES SUELO
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
             personaje.body.setVelocityY(0);
@@ -95,10 +95,10 @@ export default class Templo extends Phaser.Scene{
         y el del 2 contra el 1, en realidad van a tener lo mismo pero con variables cambiada, donde al principio
         pusisteis personaje... pondreis personaje2 y alreves.
         */
-        this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
+       this.physics.add.overlap(personaje.getWeapon(), personaje2, ()=>{
             const weapon = personaje.getWeapon();
             //Normal katana
-            if (!this.collisionActiva && weapon.attackType === 'normalKat') {
+            if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
                 personaje2.hitPersonaje();
                 let valor2 = personaje2.getVidas();
@@ -149,56 +149,56 @@ export default class Templo extends Phaser.Scene{
             }
             });
     
-            this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
+            this.physics.add.overlap(personaje2.getWeapon(), personaje, ()=>{
                 const weapon = personaje2.getWeapon();
                 //Ataque normal katana
                 if (!this.collisionActiva && weapon.attackType === 'normalKat') {
-                    this.collisionActiva = true;
-                personaje.hitPersonaje();
-                let valor = personaje.getVidas();
-                console.log(valor);
-            }
-
-            //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
-            if (!this.collisionActiva && weapon.attackType === 'normalSai') {
-
-            }
-
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
-
-            }
-
-            if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
-
-            }
-
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
-
-            }
-
-            if (!this.collisionActiva && weapon.attackType === 'normalTane') {
-
-            }
-
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
-
-            }
-
-            if(personaje2.flipX && this.collisionActiva){
-                personaje.hit(personaje.speedX);
-            }
-            else if(!personaje2.flipX && this.collisionActiva) {
-                personaje.hit(-personaje.speedX)
-            }
-
-            this.time.delayedCall(500, () => {
-                this.collisionActiva = false;
-            
-            });
-            if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
-                this.scene.restart();
-            }
-        });
+                        this.collisionActiva = true;
+                    personaje.hitPersonaje();
+                    let valor = personaje.getVidas();
+                    console.log(valor);
+                    //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
+                }
+                if (!this.collisionActiva && weapon.attackType === 'normalSai') {
+    
+                }
+    
+                if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
+    
+                }
+    
+                if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
+    
+                }
+    
+                if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
+    
+                }
+    
+                if (!this.collisionActiva && weapon.attackType === 'normalTane') {
+    
+                }
+    
+                if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
+    
+                }
+    
+                if(personaje2.flipX && this.collisionActiva){
+                    personaje.hit(personaje.speedX);
+                }
+                else if(!personaje2.flipX && this.collisionActiva) {
+                    personaje.hit(-personaje.speedX)
+                }
+    
+                this.time.delayedCall(500, () => {
+                    this.collisionActiva = false;
+                
+                });
+                if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+                    this.scene.restart();
+                }
+    
+               });
 
         // Crear instancias de Cartas aquí
         let cartas = new Cartas(this, 512, 100, 'cartas'); 
