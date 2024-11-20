@@ -1,7 +1,7 @@
 import Personaje from "../Personajes/personaje.js";
+import Cartas from "../Cartas/cartas.js";
 
 export default class Templo extends Phaser.Scene{
-
 
     constructor(){
         super({key: 'templo'});
@@ -23,7 +23,10 @@ export default class Templo extends Phaser.Scene{
         });
 
        
-
+        this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
+            frameWidth: 800, // Ancho de cada fotograma
+            frameHeight: 500 // Alto de cada fotograma
+        });
 
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
         this.load.image('cuboNegro','./assests/cuboNegro.png')
@@ -34,17 +37,18 @@ export default class Templo extends Phaser.Scene{
         console.log("me he creado templo");
        this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
 
-        this.map = this.make.tilemap({
-            key: 'templo',
-            tileWidth: 32,
-            tileHeight: 32
+       
+       this.map = this.make.tilemap({
+           key: 'templo',
+           tileWidth: 32,
+           tileHeight: 32
         });
         
         const tileset1 = this.map.addTilesetImage('cuboNegro', 'cuboNegro');
-       this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
-       this.backgroundLayer.setCollisionByProperty({ colision: true });
-
-
+        this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
+        this.backgroundLayer.setCollisionByProperty({ colision: true });
+        
+        
         let personaje = new Personaje(this, 120, 0, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 900, 0, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P'}, 'personaje2',false);
         let attackPersonaje1 = true;
@@ -125,6 +129,10 @@ export default class Templo extends Phaser.Scene{
         }
         });
 
+        // Crear instancias de Cartas aquí
+        let cartas = new Cartas(this, 512, 100, 'cartas'); 
+
     }
+
 }
 

@@ -1,34 +1,70 @@
 export default class Cartas extends Phaser.Physics.Arcade.Sprite{
-constructor(){
+constructor(scene, x, y, spriteSheetKey){
+    // Llama al constructor de Phaser.Physics.Arcade.Sprite
+    super(scene, x, y, spriteSheetKey); 
+    this.spriteSheetKey = spriteSheetKey;
     this.armas= ["KATANA", "SAI", "TANEGASHIMA", "KUSARIGAMA"];
     this.arma = this.armaAleatoria();//segun el aleatorio coge un arma aleatoria
-    this.cargaImgen(this.arma);//carga la imagen
-}
+   // this.cargaImgen(this.arma);//carga la imagen
+   this.setScale(0.4);
 
+     // Añadir el sprite a la escena
+     scene.add.existing(this);
+
+     this.createAnimations();
+     this.hazanimacion();
+
+     this.on('animationcomplete', (anim, frame) => {
+        if(anim.key === 'negro') {
+            this.anims.play('idle', true);
+        }
+    });
+   
+}
+hazanimacion(){
+    this.anims.play('negro', true);
+}
 armaAleatoria(){
-    const aleatorio = Math.floor(Math.random() * (this.armas.lenght));//no incluye ni el  ni el 4
+    const aleatorio = Math.floor(Math.random() * (this.armas.length));//no incluye ni el 4
     return this.armas[aleatorio];
 }
 
-/*switch*/
+createAnimations(){
+    this.anims.create({ 
+         key: 'idle',//nombre de animacion
+         frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 0, end: 0} ),//coge el dibujo entero de esa anim, this es la scene
+         frameRate: 20,//tasa frames
+         repeat: -1,//ciclo cíclico
+    });
+
+    this.anims.create({   
+        key: 'negro',//nombre de animacion
+        frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 12, end: 23} ),//coge el dibujo entero de esa anim, this es la scene
+        frameRate: 20,//tasa frames
+        repeat: 0,//ciclo simple
+   });
+}
+
 cargaImagen(arma){
-let imagen;
 switch(arma){
     case "KATANA":
     {
-        /*imagen = katana.png;*/
+        key = "cartaKatana";
         break;
     }
     case "SAI":
         {
+            key = "cartaSai";
             break;
         }
     case "TANEGASHIMA":
         {
+            key = "cartaTanegashima";
             break;
         }
     case "KUSARIGAMA":
         {
+            key = "cartaKusarigama";
             break;
         }
 }
