@@ -42,13 +42,13 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
                 key: 'ataqueAire',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 80, end: 88 }), // Index de frames para la animación
                 frameRate: 20, // Velocidad de la animación
-                repeat: 0 // Repetir indefinidamente
+                repeat: 0 // Repetir hasta que acabe
             },
             knockBack: {
                 key: 'knockBack',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 96, end: 110}),
                 frameRate: 20,
-                repeat: 0
+                repeat: 0 // Repetir hasta que acabe
             },
             ataquePotenciado: {
                 key: 'ataquePotenciado',
@@ -66,7 +66,7 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
                 key: 'ataquePotenciadoHit',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 145, end: 154 }), // Index de frames para la animación
                 frameRate: 20, // Velocidad de la animación
-                repeat: 0 // Repetir indefinidamente
+                repeat: 0 // Repetir hasta que acabe
             }
         };
     }

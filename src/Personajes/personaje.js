@@ -11,21 +11,21 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     };
     constructor(scene,x, y, weaponType, keys, spriteSheetKey, orientacion) {
         super(scene,x, y, spriteSheetKey);//???
-        this.vidas = 5;
-        this.flipX = orientacion;
-        this.spriteSheetKey = spriteSheetKey;
-        this.speedX = 500;//Velocidad
-        this.speedY = 800;
-        this.attack = false;//Ataque activo
-        this.isAttacking = false;//Ataque activo
-        this.potenciatedAttackStop = false;
-        this.potAnims = false;
-        this.canAttack = true;
-        this.attackMovement = false;
-        this.knockBack = false;
-        this.knockBackSpeedY = 100;
-        this.knockBackSpeedX;
-        this.deflect = false;
+        this.vidas = 5;//vidas personaje
+        this.flipX = orientacion;//orientacion en la que empieza el personaje
+        this.spriteSheetKey = spriteSheetKey;//seria por ejemplo 'personaje', sirve para instanciar distintos personajes
+        this.speedX = 500;//Velocidad horizontal
+        this.speedY = 800;//Velocidad vertical
+        this.attack = false;//Ataque normal activo
+        this.isAttacking = false;//Ataque potenciado activo
+        this.potenciatedAttackStop = false;//Parar ataque potenciado, de momento asi para katana
+        this.potAnims = false;//Animaciones ataque potenciado katana ya que se puede mantener el ataque
+        this.canAttack = true;//Para limitar ataque sin cooldown
+        this.attackMovement = false;//Movimiento hacia alante al atacar, en katana solo para aire, en sai en ambos
+        this.knockBack = false;//Booleano para hacer knockBack y no poder moverse o atacar mientras.
+        this.knockBackSpeedY = 100;//Velocidad vertical del knockback
+        this.knockBackSpeedX;//velocidad horizontal knockback
+        this.deflect = false;//Para activar animacion ataque potenciado katana
         this.tieneSai = true;//poner en true para que vaya ataque sai
 
 
@@ -34,6 +34,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(0.4);
 
+        //Teclas de juego
         this.w = this.scene.input.keyboard.addKey(keys.keyUp);
         this.s = this.scene.input.keyboard.addKey(keys.keyDown);
         this.a = this.scene.input.keyboard.addKey(keys.keyLeft);
@@ -47,9 +48,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(200, 200);
         this.body.setGravity(0, 1000);
 
+        //Arma en uso del personaje
         this.weapon = this.createWeapon(scene,weaponType);
+        //Animaciones
         this.createAnimations();
 
+        //Tiempo que hay que pulsar la tecla de ataque para el ataque potenciado en milisegundos
         this.chargeTimeThreshold = 350;
         this.chargeStartTime = 0;
         this.isCharging = false;
@@ -76,6 +80,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 // Iniciar temporizador para ataque potenciado
                 this.potenciadoTimeout = this.scene.time.delayedCall(this.chargeTimeThreshold, () => {
                     if (this.isCharging) {
+                        //Ataque potenciado si he mantenido suficiente
                         this.weapon.potenciatedAttack(this);
                         this.attack = true;
                         this.isAttacking = true;
@@ -91,7 +96,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             if (this.isCharging && !this.attack && !this.knockBack) {
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
+                //Quito gravedad para quedarme estatico en el aire al atacar con el ataque normal
                 this.body.setAllowGravity(false);
+                //Animaciones ataque normal
                 if(this.body.blocked.down){
                     this.anims.play('ataque');
                 } else {
@@ -116,6 +123,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.potenciadoTimeout.remove(false); // Cancela el temporizador
             }
             if (this.potenciatedAttackStop && Phaser.Input.Keyboard.JustUp(this.v)) {
+                //Para el ataque potenciado al levantar la tecla v y permite moverse con normalidad de nuevo
                 this.isAttacking = false;
                 this.potAnims = false;
                 this.weapon.body.enable = false;
@@ -128,6 +136,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             });
         });
 
+        //Para no permitir cancelaciones de animacion
         this.on('animationcomplete', (anim, frame) => {
             if (anim.key === 'ataque' || anim.key === 'ataqueAire') {
                 this.weapon.body.enable = false;
@@ -187,20 +196,36 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    //Activa el knockback
     hit(speed){
         this.knockBackSpeedX = speed;
         this.knockBack = true;
     }
 
-    ActiveDeflectAnim(){
-        this.deflect = true;
-        this.anims.play('ataquePotenciadoHit', true);
+    //Activa el deflect
+    ActivePotenciadoHitAnim(){
+        if(this.weapon.attackType === 'potenciadoKat'){
+            this.deflect = true;
+            this.anims.play('ataquePotenciadoHit', true);
+        }
+
+        if(this.weapon.attackType === 'potenciadoSai'){
+            
+        }
+
+        if(this.weapon.attackType === 'potenciadoKusa'){
+
+        }
+
+        if(this.weapon.attackType === 'potenciadoTane'){
+
+        }
     }
 
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
         
-        //izquierda
+        //Ejecuta el knockback
         if(this.knockBack){
             this.anims.play('knockBack', true);
             this.body.setVelocityX(this.knockBackSpeedX);
@@ -210,6 +235,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(0);
             }
         }
+        //Ejecuta el movimiento al atacar
         if(this.attackMovement && !this.knockBack){//si no hay sai se para al atacar
             this.body.setVelocityY(0);
             if(this.flipX){
@@ -219,6 +245,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.body.setVelocityX(-this.speedX);
             }
         }
+        //Ejecuta la animacion de ataque potenciado si corre o si no
         if(this.potAnims && !this.deflect){
             if(this.a.isDown  && !this.flipX){
                 this.body.setVelocityX(-this.speedX);
@@ -235,17 +262,23 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('ataquePotenciado', true);
             }
         }
+        //Movimiento normal
         if(!this.isAttacking && !this.knockBack && !this.deflect){
+            //Idle si no me muevo
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
             }
+            //Salto anim
             if(this.body.velocity.y < 0 && !this.body.blocked.down){
                 this.anims.play('salto', true);
             }
+            //Caida anim
             if(this.body.velocity.y > 0 && !this.body.blocked.down){
                 this.anims.play('caida', true);
             }
+            //Activacion de gravedad
             this.body.setAllowGravity(true);
+            //izquierda
             if(this.a.isDown){
                 this.setFlip(false, false);
                 this.body.setVelocityX(-this.speedX);
@@ -279,10 +312,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 }
             }
         }
+        //Parar el personaje si no hay imput y no ataco
         else if(this.attack && !this.potAnims){
             this.body.setVelocityX(0);
         }
 
+        //Movimiento del body del ataque pegado al personaje
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
     }
