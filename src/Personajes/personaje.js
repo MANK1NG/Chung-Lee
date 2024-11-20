@@ -25,6 +25,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBack = false;
         this.knockBackSpeedY = 100;
         this.knockBackSpeedX;
+        this.deflect = false;
         this.tieneSai = false;//poner en true para que vaya ataque sai
 
 
@@ -148,6 +149,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.knockBackSpeedY = 100;
                 console.log("fin knockBack");
             }
+            if(anim.key === 'ataquePotenciadoHit') {
+                this.deflect = false;
+            }
         });
     }
 
@@ -162,7 +166,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 frameRate: config.frameRate,  // Velocidad de la animación
                 repeat: config.repeat  // Repetición de la animación
             });
-            console.log(key);
         }
     }
 
@@ -193,6 +196,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     }
 
     ActiveDeflectAnim(){
+        this.deflect = true;
         this.anims.play('ataquePotenciadoHit', true);
     }
 
@@ -218,7 +222,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.body.setVelocityX(-this.speedX);
             }
         }
-        if(this.potAnims){
+        if(this.potAnims && !this.deflect){
             if(this.a.isDown  && !this.flipX){
                 this.body.setVelocityX(-this.speedX);
                 this.anims.play('ataquePotenciadoRun', true);
@@ -234,7 +238,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.anims.play('ataquePotenciado', true);
             }
         }
-        if(!this.isAttacking && !this.knockBack){
+        if(!this.isAttacking && !this.knockBack && !this.deflect){
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
             }

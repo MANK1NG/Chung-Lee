@@ -56,12 +56,27 @@ export default class Templo extends Phaser.Scene{
         this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
             personaje2.body.setVelocityY(0);
         });
-
-
         
+        this.physics.add.collider(personaje.getWeapon(), personaje2.getWeapon(), ()=>{
+            const weapon = personaje.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje2.getWeapon().body.enable = false;
+                personaje.ActiveDeflectAnim();
+            }
+        });
+
+        this.physics.add.collider(personaje2.getWeapon(), personaje.getWeapon(), ()=>{
+            const weapon = personaje2.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje.getWeapon().body.enable = false;
+                personaje2.ActiveDeflectAnim();
+            }
+        });
+
         this.physics.add.collider(personaje.getWeapon(), personaje2, ()=>{
             const weapon = personaje.getWeapon();
-            if (!this.collisionActiva && weapon.attackType === 'normal') {
+        
+            if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
             personaje2.hitPersonaje();
             let valor2 = personaje2.getVidas();
@@ -85,7 +100,8 @@ export default class Templo extends Phaser.Scene{
     
         this.physics.add.collider(personaje2.getWeapon(), personaje, ()=>{
             const weapon = personaje2.getWeapon();
-            if (!this.collisionActiva && weapon.attackType === 'normal') {
+        
+            if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
             personaje.hitPersonaje();
             let valor = personaje.getVidas();
@@ -97,6 +113,9 @@ export default class Templo extends Phaser.Scene{
                 personaje.hit(-personaje.speedX)
             }
         }
+        // else{
+        //     weapon.body.setVelocity(0);
+        // }
         this.time.delayedCall(500, () => {
             this.collisionActiva = false;
             
@@ -106,14 +125,6 @@ export default class Templo extends Phaser.Scene{
         }
         });
 
-        this.physics.add.collider(personaje2.getWeapon(), personaje.getWeapon(), ()=>{
-            const weapon = personaje2.getWeapon();
-            if (weapon.attackType === 'potenciado') {
-                console.log("Colision dos ataques");
-                personaje.getWeapon().body.enable = false;
-                personaje2.ActiveDeflectAnim();
-            }
-        });
     }
 }
 
