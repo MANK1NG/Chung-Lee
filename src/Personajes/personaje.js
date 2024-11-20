@@ -26,7 +26,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBackSpeedY = 100;
         this.knockBackSpeedX;
         this.deflect = false;
-        this.tieneSai = false;//poner en true para que vaya ataque sai
+        this.tieneSai = true;//poner en true para que vaya ataque sai
 
 
         this.scene.add.existing(this);//Escena necesaria?
@@ -97,7 +97,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 } else {
                     this.anims.play('ataqueAire');
                 }
-                if(!this.body.blocked.down){
+                if(!this.body.blocked.down || this.tieneSai){
                     this.attackMovement = true;
                 }
                 this.attack = true;
@@ -133,10 +133,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.weapon.body.enable = false;
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
-                if(!this.tieneSai){
-
-                    this.body.setVelocityX(0);
-                }
+                this.body.setVelocityX(0);
                 console.log("fin ataque");
             }
             if (anim.key === 'knockBack') {
@@ -282,7 +279,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 }
             }
         }
-        else if(this.attack && !this.potAnims && !this.tieneSai){
+        else if(this.attack && !this.potAnims){
             this.body.setVelocityX(0);
         }
 

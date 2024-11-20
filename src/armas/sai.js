@@ -32,7 +32,6 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
                 this.body.setOffset(-this.tamSprite, -110);
             }          
         }
-      
     }
 
     potenciatedAttack(personaje){
