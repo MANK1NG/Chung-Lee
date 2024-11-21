@@ -61,10 +61,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         
     }
 
-    hitPersonaje(vector){
+    hitPersonaje(){
         this.vidas = this.vidas-1;
-        console.log(vector);
-        vector.pop();
+        
     }
     getVidas(){
         return this.vidas;

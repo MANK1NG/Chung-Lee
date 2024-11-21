@@ -62,7 +62,6 @@ export default class Templo extends Phaser.Scene{
        this.add.image(0,0,'vidaFrameN').setPosition(220,90).setScale(0.6);
        this.add.image(0,0,'vidaFrameR').setPosition(800,90).setScale(0.6);
       //ARRAY VIDAS NEGRO
-      let vidasNC= 8;
        var vidasN= [];
         let vidaN0 = this.add.image(0,0,'vidaN0').setPosition(220,90).setScale(0.6);
         vidasN.push(vidaN0);
@@ -80,9 +79,10 @@ export default class Templo extends Phaser.Scene{
         vidasN.push(vidaN6);
         let vidaN7 = this.add.image(0,0,'vidaN7').setPosition(220,90).setScale(0.6);
         vidasN.push(vidaN7);
-        let vidasRC = 8;
+        let vidasNC= 7;
+
 var vidasR = [];
-let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
+        let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
         vidasR.push(vidaR0);
         let vidaR1 = this.add.image(0,0,'vidaR1').setPosition(800,90).setScale(0.6);
         vidasR.push(vidaR1);
@@ -98,6 +98,8 @@ let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
         vidasR.push(vidaR6);
         let vidaR7 = this.add.image(0,0,'vidaR7').setPosition(800,90).setScale(0.6);
         vidasR.push(vidaR7);
+        let vidasRC = 7;
+
        this.map = this.make.tilemap({
            key: 'templo',
            tileWidth: 32,
@@ -115,7 +117,6 @@ let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
         //COLISIONES SUELO
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
             personaje.body.setVelocityY(0);
-            //console.log("colisiona");
         });
         this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
             personaje2.body.setVelocityY(0);
@@ -160,10 +161,9 @@ let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
             if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
                 personaje2.hitPersonaje(vidasR);
-                ('vidasR'+ vidasRC).destroy();
+                vidasR[vidasRC].setVisible(false);
                 vidasRC--;
-                let valor2 = personaje2.getVidas();
-                console.log(valor2, );
+                
             }
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
@@ -216,10 +216,8 @@ let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
                 if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                         this.collisionActiva = true;
                     personaje.hitPersonaje(vidasN);
-                    let valor = personaje.getVidas();
-                    ('vidasR'+ vidasNC).destroy();
+                    vidasN[vidasNC].setVisible(false);
                     vidasNC--;
-                    console.log(valor);
                     //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
                 }
                 if (!this.collisionActiva && weapon.attackType === 'normalSai') {
