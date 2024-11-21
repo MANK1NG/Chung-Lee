@@ -22,23 +22,82 @@ export default class Templo extends Phaser.Scene{
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
-
        
         this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
             frameWidth: 800, // Ancho de cada fotograma
             frameHeight: 500 // Alto de cada fotograma
         });
 
+        
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
-        this.load.image('cuboNegro','./assests/cuboNegro.png')
+        this.load.image('cuboNegro','./assests/cuboNegro.png');
+        //carga frames
+        this.load.image('vidaFrameN','./img/vidas/negro/HUD_Black_Frame.png' );
+        this.load.image('vidaFrameR','./img/vidas/rojo/HUD_Red_Frame.png' );
+        //carga vidas negro
+        this.load.image('vidaN0', './img/vidas/negro/HUD_Black_0.png');
+        this.load.image('vidaN1', './img/vidas/negro/HUD_Black_1.png');
+        this.load.image('vidaN2', './img/vidas/negro/HUD_Black_2.png');
+        this.load.image('vidaN3', './img/vidas/negro/HUD_Black_3.png');
+        this.load.image('vidaN4', './img/vidas/negro/HUD_Black_4.png');
+        this.load.image('vidaN5', './img/vidas/negro/HUD_Black_5.png');
+        this.load.image('vidaN6', './img/vidas/negro/HUD_Black_6.png');
+        this.load.image('vidaN7', './img/vidas/negro/HUD_Black_7.png');
+        //carga vidas rojo
+        this.load.image('vidaR0', './img/vidas/rojo/HUD_Red_0.png');
+        this.load.image('vidaR1', './img/vidas/rojo/HUD_Red_1.png');
+        this.load.image('vidaR2', './img/vidas/rojo/HUD_Red_2.png');
+        this.load.image('vidaR3', './img/vidas/rojo/HUD_Red_3.png');
+        this.load.image('vidaR4', './img/vidas/rojo/HUD_Red_4.png');
+        this.load.image('vidaR5', './img/vidas/rojo/HUD_Red_5.png');
+        this.load.image('vidaR6', './img/vidas/rojo/HUD_Red_6.png');
+        this.load.image('vidaR7', './img/vidas/rojo/HUD_Red_7.png');
+
     }
 
     create(){
-
         console.log("me he creado templo");
        this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
-
-       
+       //MARCO VIDAS
+       this.add.image(0,0,'vidaFrameN').setPosition(220,90).setScale(0.6);
+       this.add.image(0,0,'vidaFrameR').setPosition(800,90).setScale(0.6);
+      //ARRAY VIDAS NEGRO
+      let vidasNC= 8;
+       var vidasN= [];
+        let vidaN0 = this.add.image(0,0,'vidaN0').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN0);
+        let vidaN1 = this.add.image(0,0,'vidaN1').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN1);
+        let vidaN2 = this.add.image(0,0,'vidaN2').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN2);
+        let vidaN3 = this.add.image(0,0,'vidaN3').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN3);
+        let vidaN4 = this.add.image(0,0,'vidaN4').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN4);
+        let vidaN5 = this.add.image(0,0,'vidaN5').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN5);
+        let vidaN6 = this.add.image(0,0,'vidaN6').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN6);
+        let vidaN7 = this.add.image(0,0,'vidaN7').setPosition(220,90).setScale(0.6);
+        vidasN.push(vidaN7);
+        let vidasRC = 8;
+var vidasR = [];
+let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR0);
+        let vidaR1 = this.add.image(0,0,'vidaR1').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR1);
+        let vidaR2 = this.add.image(0,0,'vidaR2').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR2);
+        let vidaR3 = this.add.image(0,0,'vidaR3').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR3);
+        let vidaR4 = this.add.image(0,0,'vidaR4').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR4);
+        let vidaR5 = this.add.image(0,0,'vidaR5').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR5);
+        let vidaR6 = this.add.image(0,0,'vidaR6').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR6);
+        let vidaR7 = this.add.image(0,0,'vidaR7').setPosition(800,90).setScale(0.6);
+        vidasR.push(vidaR7);
        this.map = this.make.tilemap({
            key: 'templo',
            tileWidth: 32,
@@ -100,9 +159,11 @@ export default class Templo extends Phaser.Scene{
             //Normal katana
             if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
-                personaje2.hitPersonaje();
+                personaje2.hitPersonaje(vidasR);
+                ('vidasR'+ vidasRC).destroy();
+                vidasRC--;
                 let valor2 = personaje2.getVidas();
-                console.log(valor2);
+                console.log(valor2, );
             }
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
@@ -154,8 +215,10 @@ export default class Templo extends Phaser.Scene{
                 //Ataque normal katana
                 if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                         this.collisionActiva = true;
-                    personaje.hitPersonaje();
+                    personaje.hitPersonaje(vidasN);
                     let valor = personaje.getVidas();
+                    ('vidasR'+ vidasNC).destroy();
+                    vidasNC--;
                     console.log(valor);
                     //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
                 }
