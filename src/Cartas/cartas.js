@@ -14,22 +14,23 @@ constructor(scene, x, y, spriteSheetKey){
      this.createAnimations();
      this.hazanimacion();
 
+     //tonterias para ver como queda
      this.on('animationcomplete', (anim, frame) => {
-        if(anim.key === 'negro') {
+        if(anim.key === 'rayo') {
             this.anims.play('idle', true);
         }
     });
    
 }
 hazanimacion(){
-    this.anims.play('negro', true);
+    this.anims.play('rayo', true);
 }
 armaAleatoria(){
     const aleatorio = Math.floor(Math.random() * (this.armas.length));//no incluye ni el 4
     return this.armas[aleatorio];
 }
 
-createAnimations(){
+createAnimations(){//animaciones cartas
     this.anims.create({ 
          key: 'idle',//nombre de animacion
          frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 0, end: 0} ),//coge el dibujo entero de esa anim, this es la scene
@@ -43,6 +44,20 @@ createAnimations(){
         frameRate: 20,//tasa frames
         repeat: 0,//ciclo simple
    });
+
+   this.anims.create({   
+    key: 'rojo',//nombre de animacion
+    frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 24, end: 35} ),//coge el dibujo entero de esa anim, this es la scene
+    frameRate: 20,//tasa frames
+    repeat: 0,//ciclo simple
+});
+
+this.anims.create({   
+    key: 'rayo',//nombre de animacion
+    frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 36, end: 42} ),//coge el dibujo entero de esa anim, this es la scene
+    frameRate: 20,//tasa frames
+    repeat: 0,//ciclo simple
+});
 }
 
 cargaImagen(arma){
