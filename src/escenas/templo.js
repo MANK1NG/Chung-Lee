@@ -172,11 +172,17 @@ export default class Templo extends Phaser.Scene{
             }
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
-
+                this.collisionActiva = true;
+                personaje2.hitPersonaje(vidasR);
+                vidasR[vidasRC].setVisible(false);
+                vidasRC--;
             }
 
             if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
-
+                this.collisionActiva = true;
+                personaje2.hitPersonaje(vidasR);
+                vidasR[vidasRC].setVisible(false);
+                vidasRC--;
             }
 
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
@@ -219,18 +225,25 @@ export default class Templo extends Phaser.Scene{
                 const weapon = personaje2.getWeapon();
                 //Ataque normal katana
                 if (!this.collisionActiva && weapon.attackType === 'normalKat') {
-                        this.collisionActiva = true;
+                    this.collisionActiva = true;
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
                     //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
                 }
                 if (!this.collisionActiva && weapon.attackType === 'normalSai') {
-    
+                    this.collisionActiva = true;
+                    personaje.hitPersonaje(vidasN);
+                    vidasN[vidasNC].setVisible(false);
+                    vidasNC--;
+
                 }
     
                 if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
-    
+                    this.collisionActiva = true;
+                    personaje.hitPersonaje(vidasN);
+                    vidasN[vidasNC].setVisible(false);
+                    vidasNC--;
                 }
     
                 if (!this.collisionActiva && weapon.attackType === 'normalKusa') {

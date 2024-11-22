@@ -6,10 +6,12 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
         this.tamSprite = 140; //ancho sprite
         this.setScale(0.3);//escala del sprite 
         //this.setOrigin() su posicion
-        
+        this.attackType = null;
         this.attackDuration = 100;
     }
+
     attack(personaje){
+        this.attackType = 'normalSai';
         this.scene.physics.add.existing(this);// le mete fisicas al sprite
         this.body.setAllowGravity(false); // quitamos gravedad
 
@@ -35,6 +37,7 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
     }
 
     potenciatedAttack(personaje){
+        this.attackType = 'potenciadoSai';
         this.scene.physics.add.existing(this);// le mete fisicas al sprite
         this.body.setAllowGravity(false); // quitamos gravedad
         this.body.setSize(170,325);
