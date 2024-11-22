@@ -5,9 +5,9 @@ export default class Templo extends Phaser.Scene{
 
     constructor(){
         super({key: 'templo'});
-       this.collisionActiva = false;
-
+        this.collisionActiva = false;
     }
+    
     preload(){
 
         this.load.image('temploFondo', './assests/templo21.png');
@@ -52,6 +52,11 @@ export default class Templo extends Phaser.Scene{
         this.load.image('vidaR5', './img/vidas/rojo/HUD_Red_5.png');
         this.load.image('vidaR6', './img/vidas/rojo/HUD_Red_6.png');
         this.load.image('vidaR7', './img/vidas/rojo/HUD_Red_7.png');
+        //carga armas cartas
+        this.load.image('logoKatana', './img/armasCartas/Katana.png');
+        this.load.image('logoSai', './img/armasCartas/Sai.png');
+        this.load.image('logoKusarigama', './img/armasCartas/Kusarigama.png');
+        this.load.image('logoTanegashima', './img/armasCartas/Tanegashima.png');
 
     }
 
@@ -81,7 +86,7 @@ export default class Templo extends Phaser.Scene{
         vidasN.push(vidaN7);
         let vidasNC= 7;
 
-var vidasR = [];
+        var vidasR = [];
         let vidaR0 = this.add.image(0,0,'vidaR0').setPosition(800,90).setScale(0.6);
         vidasR.push(vidaR0);
         let vidaR1 = this.add.image(0,0,'vidaR1').setPosition(800,90).setScale(0.6);
@@ -263,8 +268,24 @@ var vidasR = [];
 
         // Crear instancias de Cartas aquí
         let cartas = new Cartas(this, 512, 100, 'cartas'); 
-
+        //seleccion tipo de carta aleatoria
+        
+        if(true){//contador
+            cartas.armaAleatoria();
+            cartas.cargaImagen();
+            if(cartas.carta == 'cartaKatana'){
+                this.add.image(508, 100, 'logoKatana').setScale(0.13);
+            }
+            if(cartas.carta == 'cartaSai'){
+                this.add.image(512, 100, 'logoSai').setScale(0.12);
+            }
+            if(cartas.carta == 'cartaKusarigama'){
+                this.add.image(510, 100, 'logoKusarigama').setScale(0.12);
+            }
+            if(cartas.carta == 'cartaTanegashima'){
+                this.add.image(512, 100, 'logoTanegashima').setScale(0.12);
+            }
+    
+        }
     }
-
 }
-

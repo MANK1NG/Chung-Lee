@@ -5,12 +5,12 @@ constructor(scene, x, y, spriteSheetKey){
     this.spriteSheetKey = spriteSheetKey;
     this.armas= ["KATANA", "SAI", "TANEGASHIMA", "KUSARIGAMA"];
     this.arma = this.armaAleatoria();//segun el aleatorio coge un arma aleatoria
+    this.cargaImagen();
    // this.cargaImgen(this.arma);//carga la imagen
    this.setScale(0.4);
 
      // Añadir el sprite a la escena
      scene.add.existing(this);
-
      this.createAnimations();
      this.hazanimacion();
 
@@ -20,13 +20,15 @@ constructor(scene, x, y, spriteSheetKey){
             this.anims.play('idle', true);
         }
     });
-   
+ 
 }
+
 hazanimacion(){
     this.anims.play('rayo', true);
 }
 armaAleatoria(){
     const aleatorio = Math.floor(Math.random() * (this.armas.length));//no incluye ni el 4
+    console.log(aleatorio);
     return this.armas[aleatorio];
 }
 
@@ -60,30 +62,23 @@ this.anims.create({
 });
 }
 
-cargaImagen(arma){
-switch(arma){
-    case "KATANA":
-    {
-        key = "cartaKatana";
-        break;
+cargaImagen() {
+    let carta; // Variable para guardar la clave del arma
+    switch (this.arma) {
+        case "KATANA":
+            this.carta = "cartaKatana";
+            return carta;
+        case "SAI":
+            this.carta = "cartaSai";
+            return carta;
+        case "TANEGASHIMA":
+            this.carta = "cartaTanegashima";
+            return carta;
+        case "KUSARIGAMA":
+            this.carta = "cartaKusarigama";
+            return carta;
     }
-    case "SAI":
-        {
-            key = "cartaSai";
-            break;
-        }
-    case "TANEGASHIMA":
-        {
-            key = "cartaTanegashima";
-            break;
-        }
-    case "KUSARIGAMA":
-        {
-            key = "cartaKusarigama";
-            break;
-        }
-}
-/*this.setTexture(imagen); setea la imagen que sale en pantalla*/
+   
 }
 
 }
