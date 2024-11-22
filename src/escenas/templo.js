@@ -6,6 +6,9 @@ export default class Templo extends Phaser.Scene{
     constructor(){
         super({key: 'templo'});
         this.collisionActiva = false;
+        this.cont = 0;
+        this.tiempo = 10000;
+        this.cartas;
     }
     
     preload(){
@@ -281,24 +284,37 @@ export default class Templo extends Phaser.Scene{
 
         // Crear instancias de Cartas aquí
         let cartas = new Cartas(this, 512, 100, 'cartas'); 
+        this.cartas = cartas;
         //seleccion tipo de carta aleatoria
         
-        if(true){//contador
-            cartas.armaAleatoria();
-            cartas.cargaImagen();
-            if(cartas.carta == 'cartaKatana'){
-                this.add.image(508, 100, 'logoKatana').setScale(0.13);
-            }
-            if(cartas.carta == 'cartaSai'){
-                this.add.image(512, 100, 'logoSai').setScale(0.12);
-            }
-            if(cartas.carta == 'cartaKusarigama'){
-                this.add.image(510, 100, 'logoKusarigama').setScale(0.12);
-            }
-            if(cartas.carta == 'cartaTanegashima'){
-                this.add.image(512, 100, 'logoTanegashima').setScale(0.12);
-            }
+    }
     
+    update(time, delta){
+        this.cont += delta;
+        let carta;
+        if(this.cont >= this.tiempo){//contador
+            if (this.lastImage) {
+                this.lastImage.destroy();
+            }   
+            this.cartas.hazanimacion();
+            this.cartas.armaAleatoria();
+            carta = this.cartas.cargaImagen();
+            console.log(carta);
+            if(carta == 'cartaKatana'){
+                this.lastImage = this.add.image(508, 100, 'logoKatana').setScale(0.13);
+            }
+            if(carta == 'cartaSai'){
+                this.lastImage = this.add.image(512, 100, 'logoSai').setScale(0.12);
+            }
+            if(carta == 'cartaKusarigama'){
+                    this.lastImage = this.add.image(510, 100, 'logoKusarigama').setScale(0.12);
+            }
+            if(carta == 'cartaTanegashima'){
+                this.lastImage = this.add.image(512, 100, 'logoTanegashima').setScale(0.12);
+            }
+            this.cont = 0;
+            
+        
         }
     }
 }

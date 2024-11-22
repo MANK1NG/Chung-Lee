@@ -3,8 +3,10 @@ constructor(scene, x, y, spriteSheetKey){
     // Llama al constructor de Phaser.Physics.Arcade.Sprite
     super(scene, x, y, spriteSheetKey); 
     this.spriteSheetKey = spriteSheetKey;
+    this.carta;
     this.armas= ["KATANA", "SAI", "TANEGASHIMA", "KUSARIGAMA"];
-    this.arma = this.armaAleatoria();//segun el aleatorio coge un arma aleatoria
+    this.arma;
+    this.armaAleatoria();//segun el aleatorio coge un arma aleatoria
     this.cargaImagen();
    // this.cargaImgen(this.arma);//carga la imagen
    this.setScale(0.4);
@@ -24,12 +26,13 @@ constructor(scene, x, y, spriteSheetKey){
 }
 
 hazanimacion(){
-    this.anims.play('rayo', true);
+    this.anims.play('rayo',true);
+    return true;
 }
 armaAleatoria(){
     const aleatorio = Math.floor(Math.random() * (this.armas.length));//no incluye ni el 4
     console.log(aleatorio);
-    return this.armas[aleatorio];
+    this.arma =  this.armas[aleatorio];
 }
 
 createAnimations(){//animaciones cartas
@@ -63,22 +66,20 @@ this.anims.create({
 }
 
 cargaImagen() {
-    let carta; // Variable para guardar la clave del arma
     switch (this.arma) {
         case "KATANA":
             this.carta = "cartaKatana";
-            return carta;
+            return this.carta;
         case "SAI":
             this.carta = "cartaSai";
-            return carta;
+            return this.carta;
         case "TANEGASHIMA":
             this.carta = "cartaTanegashima";
-            return carta;
+            return this.carta;
         case "KUSARIGAMA":
             this.carta = "cartaKusarigama";
-            return carta;
+            return this.carta;
     }
-   
 }
 
 }
