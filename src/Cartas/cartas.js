@@ -20,9 +20,10 @@ constructor(scene, x, y, spriteSheetKey){
      this.on('animationcomplete', (anim, frame) => {
         if(anim.key === 'rayo') {
             this.anims.play('idle', true);
+          //cambiar a estado donde no se muestra nada
         }
     });
- 
+   
 }
 
 hazanimacion(){

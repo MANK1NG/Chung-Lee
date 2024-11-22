@@ -11,6 +11,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     };
     constructor(scene,x, y, weaponType, keys, spriteSheetKey, orientacion) {
         super(scene,x, y, spriteSheetKey);//???
+        this.cogible = true;
+        this.armasBooleanos = weaponType;//para decir el arma que tienes (se llama asi pq a sergio le sale de las bolas)
         this.vidas = 8;//vidas personaje
         this.flipX = orientacion;//orientacion en la que empieza el personaje
         this.spriteSheetKey = spriteSheetKey;//seria por ejemplo 'personaje', sirve para instanciar distintos personajes
@@ -40,7 +42,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.a = this.scene.input.keyboard.addKey(keys.keyLeft);
         this.d = this.scene.input.keyboard.addKey(keys.keyRight);
         this.v = this.scene.input.keyboard.addKey(keys.keyAttack);
-
+        this.b = this.scene.input.keyboard.addKey(keys.keyWeapon);
 
         this.body.setCollideWorldBounds(true);
         
@@ -227,7 +229,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
-        
+        if(this.b.isDown){
+
+        }
+
+        if(this.armasBooleanos == Personaje.WeaponType.SAI){
+            this.tieneSai = true;
+        }
         //Ejecuta el knockback
         if(this.knockBack){
             this.anims.play('knockBack', true);
