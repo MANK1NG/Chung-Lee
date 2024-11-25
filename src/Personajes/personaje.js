@@ -28,7 +28,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBackSpeedY = 100;//Velocidad vertical del knockback
         this.knockBackSpeedX;//velocidad horizontal knockback
         this.deflect = false;//Para activar animacion ataque potenciado katana
-        this.tieneSai = true;//poner en true para que vaya ataque sai
+        this.tieneSai = false;//poner en true para que vaya ataque sai
 
 
         this.scene.add.existing(this);//Escena necesaria?
@@ -236,6 +236,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.armasBooleanos == Personaje.WeaponType.SAI){
             this.tieneSai = true;
         }
+
         //Ejecuta el knockback
         if(this.knockBack){
             this.anims.play('knockBack', true);
