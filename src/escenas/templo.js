@@ -14,7 +14,7 @@ export default class Templo extends Phaser.Scene{
     preload(){
 
         this.load.image('temploFondo', './assests/templo21.png');
-
+        this.load.image('mapa2','./assests/tejados.png');
         //Instancia player negro
         this.load.spritesheet('personaje1', './Anim/SpriteSheet_Sai_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
@@ -33,7 +33,9 @@ export default class Templo extends Phaser.Scene{
 
         
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
+        this.load.tilemapTiledJSON('mapa2','./assests/mapa2.json');
         this.load.image('cuboNegro','./assests/cuboNegro.png');
+        this.load.image('cuboNegro8','./assests/cuboNegro8.png')
         //carga frames
         this.load.image('vidaFrameN','./img/vidas/negro/HUD_Black_Frame.png' );
         this.load.image('vidaFrameR','./img/vidas/rojo/HUD_Red_Frame.png' );
@@ -64,8 +66,31 @@ export default class Templo extends Phaser.Scene{
     }
 
     create(){
-        console.log("me he creado templo");
-       this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
+       
+        //Creacion de mapas
+        const nMapa = Math.floor(Math.random() * 3);
+        if (nMapa === 0 || nMapa === 1){
+            this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
+            this.map = this.make.tilemap({
+                key: 'templo',
+                tileWidth: 32,
+                tileHeight: 32
+            });
+            const tileset1 = this.map.addTilesetImage('cuboNegro', 'cuboNegro');
+                this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
+                this.backgroundLayer.setCollisionByProperty({ colision: true });
+        }else if(nMapa === 2){
+            this.add.image(0,0,'mapa2').setOrigin(0,0);
+            this.map = this.make.tilemap({
+                key:'mapa2',
+                tileWidth: 8,
+                tileHeight: 8
+
+            });
+            const tileset = this.map.addTilesetImage('cuboNegro8', 'cuboNegro8');
+            this.backgroundLayer = this.map.createLayer('Capa de patrones 2', tileset);            
+            this.backgroundLayer.setCollisionByProperty({ colision: true });
+        }
        //MARCO VIDAS
        this.add.image(0,0,'vidaFrameN').setPosition(220,90).setScale(0.6);
        this.add.image(0,0,'vidaFrameR').setPosition(800,90).setScale(0.6);
@@ -108,16 +133,9 @@ export default class Templo extends Phaser.Scene{
         vidasR.push(vidaR7);
         let vidasRC = 7;
 
-       this.map = this.make.tilemap({
-           key: 'templo',
-           tileWidth: 32,
-           tileHeight: 32
-        });
-        
-        const tileset1 = this.map.addTilesetImage('cuboNegro', 'cuboNegro');
-        this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
-        this.backgroundLayer.setCollisionByProperty({ colision: true });
-        
+
+
+
         //Crear personaje 1
         let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
