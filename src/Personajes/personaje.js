@@ -1,4 +1,5 @@
 import Katana from "../armas/katana.js"
+import Kusa from "../armas/kusa.js";
 import Sai from "../armas/sai.js"
 
 export default class Personaje extends Phaser.Physics.Arcade.Sprite {
@@ -6,7 +7,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     static WeaponType = {
         KATANA: 'katana',
         SAI: 'sai',
-        KUSARIGAMA: 'kusarigama',
+        KUSA: 'kusa',
         TANEGASHIMA: 'tanegashima',
     };
     constructor(scene,x, y, weaponType, keys, spriteSheetKey, orientacion) {
@@ -195,8 +196,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     return new Sai(scene, this.x, this.y);
                 }
 
-            case Personaje.WeaponType.KUSARIGAMA:
-                break;
+            case Personaje.WeaponType.KUSA:
+                {
+                    return new Kusa(scene, this.x, this.y);
+                }
                 
             case Personaje.WeaponType.TANEGASHIMA:
                 break;
