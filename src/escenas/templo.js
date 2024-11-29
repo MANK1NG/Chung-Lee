@@ -80,7 +80,6 @@ export default class Templo extends Phaser.Scene{
                 this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
                 this.backgroundLayer.setCollisionByProperty({ colision: true });
         }else if(nMapa === 2){
-            this.add.image(0,0,'mapa2').setOrigin(0,0);
             this.map = this.make.tilemap({
                 key:'mapa2',
                 tileWidth: 8,
@@ -88,8 +87,10 @@ export default class Templo extends Phaser.Scene{
 
             });
             const tileset = this.map.addTilesetImage('cuboNegro8', 'cuboNegro8');
-            this.backgroundLayer = this.map.createLayer('Capa de patrones 2', tileset);            
+            this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset);            
             this.backgroundLayer.setCollisionByProperty({ colision: true });
+            this.add.image(0,0,'mapa2').setOrigin(0,0);
+
         }
        //MARCO VIDAS
        this.add.image(0,0,'vidaFrameN').setPosition(220,90).setScale(0.6);
