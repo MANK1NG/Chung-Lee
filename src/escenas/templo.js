@@ -15,6 +15,7 @@ export default class Templo extends Phaser.Scene{
 
         this.load.image('temploFondo', './assests/templo21.png');
         this.load.image('mapa2','./assests/tejados.png');
+        this.load.image('mapa3', './assests/puente.png')
         //Instancia player negro
         this.load.spritesheet('personaje1', './Anim/SpriteSheet_Sai_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
@@ -34,6 +35,7 @@ export default class Templo extends Phaser.Scene{
         
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
         this.load.tilemapTiledJSON('mapa2','./assests/mapa2.json');
+        this.load.tilemapTiledJSON('mapa3','./assests/mapa3.json');
         this.load.image('cuboNegro','./assests/cuboNegro.png');
         this.load.image('cuboNegro8','./assests/cuboNegro8.png')
         //carga frames
@@ -69,7 +71,7 @@ export default class Templo extends Phaser.Scene{
        
         //Creacion de mapas
         const nMapa = Math.floor(Math.random() * 3);
-        if (nMapa === 0 || nMapa === 1){
+        if (nMapa === 0){
             this.add.image(0, 0, 'temploFondo').setOrigin(0, 0);
             this.map = this.make.tilemap({
                 key: 'templo',
@@ -79,7 +81,7 @@ export default class Templo extends Phaser.Scene{
             const tileset1 = this.map.addTilesetImage('cuboNegro', 'cuboNegro');
                 this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset1);            
                 this.backgroundLayer.setCollisionByProperty({ colision: true });
-        }else if(nMapa === 2){
+        }else if(nMapa === 1){
             this.map = this.make.tilemap({
                 key:'mapa2',
                 tileWidth: 8,
@@ -91,6 +93,18 @@ export default class Templo extends Phaser.Scene{
             this.backgroundLayer.setCollisionByProperty({ colision: true });
             this.add.image(0,0,'mapa2').setOrigin(0,0);
 
+        }
+        else if(nMapa === 2){
+            this.map = this.make.tilemap({
+                key:'mapa3',
+                tileWidth: 8,
+                tileHeight: 8
+
+            });
+            const tileset = this.map.addTilesetImage('cuboNegro8', 'cuboNegro8');
+            this.backgroundLayer = this.map.createLayer('Capa de patrones 1', tileset);            
+            this.backgroundLayer.setCollisionByProperty({ colision: true });
+            this.add.image(0,0,'mapa3').setOrigin(0,0);
         }
        //MARCO VIDAS
        this.add.image(0,0,'vidaFrameN').setPosition(220,90).setScale(0.6);
