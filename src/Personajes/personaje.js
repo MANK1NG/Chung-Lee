@@ -32,7 +32,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
 
         this.scene.add.existing(this);//Escena necesaria?
-		this.scene.physics.add.existing(this);
+		this.scene.physics.add.existing(this);//hace el body
 
         this.setScale(0.4);
 

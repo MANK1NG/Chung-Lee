@@ -24,7 +24,7 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
             this.body.setOffset(-this.tamSprite, 150);
         }
         this.body.enable = true; //activa cuerpo fisico del obj para que detecte colisiones
-
+ 
         if (personaje.anims.currentAnim && !personaje.body.blocked.down) { // si esta en el aire hace la hitbox arriba
             this.body.setSize(170,490);
             if(personaje.flipX){//drch
