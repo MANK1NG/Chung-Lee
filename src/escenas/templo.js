@@ -9,6 +9,8 @@ export default class Templo extends Phaser.Scene{
         this.cont = 0;
         this.tiempo = 10000;
         this.cartas;
+        this.personaje1;
+        this.personaje2;
     }
     
     preload(){
@@ -156,6 +158,8 @@ export default class Templo extends Phaser.Scene{
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
+        this.personaje1 = personaje;
+        this.personaje2 = personaje2;
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
             personaje.body.setVelocityY(0);
         });
@@ -335,9 +339,13 @@ export default class Templo extends Phaser.Scene{
             console.log(carta);
             if(carta == 'cartaKatana'){
                 this.lastImage = this.add.image(508, 100, 'logoKatana').setScale(0.13);
+                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Katana_N.png', Personaje.WeaponType.KATANA);
+                // this.personaje2.cambiarArma('./Anim/SpriteSheet_Katana_R.png', Personaje.WeaponType.KATANA);
             }
             if(carta == 'cartaSai'){
                 this.lastImage = this.add.image(512, 100, 'logoSai').setScale(0.12);
+                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Sai_N.png', Personaje.WeaponType.SAI);
+                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Sai_R.png', Personaje.WeaponType.SAI);
             }
             if(carta == 'cartaKusarigama'){
                     this.lastImage = this.add.image(510, 100, 'logoKusarigama').setScale(0.12);

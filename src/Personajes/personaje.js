@@ -60,6 +60,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.chargeStartTime = 0;
         this.isCharging = false;
         this.setupAttackEvents();
+        if(this.armasBooleanos == Personaje.WeaponType.SAI){
+            this.tieneSai = true;
+            this.speedX *= 1.3;
+        }
         
     }
 
@@ -230,12 +234,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);//???
         if(this.b.isDown){
-
+            
         }
 
-        if(this.armasBooleanos == Personaje.WeaponType.SAI){
-            this.tieneSai = true;
-        }
 
         //Ejecuta el knockback
         if(this.knockBack){
@@ -332,6 +333,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         //Movimiento del body del ataque pegado al personaje
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
+    }
+
+    cambiarArma(texture, armaChange){
+        this.setTexture(texture);
+        this.weapon = armaChange;
     }
    
 }
