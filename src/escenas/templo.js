@@ -19,7 +19,7 @@ export default class Templo extends Phaser.Scene{
         this.load.image('mapa2','./assests/tejados.png');
         this.load.image('mapa3', './assests/puente.png')
         //Instancia player negro
-        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Sai_N.png', {
+        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Kusa_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
@@ -154,7 +154,7 @@ export default class Templo extends Phaser.Scene{
 
 
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
@@ -226,11 +226,17 @@ export default class Templo extends Phaser.Scene{
             }
 
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
-
+                this.collisionActiva = true;
+                personaje2.hitPersonaje(vidasR);
+                vidasR[vidasRC].setVisible(false);
+                vidasRC--;
             }
 
             if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
-
+                this.collisionActiva = true;
+                personaje2.hitPersonaje(vidasR);
+                vidasR[vidasRC].setVisible(false);
+                vidasRC--;
             }
 
             if (!this.collisionActiva && weapon.attackType === 'normalTane') {
@@ -287,11 +293,17 @@ export default class Templo extends Phaser.Scene{
                 }
     
                 if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
-    
+                    this.collisionActiva = true;
+                    personaje.hitPersonaje(vidasN);
+                    vidasN[vidasNC].setVisible(false);
+                    vidasNC--;
                 }
     
                 if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
-    
+                    this.collisionActiva = true;
+                    personaje.hitPersonaje(vidasN);
+                    vidasN[vidasNC].setVisible(false);
+                    vidasNC--;
                 }
     
                 if (!this.collisionActiva && weapon.attackType === 'normalTane') {
