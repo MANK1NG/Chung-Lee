@@ -31,7 +31,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.deflect = false;//Para activar animacion ataque potenciado katana
         this.tieneSai = false;//poner en true para que vaya ataque sai
         this.saiDash = false;
-
+        this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
 
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);//hace el body
@@ -94,6 +94,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         this.weapon.potenciatedAttack(this);
                         if(this.tieneSai){
                             this.saiDash = true;
+                            this.mitad = 0;
                             console.log("tiene dash");
                         }
                         this.attack = true;
@@ -139,10 +140,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
             if (this.potenciatedAttackStop && Phaser.Input.Keyboard.JustUp(this.v)) {
                 //Para el ataque potenciado al levantar la tecla v y permite moverse con normalidad de nuevo
+                if(!this.saiDash){
                 this.isAttacking = false;
                 this.potAnims = false;
                 this.weapon.body.enable = false;
                 this.potenciatedAttackStop = false;
+                }
             }
         
             // Desactivar el estado de ataque después de un breve retardo para permitir movimiento
@@ -153,20 +156,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         //Para no permitir cancelaciones de animacion
         this.on('animationcomplete', (anim, frame) => {
-            if(anim.key === 'ataquePotenciado' && this.saiDash){
-                this.weapon.body.enable = false;
-                this.isAttacking = false; // Permitir movimiento al completar el ataque
-                this.attackMovement = false;
-                this.potenciatedAttackStop = false;
-                this.saiDash = false;
-                console.log("fin dash");
-            }
             if (anim.key === 'ataque' || anim.key === 'ataqueAire') {
                 this.weapon.body.enable = false;
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
                 this.body.setVelocityX(0);
-                console.log("fin ataque");
+                console.log("fin daño");
             }
             if (anim.key === 'knockBack') {
                 this.knockBack = false;
@@ -177,11 +172,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.attackMovement = false;
                 this.knockBackSpeedY = 100;
                 this.deflect = false;
-                console.log("fin knockBack");
+                console.log("fin knock");
             }
             if(anim.key === 'ataquePotenciadoHit') {
                 this.deflect = false;
-                console.log("fin ataquePotenciadoHit");
+                console.log("fin deflect");
             }
         });
     }
@@ -255,8 +250,31 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             
         }
         if(this.saiDash){
-            this.body.setVelocityX(0);
             this.anims.play('ataquePotenciado', true);
+            this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
+                const totalFrames = anim.getTotalFrames();
+                const currentFrames = frame.index;
+                if(currentFrames >= totalFrames - 1){
+                    this.saiDash = false;
+                    this.weapon.body.enable = false;
+                    this.isAttacking = false; // Permitir movimiento al completar el ataque
+                    this.potenciatedAttackStop = false;
+                    this.setVelocityX(0);
+                }
+                if(!this.saiDash)
+                    return;
+                if(currentFrames >= totalFrames / 2 && this.mitad == 0){
+                    this.flipX ? this.flipX = false : this.flipX = true;
+                    this.mitad = 1;
+                }
+                if(this.flipX){
+                    this.body.setVelocityX(this.speedX * 2);
+                }
+                else{
+                    this.body.setVelocityX(this.speedX * -2);
+                }
+            });
+            
         }
         //Ejecuta el knockback
         if(this.knockBack){
@@ -297,6 +315,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
         //Movimiento normal
         if(!this.isAttacking && !this.knockBack && !this.deflect){
+            //this.saiDash = false;
             //Idle si no me muevo
             if(this.body.velocity.x === 0 && this.body.blocked.down){
                 this.anims.play('idle', true);
@@ -346,7 +365,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
         }
         //Parar el personaje si no hay imput y no ataco
-        else if(this.attack && !this.potAnims){
+        else if(this.attack && !this.potAnims && !this.saiDash){
             this.body.setVelocityX(0);
         }
 
