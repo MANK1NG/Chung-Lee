@@ -344,23 +344,6 @@ export default class Templo extends Phaser.Scene{
             this.cartas.hazanimacion();
             this.cartas.armaAleatoria();
             carta = this.cartas.cargaImagen();
-            console.log(carta);
-            if(carta == 'cartaKatana'){
-                this.lastImage = this.add.image(508, 100, 'logoKatana').setScale(0.13);
-                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Katana_N.png', Personaje.WeaponType.KATANA);
-                // this.personaje2.cambiarArma('./Anim/SpriteSheet_Katana_R.png', Personaje.WeaponType.KATANA);
-            }
-            if(carta == 'cartaSai'){
-                this.lastImage = this.add.image(512, 100, 'logoSai').setScale(0.12);
-                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Sai_N.png', Personaje.WeaponType.SAI);
-                // this.personaje1.cambiarArma('./Anim/SpriteSheet_Sai_R.png', Personaje.WeaponType.SAI);
-            }
-            if(carta == 'cartaKusarigama'){
-                    this.lastImage = this.add.image(510, 100, 'logoKusarigama').setScale(0.12);
-            }
-            if(carta == 'cartaTanegashima'){
-                this.lastImage = this.add.image(512, 100, 'logoTanegashima').setScale(0.12);
-            }
             this.cont = 0;
             
         
