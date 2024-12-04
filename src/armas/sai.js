@@ -54,21 +54,21 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
            idle: { 
             key: 'idle',//nombre de animacion
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 0, end: 11} ),//coge el dibujo entero de esa anim, this es la scene
-            frameRate: 20,//tasa frames
+            frameRate: 24,//tasa frames
             repeat: -1,//ciclo cíclico
            },
            
            caminar: {
             key: 'caminar',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 16, end: 31} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: -1, //para que la haga infinita
            },
 
            ataque: {
             key: 'ataque',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 32, end: 42}),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0, //ciclo sencillo
             },
            
@@ -82,42 +82,42 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
            caida: {
             key: 'caido',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 64, end: 73} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: -1,
            },
 
            ataqueAire: {
             key: "ataqueAire",
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 80, end: 89} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0,
            },
 
            knockBack: {
             key: 'knockBack',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 96 ,end: 110} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0,
            },
 
            ataquePotenciado: {
             key: 'ataquePotenciado',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 112,end: 121} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0,
            },
 
            ataquePotenciadoRun: {
             key: 'ataquePotenciadoRun',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 112,end: 121} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0,
            },
 
            ataquePotenciadoHit: {
             key: 'ataquePotenciadoHit',
             frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 128,end: 140} ),
-            frameRate: 20,
+            frameRate: 24,
             repeat: 0,
            }
 

@@ -33,7 +33,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.tieneSai = false;//poner en true para que vaya ataque sai
         this.saiDash = false;
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
-
+        this.weaponTypeString = weaponType + '_';
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);//hace el body
 
@@ -56,7 +56,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         //Arma en uso del personaje
         this.weapon = this.createWeapon(scene,weaponType);
         //Animaciones
-        this.createAnimations();
+        //this.createAnimations();
 
         //Tiempo que hay que pulsar la tecla de ataque para el ataque potenciado en milisegundos
         this.chargeTimeThreshold = 200;
@@ -117,10 +117,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.body.setAllowGravity(false);
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
-                    this.anims.play('ataque', true);
-                    console.log("animacipon");
+                    this.play(this.spriteSheetKey + this.weaponTypeString + 'ataque');
                 } else {
-                    this.anims.play('ataqueAire');
+                    this.play(this.spriteSheetKey + this.weaponTypeString + 'ataqueAire');
                 }
                 if(!this.body.blocked.down || this.tieneSai){
                     this.attackMovement = true;
@@ -158,14 +157,14 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         //Para no permitir cancelaciones de animacion
         this.on('animationcomplete', (anim, frame) => {
-            if (anim.key === 'ataque' || anim.key === 'ataqueAire') {
+            if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque' || anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataqueAire') {
                 this.weapon.body.enable = false;
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
                 this.body.setVelocityX(0);
                 console.log("fin daño");
             }
-            if (anim.key === 'knockBack') {
+            if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'knockBack') {
                 this.knockBack = false;
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
@@ -176,26 +175,26 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin knock");
             }
-            if(anim.key === 'ataquePotenciadoHit') {
+            if(anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit') {
                 this.deflect = false;
                 console.log("fin deflect");
             }
         });
     }
 
-    createAnimations() {
-        const animationConfig = this.weapon.getAnimationConfig(this);
+    // createAnimations() {
+    //     const animationConfig = this.weapon.getAnimationConfig(this);
     
-        // Asignar animaciones al personaje según el tipo de arma
-        for (const [key, config] of Object.entries(animationConfig)) {
-            this.anims.create({
-                key: key,  // Nombre de la animación (e.g., 'idle', 'caminar', 'ataque')
-                frames: config.frames,  // Frames desde la configuración
-                frameRate: config.frameRate,  // Velocidad de la animación
-                repeat: config.repeat  // Repetición de la animación
-            });
-        }
-    }
+    //     // Asignar animaciones al personaje según el tipo de arma
+    //     for (const [key, config] of Object.entries(animationConfig)) {
+    //         this.anims.create({
+    //             key: key,  // Nombre de la animación (e.g., 'idle', 'caminar', 'ataque')
+    //             frames: config.frames,  // Frames desde la configuración
+    //             frameRate: config.frameRate,  // Velocidad de la animación
+    //             repeat: config.repeat  // Repetición de la animación
+    //         });
+    //     }
+    // }
 
     //Metodo que cambia el arma segun el caso
     createWeapon(scene, weaponType) {
@@ -233,7 +232,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     ActivePotenciadoHitAnim(){
         if(this.weapon.attackType === 'potenciadoKat'){
             this.deflect = true;
-            this.anims.play('ataquePotenciadoHit', true);
+            this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
         }
 
         if(this.weapon.attackType === 'potenciadoSai'){
@@ -255,7 +254,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             //cambio personaje
         }
         if(this.saiDash){
-            this.anims.play('ataquePotenciado', true);
+            this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
@@ -283,7 +282,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
         //Ejecuta el knockback
         if(this.knockBack){
-            this.anims.play('knockBack', true);
+            this.play(this.spriteSheetKey + this.weaponTypeString + 'knockBack', true);
             this.body.setVelocityX(this.knockBackSpeedX);
             this.body.setVelocityY(-this.knockBackSpeedY);
             this.knockBackSpeedY -= tiempoFrames * 0.6;
@@ -305,17 +304,17 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.potAnims && !this.deflect){
             if(this.a.isDown  && !this.flipX){
                 this.body.setVelocityX(-this.speedX);
-                this.anims.play('ataquePotenciadoRun', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoRun', true);
             }
             //derecha
             if(this.d.isDown && this.flipX){
                 this.body.setVelocityX(this.speedX);
-                this.anims.play('ataquePotenciadoRun', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoRun', true);
             }
             
             if(Phaser.Input.Keyboard.JustUp(this.a) || Phaser.Input.Keyboard.JustUp(this.d) || this.body.velocity.x === 0){
                 this.body.setVelocityX(0);
-                this.anims.play('ataquePotenciado', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             }
         }
         //Movimiento normal
@@ -323,15 +322,15 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             //this.saiDash = false;
             //Idle si no me muevo
             if(this.body.velocity.x === 0 && this.body.blocked.down){
-                this.anims.play('idle', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'idle', true);
             }
             //Salto anim
             if(this.body.velocity.y < 0 && !this.body.blocked.down){
-                this.anims.play('salto', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'salto', true);
             }
             //Caida anim
             if(this.body.velocity.y > 0 && !this.body.blocked.down){
-                this.anims.play('caida', true);
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'caida', true);
             }
             //Activacion de gravedad
             this.body.setAllowGravity(true);
@@ -340,7 +339,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.setFlip(false, false);
                 this.body.setVelocityX(-this.speedX);
                 if(this.body.blocked.down){
-                    this.anims.play('caminar', true);
+                    this.play(this.spriteSheetKey + this.weaponTypeString + 'caminar', true);
                 }
             }
             //derecha
@@ -348,7 +347,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.setFlip(true, false);
                 this.body.setVelocityX(this.speedX);
                 if(this.body.blocked.down) {
-                    this.anims.play('caminar', true);
+                    this.play(this.spriteSheetKey + this.weaponTypeString + 'caminar', true);
                 }
             }
             //quieto si no hay input
