@@ -16,7 +16,7 @@ const config ={
       zoom: z*/
   },
   
-  scene: [Templo, Menu],
+  scene: [Menu, Templo],
   physics: { 
     default: 'arcade', 
     arcade: { 

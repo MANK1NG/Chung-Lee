@@ -245,9 +245,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     }
 
     preUpdate(tiempo, tiempoFrames) {
-        super.preUpdate(tiempo, tiempoFrames);//???
+        super.preUpdate(tiempo, tiempoFrames);
         if(this.b.isDown){
-            
+            //cambio personaje
         }
         if(this.saiDash){
             this.anims.play('ataquePotenciado', true);
