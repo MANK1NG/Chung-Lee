@@ -2,8 +2,9 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x , y){
         super(scene,x, y, 'kusa');
     }
-
+   
     getAnimationConfig(personaje){
+        
         return {
             idle: {
                 key: 'idle',
@@ -19,9 +20,23 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             },
             ataque: {
                 key: 'ataque',
-                frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 32, end: 40 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
-                repeat: 0 // Repetir hasta que acabe
+                frames: [
+                    { key: personaje.spriteSheetKey,frame: 0, x: 0, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 1, x: 1050, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 2, x: 2100, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 3, x: 3150, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 4, x: 4200, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 5, x: 5250, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 6, x: 6300, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 7, x: 7350, y: 920, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 8, x: 0, y: 1840, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 9, x: 1050, y: 1840, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 10, x: 2100, y: 1840, width: 1050, height: 64 },
+                            { key: personaje.spriteSheetKey,frame: 11, x: 3150, y: 1840, width: 1050, height: 64 },
+                ],
+                
+                frameRate: 20,
+                repeat: 0
             },
             salto: {
                 key: 'salto',
@@ -77,7 +92,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             // Activar el cuerpo físico para el ataque
             this.body.setSize(100, 100); // Ajustar el tamaño del cuerpo si es necesario
             if(personaje.flipX){
-                this.body.setOffset(0, -250); // Ajustar posición del cuerpo en el sprite
+                this.body.setOffset(0, 30); // Ajustar posición del cuerpo en el sprite
             }
             else{
                 this.body.setOffset(-340, -250);
