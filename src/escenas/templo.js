@@ -159,10 +159,8 @@ export default class Templo extends Phaser.Scene{
         this.personaje1 = personaje;
         this.personaje2 = personaje2;
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
-            personaje.body.setVelocityY(0);
         });
         this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
-            personaje2.body.setVelocityY(0);
         });
 
         //COLISIONES ATAQUE POTENCIADO KATANA
