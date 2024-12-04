@@ -70,15 +70,19 @@ cargaImagen() {
     switch (this.arma) {
         case "KATANA":
             this.carta = "cartaKatana";
+            this.lastImage = this.scene.add.image(508, 100, 'logoKatana').setScale(0.13);
             return this.carta;
         case "SAI":
             this.carta = "cartaSai";
+            this.lastImage = this.scene.add.image(512, 100, 'logoSai').setScale(0.12);
             return this.carta;
         case "TANEGASHIMA":
             this.carta = "cartaTanegashima";
+            this.lastImage = this.scene.add.image(510, 100, 'logoKusarigama').setScale(0.12);
             return this.carta;
         case "KUSARIGAMA":
             this.carta = "cartaKusarigama";
+            this.lastImage = this.scene.add.image(512, 100, 'logoTanegashima').setScale(0.12);
             return this.carta;
     }
 }
