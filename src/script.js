@@ -17,7 +17,7 @@ const config ={
       zoom: z*/
   },
   
-  scene: [Carga, Menu, Menu],
+  scene: [Carga, Menu, Templo],
   physics: { 
     default: 'arcade', 
     arcade: { 

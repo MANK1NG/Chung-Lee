@@ -25,30 +25,31 @@ export default class Carga extends Phaser.Scene{
         });
 
          // Definir el fondo de la barra de progreso
-         this.progressBar = this.add.graphics();
-         this.progressBox = this.add.graphics();
- 
-         // Fondo de la barra de carga
-         this.progressBox.fillStyle(0x222222, 0.8);
-         this.progressBox.fillRect(240, 270, 320, 50);
- 
-         // Texto de carga
-         this.loadingText = this.add.text(320, 240, 'Cargando...', {
-             font: '20px Arial',
-             fill: '#ffffff'
-         }).setOrigin(0.5, 0.5);
- 
-         // Texto de porcentaje
-         this.percentText = this.add.text(400, 320, '0%', {
-             font: '18px Arial',
-             fill: '#ffffff'
-         }).setOrigin(0.5, 0.5);
- 
-         // Progreso visual
-         this.barWidth = 300; // Ancho de la barra
-         this.barHeight = 40; // Altura de la barra
+        this.progressBar = this.add.graphics();
+        this.progressBox = this.add.graphics();
 
-         this.load.on('progress', this.updateBar, this);
+        // Fondo de la barra de carga (centrado)
+        this.progressBox.fillStyle(0x222222, 0.8);
+        this.progressBox.fillRect(362, 345, 310, 50);  // (1024-300)/2 para centrar la barra
+
+        // Texto de carga (centrado)
+        this.loadingText = this.add.text(512, 320, 'Cargando...', {
+            font: '20px Arial',
+            fill: '#ffffff'
+        }).setOrigin(0.5, 0.5);
+
+        // Texto de porcentaje (centrado)
+        this.percentText = this.add.text(512, 405, '0%', {
+            font: '18px Arial',
+            fill: '#ffffff'
+        }).setOrigin(0.5, 0.5);
+
+        // Progreso visual (centrado)
+        this.barWidth = 300;  // Ancho de la barra
+        this.barHeight = 40;  // Altura de la barra
+
+        // Listeners de progreso y carga completa
+        this.load.on('progress', this.updateBar, this);
         this.load.on('complete', this.completeLoad, this);
     }
 
@@ -57,15 +58,15 @@ export default class Carga extends Phaser.Scene{
     }
 
     updateBar(percentage) {
-        // Limpiar la barra de progreso
-        this.progressBar.clear();
+         // Limpiar la barra de progreso
+         this.progressBar.clear();
 
-        // Dibujar el progreso
-        this.progressBar.fillStyle(0x00ff00, 1);
-        this.progressBar.fillRect(250, 280, this.barWidth * percentage, this.barHeight);
-        
-        // Actualizar el porcentaje
-        this.percentText.setText(Math.round(percentage * 100) + '%');
+         // Dibujar el progreso (centrado)
+         this.progressBar.fillStyle(0x00ff00, 1);
+         this.progressBar.fillRect(367, 348, this.barWidth * percentage, this.barHeight);
+         
+         // Actualizar el porcentaje (centrado)
+         this.percentText.setText(Math.round(percentage * 100) + '%');
     }
 
     createAnimations() {
