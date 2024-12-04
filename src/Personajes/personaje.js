@@ -1,6 +1,7 @@
 import Katana from "../armas/katana.js"
 import Kusa from "../armas/kusa.js";
 import Sai from "../armas/sai.js"
+import Tanegashima from "../armas/tanegashima.js"
 
 export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     //Enumerator para cambiar de arma
@@ -116,7 +117,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.body.setAllowGravity(false);
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
-                    this.anims.play('ataque');
+                    this.anims.play('ataque', true);
+                    console.log("animacipon");
                 } else {
                     this.anims.play('ataqueAire');
                 }
@@ -212,6 +214,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 }
                 
             case Personaje.WeaponType.TANEGASHIMA:
+                {
+                    return new Tanegashima(scene, this.x, this.y);
+                }
                 break;
             default:
                 throw new Error('Tipo de arma no soportado: ' + weaponType);
