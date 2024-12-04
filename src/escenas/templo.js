@@ -19,9 +19,9 @@ export default class Templo extends Phaser.Scene{
         this.load.image('mapa2','./assests/tejados.png');
         this.load.image('mapa3', './assests/puente.png')
         //Instancia player negro
-        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Sai_N.png', {
-            frameWidth: 525,  // Ancho de cada fotograma
-            frameHeight: 460  // Alto de cada fotograma
+        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Kusa_V3_N.png', {
+            frameWidth: 1050,  // Ancho de cada fotograma
+            frameHeight: 920  // Alto de cada fotograma
         });
         //Instancia player rojo
         this.load.spritesheet('personaje2', './Anim/SpriteSheet_Katana_R.png', {
@@ -152,7 +152,7 @@ export default class Templo extends Phaser.Scene{
 
 
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO

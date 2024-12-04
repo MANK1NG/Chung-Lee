@@ -3,7 +3,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
         super(scene,x, y, 'kusa');
     }
    
-    getAnimationConfig(personaje){
+    /*getAnimationConfig(personaje){
         
         return {
             idle: {
@@ -20,13 +20,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             },
             ataque: {
                 key: 'ataque',
-                frames:  this.anims.generateFrameNames(personaje.spriteSheetKey+"+", {
-                    start: 0,
-                    end: 11,
-                    prefix: 'frame'
-                }),
-                    
-                
+                frames:  this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 32, end: 43 }),
                 frameRate: 24,
                 repeat: 0
             },
@@ -73,7 +67,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
                 repeat: 0 // Repetir hasta que acabe
             }
         };
-    }
+    }*/
     attack(personaje) {
         // Solo añadir físicas si no se ha añadido previamente
 
