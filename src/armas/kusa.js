@@ -9,7 +9,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             idle: {
                 key: 'idle',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 0, end: 11 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             caminar: {
@@ -27,7 +27,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
                 }),
                     
                 
-                frameRate: 20,
+                frameRate: 24,
                 repeat: 0
             },
             salto: {
@@ -39,37 +39,37 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             caida: {
                 key: 'caida',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 64, end: 73 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             ataqueAire: {
                 key: 'ataqueAire',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 80, end: 88 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             },
             knockBack: {
                 key: 'knockBack',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, {start: 96, end: 110}),
-                frameRate: 20,
+                frameRate: 24,
                 repeat: 0 // Repetir hasta que acabe
             },
             ataquePotenciado: {
                 key: 'ataquePotenciado',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 112, end: 123 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             ataquePotenciadoRun: {
                 key: 'ataquePotenciadoRun',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 128, end: 143 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             ataquePotenciadoHit: {
                 key: 'ataquePotenciadoHit',
                 frames: this.anims.generateFrameNumbers(personaje.spriteSheetKey, { start: 145, end: 154 }), // Index de frames para la animación
-                frameRate: 20, // Velocidad de la animación
+                frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             }
         };

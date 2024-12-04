@@ -1,6 +1,7 @@
 // Archivo JavaScript donde puedes inicializar el canvas
 import Menu from './escenas/menu.js'
 import Templo from './escenas/templo.js';
+import Carga from './escenas/carga.js';
 
 let z = 1; let x = 3 / z;
 
@@ -16,7 +17,7 @@ const config ={
       zoom: z*/
   },
   
-  scene: [Menu, Templo],
+  scene: [Carga, Menu, Menu],
   physics: { 
     default: 'arcade', 
     arcade: { 
