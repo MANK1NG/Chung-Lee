@@ -20,20 +20,12 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
             },
             ataque: {
                 key: 'ataque',
-                frames: [
-                    { key: personaje.spriteSheetKey,frame: 0, x: 0, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 1, x: 1050, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 2, x: 2100, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 3, x: 3150, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 4, x: 4200, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 5, x: 5250, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 6, x: 6300, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 7, x: 7350, y: 920, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 8, x: 0, y: 1840, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 9, x: 1050, y: 1840, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 10, x: 2100, y: 1840, width: 1050, height: 64 },
-                            { key: personaje.spriteSheetKey,frame: 11, x: 3150, y: 1840, width: 1050, height: 64 },
-                ],
+                frames:  this.anims.generateFrameNames(personaje.spriteSheetKey+"+", {
+                    start: 0,
+                    end: 11,
+                    prefix: 'frame'
+                }),
+                    
                 
                 frameRate: 20,
                 repeat: 0
