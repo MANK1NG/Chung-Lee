@@ -1,5 +1,6 @@
 import Personaje from "../Personajes/personaje.js";
 import Cartas from "../Cartas/cartas.js";
+import Logros from "../logros.js";
 
 export default class Templo extends Phaser.Scene{
 
@@ -19,7 +20,7 @@ export default class Templo extends Phaser.Scene{
         this.load.image('mapa2','./assests/tejados.png');
         this.load.image('mapa3', './assests/puente.png')
         //Instancia player negro
-        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Kusa_V3_N.png', {
+        this.load.spritesheet('personaje1', './Anim/SpriteSheet_Katana_N.png', {
             frameWidth: 1050,  // Ancho de cada fotograma
             frameHeight: 920  // Alto de cada fotograma
         });
@@ -150,9 +151,10 @@ export default class Templo extends Phaser.Scene{
         vidasR.push(vidaR7);
         let vidasRC = 7;
 
-
+        let logrosPersonaje1 = new Logros('Personaje negro');
+        let logrosPersonaje2 = new Logros('Personaje rojo');
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
@@ -201,6 +203,8 @@ export default class Templo extends Phaser.Scene{
             //Normal katana
             if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
+                logrosPersonaje1.cincoGolpesCombo();
+                logrosPersonaje2.ganarNoHit();
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -209,6 +213,8 @@ export default class Templo extends Phaser.Scene{
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
                 this.collisionActiva = true;
+                logrosPersonaje1.cincoGolpesCombo();
+                logrosPersonaje2.ganarNoHit();
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -216,6 +222,8 @@ export default class Templo extends Phaser.Scene{
 
             if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
                 this.collisionActiva = true;
+                logrosPersonaje1.cincoGolpesCombo();
+                logrosPersonaje2.ganarNoHit();
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -223,6 +231,8 @@ export default class Templo extends Phaser.Scene{
 
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
                 this.collisionActiva = true;
+                logrosPersonaje1.cincoGolpesCombo();
+                logrosPersonaje2.ganarNoHit();
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -230,6 +240,8 @@ export default class Templo extends Phaser.Scene{
 
             if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
                 this.collisionActiva = true;
+                logrosPersonaje1.cincoGolpesCombo();
+                logrosPersonaje2.ganarNoHit();
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -258,7 +270,10 @@ export default class Templo extends Phaser.Scene{
             
             });
             //Reiniciar juego si uno muere
-            if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+            if (personaje2.getVidas()== 0){
+                if(personaje.getVidas() == 1) logrosPersonaje1.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
                 this.scene.restart();
             }
             });
@@ -268,6 +283,8 @@ export default class Templo extends Phaser.Scene{
                 //Ataque normal katana
                 if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                     this.collisionActiva = true;
+                    logrosPersonaje2.cincoGolpesCombo();
+                    logrosPersonaje1.ganarNoHit();
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
@@ -275,6 +292,8 @@ export default class Templo extends Phaser.Scene{
                 }
                 if (!this.collisionActiva && weapon.attackType === 'normalSai') {
                     this.collisionActiva = true;
+                    logrosPersonaje2.cincoGolpesCombo();
+                    logrosPersonaje1.ganarNoHit();
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
@@ -283,6 +302,8 @@ export default class Templo extends Phaser.Scene{
     
                 if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
                     this.collisionActiva = true;
+                    logrosPersonaje2.cincoGolpesCombo();
+                    logrosPersonaje1.ganarNoHit();
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
@@ -290,6 +311,8 @@ export default class Templo extends Phaser.Scene{
     
                 if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
                     this.collisionActiva = true;
+                    logrosPersonaje2.cincoGolpesCombo();
+                    logrosPersonaje1.ganarNoHit();
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
@@ -297,6 +320,8 @@ export default class Templo extends Phaser.Scene{
     
                 if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
                     this.collisionActiva = true;
+                    logrosPersonaje2.cincoGolpesCombo();
+                    logrosPersonaje1.ganarNoHit();
                     personaje.hitPersonaje(vidasN);
                     vidasN[vidasNC].setVisible(false);
                     vidasNC--;
@@ -321,7 +346,10 @@ export default class Templo extends Phaser.Scene{
                     this.collisionActiva = false;
                 
                 });
-                if (personaje.getVidas()== 0 || personaje2.getVidas()== 0){
+                if (personaje.getVidas()== 0){
+                    if(personaje2.getVidas() == 1) logrosPersonaje2.ganarOneLifeLeft();
+                    logrosPersonaje1.escribeLogros();
+                    logrosPersonaje2.escribeLogros();
                     this.scene.restart();
                 }
     

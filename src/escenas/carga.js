@@ -81,7 +81,6 @@ export default class Carga extends Phaser.Scene{
         const animationConfig = this.getAnimationConfig();
         // Asignar animaciones al personaje según el tipo de arma
         for (const config of animationConfig) {
-            console.log(config.key);
             this.anims.create({
                 key: config.key,  // Nombre de la animación (e.g., 'idle', 'caminar', 'ataque')
                 frames: config.frames,  // Frames desde la configuración
@@ -409,13 +408,13 @@ export default class Carga extends Phaser.Scene{
             
             {
                 key: 'personaje2kusa_idle',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 0, end: 11 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 0, end: 11 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje2kusa_caminar',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 16, end: 31 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 16, end: 31 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },

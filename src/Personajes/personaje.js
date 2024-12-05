@@ -216,7 +216,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 {
                     return new Tanegashima(scene, this.x, this.y);
                 }
-                break;
             default:
                 throw new Error('Tipo de arma no soportado: ' + weaponType);
         }
