@@ -67,6 +67,10 @@ this.anims.create({
 }
 
 cargaImagen() {
+    if (this.lastImage) {
+        this.lastImage.destroy();
+        this.lastImage = null; // Limpia la referencia
+    }
     switch (this.arma) {
         case "KATANA":
             this.carta = "cartaKatana";

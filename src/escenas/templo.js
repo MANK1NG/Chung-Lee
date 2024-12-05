@@ -365,10 +365,7 @@ export default class Templo extends Phaser.Scene{
     update(time, delta){
         this.cont += delta;
         let carta;
-        if(this.cont >= this.tiempo){//contador
-            if (this.lastImage) {
-                this.lastImage.destroy();
-            }   
+        if(this.cont >= this.tiempo){//contador  
             this.cartas.hazanimacion();
             this.cartas.armaAleatoria();
             carta = this.cartas.cargaImagen();
