@@ -32,11 +32,6 @@ export default class Templo extends Phaser.Scene{
         //     frameHeight: 460  // Alto de cada fotograma
         // });
         
-        this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
-            frameWidth: 800, // Ancho de cada fotograma
-            frameHeight: 500 // Alto de cada fotograma
-        });
-        
         
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
         this.load.tilemapTiledJSON('mapa2','./assests/mapa2.json');
@@ -374,11 +369,7 @@ export default class Templo extends Phaser.Scene{
                 this.scene.restart();
             }
             
-        });
-        
-        
-
-        
+        });  
     }
     
     update(time, delta){

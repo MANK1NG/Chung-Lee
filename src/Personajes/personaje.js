@@ -390,9 +390,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
 
             if(this.spriteSheetKey == 'personaje1'){
+                this.scene.cartas.anims.play('negro',true);
                 this.setTexture(this.carta + 'N');
             }
             else{
+                this.scene.cartas.anims.play('rojo',true);
                 this.setTexture(this.carta + 'R');
             }
         }

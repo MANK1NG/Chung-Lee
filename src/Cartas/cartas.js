@@ -13,12 +13,11 @@ constructor(scene, x, y, spriteSheetKey){
 
      // Añadir el sprite a la escena
      scene.add.existing(this);
-     this.createAnimations();
      this.hazanimacion();
 
      //tonterias para ver como queda
      this.on('animationcomplete', (anim, frame) => {
-        if(anim.key === 'rayo') {
+        if(anim.key === 'rayo' || anim.key === 'negro'|| anim.key === 'rojo' ) {
             this.anims.play('idle', true);
           //cambiar a estado donde no se muestra nada
         }
@@ -36,36 +35,6 @@ armaAleatoria(){
     this.arma =  this.armas[aleatorio];
 }
 
-createAnimations(){//animaciones cartas
-    this.anims.create({ 
-         key: 'idle',//nombre de animacion
-         frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 0, end: 0} ),//coge el dibujo entero de esa anim, this es la scene
-         frameRate: 20,//tasa frames
-         repeat: -1,//ciclo cíclico
-    });
-
-    this.anims.create({   
-        key: 'negro',//nombre de animacion
-        frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 12, end: 23} ),//coge el dibujo entero de esa anim, this es la scene
-        frameRate: 20,//tasa frames
-        repeat: 0,//ciclo simple
-   });
-
-   this.anims.create({   
-    key: 'rojo',//nombre de animacion
-    frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 24, end: 35} ),//coge el dibujo entero de esa anim, this es la scene
-    frameRate: 20,//tasa frames
-    repeat: 0,//ciclo simple
-});
-
-this.anims.create({   
-    key: 'rayo',//nombre de animacion
-    frames: this.anims.generateFrameNumbers(this.spriteSheetKey, {start: 36, end: 42} ),//coge el dibujo entero de esa anim, this es la scene
-    frameRate: 20,//tasa frames
-    repeat: 0,//ciclo simple
-});
-}
-
 armaInicial(){
     switch (this.arma) {
         case "KATANA":
@@ -80,7 +49,6 @@ armaInicial(){
 }
 destruircarta(){
     if (this.lastImage && !window.game.canPick) {
-        console.log("cojoarma");
         this.lastImage.destroy();
         this.lastImage = null; // Limpia la referencia
     }

@@ -32,6 +32,11 @@ export default class Carga extends Phaser.Scene{
             frameHeight: 920  // Alto de cada fotograma
         });
 
+        this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
+            frameWidth: 800, // Ancho de cada fotograma
+            frameHeight: 500 // Alto de cada fotograma
+        });
+
          // Definir el fondo de la barra de progreso
         this.progressBar = this.add.graphics();
         this.progressBox = this.add.graphics();
@@ -459,8 +464,33 @@ export default class Carga extends Phaser.Scene{
                 frames: this.anims.generateFrameNumbers('kusaR', { start: 128, end: 150}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
-            }
-            ];
+            },
+            {
+                key: 'idle',//nombre de animacion
+                frames: this.anims.generateFrameNumbers('cartas', {start: 0, end: 0} ),//coge el dibujo entero de esa anim, this es la scene
+                frameRate: 20,//tasa frames
+                repeat: -1,//ciclo cíclico
+            },
+            {   
+               key: 'negro',//nombre de animacion
+               frames: this.anims.generateFrameNumbers('cartas', {start: 12, end: 23} ),//coge el dibujo entero de esa anim, this es la scene
+               frameRate: 20,//tasa frames
+               repeat: 0,//ciclo simple
+            },
+            {   
+              key: 'rojo',//nombre de animacion
+              frames: this.anims.generateFrameNumbers('cartas', {start: 24, end: 35} ),//coge el dibujo entero de esa anim, this es la scene
+              frameRate: 20,//tasa frames
+              repeat: 0,//ciclo simple
+           },
+       
+           {   
+              key: 'rayo',//nombre de animacion
+              frames: this.anims.generateFrameNumbers('cartas', {start: 36, end: 42} ),//coge el dibujo entero de esa anim, this es la scene
+              frameRate: 20,//tasa frames
+              repeat: 0,//ciclo simple
+           }
+        ];
     }
 
     completeLoad() {
