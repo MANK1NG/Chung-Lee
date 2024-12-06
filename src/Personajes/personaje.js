@@ -36,7 +36,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.weaponTypeString = weaponType + '_';
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);//hace el body
-
+        this.carta; //arma dada por las cartas
         this.setScale(0.4);
 
         //Teclas de juego
@@ -45,7 +45,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.a = this.scene.input.keyboard.addKey(keys.keyLeft);
         this.d = this.scene.input.keyboard.addKey(keys.keyRight);
         this.v = this.scene.input.keyboard.addKey(keys.keyAttack);
-        this.b = this.scene.input.keyboard.addKey(keys.keyWeapon);
+        this.pickWeapon = this.scene.input.keyboard.addKey(keys.keyWeapon);
 
         this.body.setCollideWorldBounds(true);
         
@@ -198,6 +198,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
     //Metodo que cambia el arma segun el caso
     createWeapon(scene, weaponType) {
+       
         switch (weaponType) {
             case Personaje.WeaponType.KATANA:
                 return new Katana(scene, this.x, this.y);
@@ -249,9 +250,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);
-        if(this.b.isDown){
-            //cambio personaje
-        }
+
         if(this.saiDash){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
@@ -371,15 +370,43 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         else if(this.attack && !this.potAnims && !this.saiDash){
             this.body.setVelocityX(0);
         }
-
+        
         //Movimiento del body del ataque pegado al personaje
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
-    }
 
-    cambiarArma(texture, armaChange){
-        this.setTexture(texture);
-        this.weapon = armaChange;
+        if(Phaser.Input.Keyboard.JustDown(this.pickWeapon) /*&& this.scene.sys.game.global.canPickWeapon*/){//para cambiar de arma
+            //this.scene.sys.game.global.canPickWeapon = false;
+            // this.weapon.destroy();
+            this.weaponTypeString = this.carta + '_';
+            this.weapon = this.createWeapon(this.scene, this.carta);
+            this.armasBooleanos = this.carta;
+            if(this.armasBooleanos == Personaje.WeaponType.SAI){
+                this.tieneSai = true;
+                this.speedX *= 1.3;
+            }
+            if(this.spriteSheetKey == 'personaje1'){
+                this.setTexture(this.carta + 'N');
+            }
+            else{
+                this.setTexture(this.carta + 'R');
+            }
+        }
     }
-   
+    
+    cambiarArma(armaChange){
+        if(armaChange == 'cartaKatana'){
+            this.carta = Personaje.WeaponType.KATANA;
+        }
+        if(armaChange == 'cartaSai'){
+            this.carta = Personaje.WeaponType.SAI;
+        }
+        if(armaChange == 'cartaTanegashima'){
+            this.carta = Personaje.WeaponType.TANEGASHIMA;
+        }
+        if(armaChange == 'cartaKusarigama'){
+            this.carta = Personaje.WeaponType.KUSA;
+        }
+    }
+    
 }

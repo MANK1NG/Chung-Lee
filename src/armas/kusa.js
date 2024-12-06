@@ -1,6 +1,7 @@
 export default class Kusa extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x , y){
         super(scene,x, y, 'kusa');
+        
     }
    
     /*getAnimationConfig(personaje){

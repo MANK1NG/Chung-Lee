@@ -66,6 +66,18 @@ this.anims.create({
 });
 }
 
+armaInicial(){
+    switch (this.arma) {
+        case "KATANA":
+            return 'KATANA';
+        case "SAI":
+            return 'SAI';
+        case "TANEGASHIMA":
+            return 'SAI';
+        case "KUSARIGAMA":
+            return 'KUSA';
+    } 
+}
 cargaImagen() {
     if (this.lastImage) {
         this.lastImage.destroy();
@@ -82,11 +94,11 @@ cargaImagen() {
             return this.carta;
         case "TANEGASHIMA":
             this.carta = "cartaTanegashima";
-            this.lastImage = this.scene.add.image(510, 100, 'logoKusarigama').setScale(0.12);
+            this.lastImage = this.scene.add.image(510, 100, 'logoTanegashima').setScale(0.12);
             return this.carta;
         case "KUSARIGAMA":
             this.carta = "cartaKusarigama";
-            this.lastImage = this.scene.add.image(512, 100, 'logoTanegashima').setScale(0.12);
+            this.lastImage = this.scene.add.image(512, 100, 'logoKusarigama').setScale(0.12);
             return this.carta;
     }
 }

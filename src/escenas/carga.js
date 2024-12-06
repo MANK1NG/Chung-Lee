@@ -310,7 +310,7 @@ export default class Carga extends Phaser.Scene{
             },
     
             {
-                key: 'personaje2sai_caido',
+                key: 'personaje2sai_caida',
                 frames: this.anims.generateFrameNumbers('saiR', {start: 64, end: 73} ),
                 frameRate: 24,
                 repeat: -1,
