@@ -388,7 +388,7 @@ export default class Templo extends Phaser.Scene{
             this.cartas.hazanimacion();
             this.cartas.armaAleatoria();
             carta = this.cartas.cargaImagen();
-          //   this.scene.sys.game.global.canPickWeapon = true;
+            window.game.canPick = true;
             this.personaje1.cambiarArma(carta);
             this.personaje2.cambiarArma(carta);
             this.cont = 0;  

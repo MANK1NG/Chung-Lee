@@ -375,9 +375,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
 
-        if(Phaser.Input.Keyboard.JustDown(this.pickWeapon) /*&& this.scene.sys.game.global.canPickWeapon*/){//para cambiar de arma
-            //this.scene.sys.game.global.canPickWeapon = false;
-            // this.weapon.destroy();
+        if(Phaser.Input.Keyboard.JustDown(this.pickWeapon) && window.game.canPick ){//para cambiar de arma
+            window.game.canPick = false;
             this.weaponTypeString = this.carta + '_';
             this.weapon = this.createWeapon(this.scene, this.carta);
             this.armasBooleanos = this.carta;
@@ -385,6 +384,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.tieneSai = true;
                 this.speedX *= 1.3;
             }
+            else{
+                this.tieneSai = false;
+                this.speedX /= 1.3;
+            }
+
             if(this.spriteSheetKey == 'personaje1'){
                 this.setTexture(this.carta + 'N');
             }
