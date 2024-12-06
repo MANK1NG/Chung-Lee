@@ -78,6 +78,13 @@ armaInicial(){
             return 'KUSA';
     } 
 }
+destruircarta(){
+    if (this.lastImage && !window.game.canPick) {
+        console.log("cojoarma");
+        this.lastImage.destroy();
+        this.lastImage = null; // Limpia la referencia
+    }
+}
 cargaImagen() {
     if (this.lastImage) {
         this.lastImage.destroy();

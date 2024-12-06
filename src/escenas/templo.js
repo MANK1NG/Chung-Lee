@@ -393,5 +393,6 @@ export default class Templo extends Phaser.Scene{
             this.personaje2.cambiarArma(carta);
             this.cont = 0;  
         }
+        this.cartas.destruircarta();
     }
 }
