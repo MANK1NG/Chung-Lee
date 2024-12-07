@@ -31,12 +31,16 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.knockBackSpeedX;//velocidad horizontal knockback
         this.deflect = false;//Para activar animacion ataque potenciado katana
         this.tieneSai = false;//poner en true para que vaya ataque sai
+        this.tieneKusa = false;
         this.saiDash = false;
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
         this.weaponTypeString = weaponType + '_';
         this.scene.add.existing(this);//Escena necesaria?
 		this.scene.physics.add.existing(this);//hace el body
         this.carta; //arma dada por las cartas
+        this.obtencionDePosY = 0;
+        this.obtencionDePosX = 0;
+
         this.setScale(0.4);
 
         //Teclas de juego
@@ -66,6 +70,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.armasBooleanos == Personaje.WeaponType.SAI){
             this.tieneSai = true;
             this.speedX *= 1.3;
+        } if(this.armasBooleanos == Personaje.WeaponType.KUSA){
+            this.tieneKusa = true;
         }
         
     }
@@ -98,6 +104,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                             this.mitad = 0;
                             console.log("tiene dash");
                         }
+                        ///////cargado chill
+                       /* if (this.tieneKusa) {
+                            console.log("holaaaaaaaaaaa");
+                            this.body.setSize(100000, 460); 
+                            this.body.setOffset(175, 175); 
+                        }*/
                         this.attack = true;
                         this.isAttacking = true;
                         this.potenciatedAttackStop = true;
@@ -118,12 +130,33 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataque');
+
+                    if (this.tieneKusa) {// Cambio de posicion en el sprite del ataque de la kusa
+                        
+                        
+                        this.obtencionDePosY = this.y;
+                        this.y =this.y -52;
+                        this.obtencionDePosX = this.x;
+    
+                        if(this.flipX){
+                            this.x =this.x +105;
+                            this.body.setOffset(200, 555);
+    
+                        }else{                    
+                        this.x =this.x -105;
+                        this.body.setOffset(720, 555);
+
+                        }
+                    }
                 } else {
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataqueAire');
                 }
                 if(!this.body.blocked.down || this.tieneSai){
                     this.attackMovement = true;
                 }
+               
+                
+                
                 this.attack = true;
                 this.isAttacking = true;
         
@@ -131,6 +164,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.canAttack = false;
                 this.scene.time.delayedCall(1000, () => { // Esperar 1 segundo
                     this.canAttack = true; // Volver a permitir el ataque
+                    
                 });
             }
         
@@ -179,6 +213,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
             }
+            if (this.tieneKusa &&anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque') {
+                console.log('La animación de ataque con Kusa ha terminado');
+                
+                this.y = this.obtencionDePosY;
+                this.x = this.obtencionDePosX;
+                this.body.setOffset(200, 200);
+            }        
         });
     }
 
@@ -388,7 +429,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.tieneSai = false;
                 this.speedX /= 1.3;
             }
-
+            if(this.armasBooleanos == Personaje.WeaponType.KUSA){
+                this.tieneKusa = true;
+            }
+            else{
+                this.tieneKusa = false;
+            }
             if(this.spriteSheetKey == 'personaje1'){
                 this.scene.cartas.anims.play('negro',true);
                 this.setTexture(this.carta + 'N');

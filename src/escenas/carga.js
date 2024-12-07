@@ -23,13 +23,29 @@ export default class Carga extends Phaser.Scene{
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
-        this.load.spritesheet('kusaR', './Anim/SpriteSheet_Kusa_V3_R.png', {
+        this.load.spritesheet('kusaR', './Anim/SpriteSheet_Kusa_01_R.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+        this.load.spritesheet('kusaN', './Anim/SpriteSheet_Kusa_01_N.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+        this.load.spritesheet('kusaR2', './Anim/SpriteSheet_Kusa_02_R.png', {
             frameWidth: 1050,  // Ancho de cada fotograma
             frameHeight: 920  // Alto de cada fotograma
         });
-        this.load.spritesheet('kusaN', './Anim/SpriteSheet_Kusa_V3_N.png', {
+        this.load.spritesheet('kusaN2', './Anim/SpriteSheet_Kusa_02_N.png', {
             frameWidth: 1050,  // Ancho de cada fotograma
             frameHeight: 920  // Alto de cada fotograma
+        });
+        this.load.spritesheet('kusaR3', './Anim/SpriteSheet_Kusa_03_R.png', {
+            frameWidth: 1050,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+        this.load.spritesheet('kusaN3', './Anim/SpriteSheet_Kusa_03_N.png', {
+            frameWidth: 1050,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
         });
 
         this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
@@ -370,43 +386,43 @@ export default class Carga extends Phaser.Scene{
             },
             {
                 key: 'personaje1kusa_ataque',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 32, end: 43 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN2', { start: 0, end: 11 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje1kusa_salto',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 48, end: 55 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN', { start: 32, end: 39 }), // Index de frames para la animación
                 frameRate: 12, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje1kusa_caida',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 64, end: 73 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN', { start: 48, end: 57 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje1kusa_ataqueAire',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 80, end: 88 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN', { start: 64, end: 72 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje1kusa_knockBack',
-                frames: this.anims.generateFrameNumbers('kusaN', {start: 96, end: 110}),
+                frames: this.anims.generateFrameNumbers('kusaN', {start: 80, end: 95}),
                 frameRate: 24,
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje1kusa_ataquePotenciado',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 112, end: 123 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN', { start: 96, end: 107 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje1kusa_ataquePotenciadoRun',
-                frames: this.anims.generateFrameNumbers('kusaN', { start: 128, end: 150 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaN3', { start: 0, end: 22}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
@@ -425,43 +441,43 @@ export default class Carga extends Phaser.Scene{
             },
             {
                 key: 'personaje2kusa_ataque',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 32, end: 43 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR2', { start: 0, end: 11 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje2kusa_salto',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 48, end: 55 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 32, end: 39 }), // Index de frames para la animación
                 frameRate: 12, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje2kusa_caida',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 64, end: 73 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 48, end: 57 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje2kusa_ataqueAire',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 80, end: 88 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 64, end: 72 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje2kusa_knockBack',
-                frames: this.anims.generateFrameNumbers('kusaR', {start: 96, end: 110}),
+                frames: this.anims.generateFrameNumbers('kusaR', {start: 80, end: 95}),
                 frameRate: 24,
                 repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje2kusa_ataquePotenciado',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 112, end: 123 }), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR', { start: 96, end: 107 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'personaje2kusa_ataquePotenciadoRun',
-                frames: this.anims.generateFrameNumbers('kusaR', { start: 128, end: 150}), // Index de frames para la animación
+                frames: this.anims.generateFrameNumbers('kusaR3', { start: 0, end: 2}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: -1 // Repetir indefinidamente
             },
