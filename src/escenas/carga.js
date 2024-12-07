@@ -4,7 +4,19 @@ export default class Carga extends Phaser.Scene{
     }
 
     preload(){
+        //SONIDO
         this.load.audio('MenuMusic', './audio/MenuMusic.mp3');
+        this.load.audio('BattleMusic', './audio/BattleMusic.mp3');
+        this.load.audio('Lucha', './audio/Lucha.mp3');
+        //katana
+        this.load.audio('GolpeKatana', './audio/GolpeKatana.mp3');
+        this.load.audio('DeflectKatana', './audio/DeflectKatana.mp3');
+        this.load.audio('PotenciadoKatana', './audio/PotenciadoKatana.mp3');
+        //sai
+        this.load.audio('AtaqueSai', './audio/AtaqueSai.mp3');
+        this.load.audio('DashSai', './audio/DashSai.mp3');
+        //kusa
+        //tanegashima
 
         this.load.spritesheet('katanaN', './Anim/SpriteSheet_Katana_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
