@@ -30,12 +30,16 @@ export default class Menu extends Phaser.Scene{
         this.music = this.sound.add('MenuMusic', { loop: true });
         this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)
         this.music.play();
+
+        if (this.sound.context.state === 'suspended') {
+            this.sound.context.resume();
+        }
     }
     
     update(){
         if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-            this.scene.start('templo'); // Cambiar a la Escena
             this.music.stop();
+            this.scene.start('templo'); // Cambiar a la Escena
         }
 
     }

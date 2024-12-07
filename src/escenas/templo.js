@@ -12,27 +12,15 @@ export default class Templo extends Phaser.Scene{
         this.cartas;
         this.personaje1;
         this.personaje2;
-        
+        this.music;
     }
     
     preload(){
-        
-      
+        //Mapas
         this.load.image('temploFondo', './assests/templo21.png');
         this.load.image('mapa2','./assests/tejados.png');
-        this.load.image('mapa3', './assests/puente.png')
-        //Instancia player negro
-        // this.load.spritesheet('personaje1', './Anim/SpriteSheet_Katana_N.png', {
-        //     frameWidth: 525,  // Ancho de cada fotograma
-        //     frameHeight: 460  // Alto de cada fotograma
-        // });
-        // //Instancia player rojo
-        // this.load.spritesheet('personaje2', './Anim/SpriteSheet_Katana_R.png', {
-        //     frameWidth: 525,  // Ancho de cada fotograma
-        //     frameHeight: 460  // Alto de cada fotograma
-        // });
-        
-        
+        this.load.image('mapa3', './assests/puente.png');
+        //TileMap
         this.load.tilemapTiledJSON('templo', './assests/templo.json');
         this.load.tilemapTiledJSON('mapa2','./assests/mapa2.json');
         this.load.tilemapTiledJSON('mapa3','./assests/mapa3.json');
@@ -64,14 +52,19 @@ export default class Templo extends Phaser.Scene{
         this.load.image('logoSai', './img/armasCartas/Sai.png');
         this.load.image('logoKusarigama', './img/armasCartas/Kusarigama.png');
         this.load.image('logoTanegashima', './img/armasCartas/Tanegashima.png');
-        
     }
     
     create(){
+        // SONIDO
+        let luchaSound = this.sound.add('Lucha');
+        luchaSound.setVolume(1);
+        luchaSound.play();
 
-        // this.sys.game.global = {
-        //     canPickWeapon: true // Este es el booleano que controlarás
-        // };
+        luchaSound.on('complete', () => {
+            this.music = this.sound.add('BattleMusic', { loop: true });
+            this.music.setVolume(0.15);  // Ajustar volumen de la música
+            this.music.play();  // Iniciar la música de fondo
+        });
         
         //Creacion de mapas
         const nMapa = Math.floor(Math.random() * 3);
