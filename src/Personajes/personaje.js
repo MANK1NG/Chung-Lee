@@ -40,7 +40,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.carta; //arma dada por las cartas
         this.obtencionDePosY = 0;
         this.obtencionDePosX = 0;
-
+        this.sonidosExtraKatana = scene.sound.add('DeflectKatana', { volume: 0.3 });
         this.setScale(0.4);
 
         //Teclas de juego
@@ -178,6 +178,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
             if (this.potenciatedAttackStop && Phaser.Input.Keyboard.JustUp(this.v)) {
                 //Para el ataque potenciado al levantar la tecla v y permite moverse con normalidad de nuevo
+                if(this.weapon == this.weaponKatana){
+                    this.weaponKatana.potenciadoKatana.stop();
+                }
                 if(!this.saiDash){
                 this.isAttacking = false;
                 this.potAnims = false;
@@ -226,20 +229,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         });
     }
 
-    // createAnimations() {
-    //     const animationConfig = this.weapon.getAnimationConfig(this);
-    
-    //     // Asignar animaciones al personaje según el tipo de arma
-    //     for (const [key, config] of Object.entries(animationConfig)) {
-    //         this.anims.create({
-    //             key: key,  // Nombre de la animación (e.g., 'idle', 'caminar', 'ataque')
-    //             frames: config.frames,  // Frames desde la configuración
-    //             frameRate: config.frameRate,  // Velocidad de la animación
-    //             repeat: config.repeat  // Repetición de la animación
-    //         });
-    //     }
-    // }
-
     //Metodo que cambia el arma segun el caso
     createWeapon(scene, weaponType) {
        
@@ -277,6 +266,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.weapon.attackType === 'potenciadoKat'){
             this.deflect = true;
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+            this.sonidosExtraKatana.play();
         }
 
         if(this.weapon.attackType === 'potenciadoSai'){
