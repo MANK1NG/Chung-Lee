@@ -56,7 +56,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(130, 250)
         this.body.setOffset(200, 200);
         this.body.setGravity(0, 1000);
-
+        this.weaponKatana = new Katana(scene, this.x, this.y);
+        this.weaponKusarigama = new Kusa(scene, this.x, this.y);
+        this.weaponSai = new Sai(scene, this.x, this.y);
+        this.weaponTanegashima = new Tanegashima(scene, this.x, this.y);
         //Arma en uso del personaje
         this.weapon = this.createWeapon(scene,weaponType);
         //Animaciones
@@ -242,21 +245,21 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
        
         switch (weaponType) {
             case Personaje.WeaponType.KATANA:
-                return new Katana(scene, this.x, this.y);
+                return this.weaponKatana;
 
             case Personaje.WeaponType.SAI:
                 {
-                    return new Sai(scene, this.x, this.y);
+                    return this.weaponSai;
                 }
 
             case Personaje.WeaponType.KUSA:
                 {
-                    return new Kusa(scene, this.x, this.y);
+                    return this.weaponKusarigama;
                 }
                 
             case Personaje.WeaponType.TANEGASHIMA:
                 {
-                    return new Tanegashima(scene, this.x, this.y);
+                    return this.weaponTanegashima;
                 }
             default:
                 throw new Error('Tipo de arma no soportado: ' + weaponType);
@@ -421,11 +424,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             this.weaponTypeString = this.carta + '_';
             this.weapon = this.createWeapon(this.scene, this.carta);
             this.armasBooleanos = this.carta;
-            if(this.armasBooleanos == Personaje.WeaponType.SAI){
+            if(this.armasBooleanos == Personaje.WeaponType.SAI && !this.tieneSai){
                 this.tieneSai = true;
                 this.speedX *= 1.3;
             }
-            else{
+            else if(this.armasBooleanos != Personaje.WeaponType.SAI && this.tieneSai){
                 this.tieneSai = false;
                 this.speedX /= 1.3;
             }

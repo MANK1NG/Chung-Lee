@@ -170,7 +170,7 @@ export default class Templo extends Phaser.Scene{
         let logrosPersonaje1 = new Logros('Personaje negro');
         let logrosPersonaje2 = new Logros('Personaje rojo');
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, armaAle, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, armaAle, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
@@ -182,7 +182,7 @@ export default class Templo extends Phaser.Scene{
         });
         
         //COLISIONES ATAQUE POTENCIADO KATANA
-        this.physics.add.collider(personaje.getWeapon(), personaje2.getWeapon(), ()=>{
+        this.physics.add.collider(personaje.weaponKatana, personaje2.weaponKatana, ()=>{
             const weapon = personaje.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
                 personaje2.getWeapon().body.enable = false;
@@ -190,7 +190,55 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.collider(personaje2.getWeapon(), personaje.getWeapon(), ()=>{
+        this.physics.add.collider(personaje2.weaponKatana, personaje.weaponKatana, ()=>{
+            const weapon = personaje2.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje.getWeapon().body.enable = false;
+                personaje2.ActivePotenciadoHitAnim();
+            }
+        });
+
+        this.physics.add.collider(personaje.weaponKatana, personaje2.weaponSai, ()=>{
+            const weapon = personaje.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje2.getWeapon().body.enable = false;
+                personaje.ActivePotenciadoHitAnim();
+            }
+        });
+        
+        this.physics.add.collider(personaje2.weaponKatana, personaje.weaponSai, ()=>{
+            const weapon = personaje2.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje.getWeapon().body.enable = false;
+                personaje2.ActivePotenciadoHitAnim();
+            }
+        });
+
+        this.physics.add.collider(personaje.weaponKatana, personaje2.weaponKusarigama, ()=>{
+            const weapon = personaje.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje2.getWeapon().body.enable = false;
+                personaje.ActivePotenciadoHitAnim();
+            }
+        });
+        
+        this.physics.add.collider(personaje2.weaponKatana, personaje.weaponKusarigama, ()=>{
+            const weapon = personaje2.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje.getWeapon().body.enable = false;
+                personaje2.ActivePotenciadoHitAnim();
+            }
+        });
+
+        this.physics.add.collider(personaje.weaponKatana, personaje2.weaponTanegashima, ()=>{
+            const weapon = personaje.getWeapon();
+            if (weapon.attackType === 'potenciadoKat') {
+                personaje2.getWeapon().body.enable = false;
+                personaje.ActivePotenciadoHitAnim();
+            }
+        });
+        
+        this.physics.add.collider(personaje2.weaponKatana, personaje.weaponTanegashima, ()=>{
             const weapon = personaje2.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
                 personaje.getWeapon().body.enable = false;
@@ -214,8 +262,8 @@ export default class Templo extends Phaser.Scene{
         y el del 2 contra el 1, en realidad van a tener lo mismo pero con variables cambiada, donde al principio
         pusisteis personaje... pondreis personaje2 y alreves.
         */
-       this.physics.add.overlap(personaje.getWeapon(), personaje2, ()=>{
-           const weapon = personaje.getWeapon();
+       this.physics.add.overlap(personaje.weaponKatana, personaje2, ()=>{
+           const weapon = personaje.weaponKatana;
            //Normal katana
            if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                this.collisionActiva = true;
@@ -226,6 +274,31 @@ export default class Templo extends Phaser.Scene{
                vidasRC--;
                
             }
+
+             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
+            //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
+            if(personaje.flipX && this.collisionActiva){
+                personaje2.hit(personaje2.speedX);
+            }
+            else if(!personaje.flipX && this.collisionActiva) {
+                personaje2.hit(-personaje2.speedX)
+            }
+            
+            //Desactivar colision
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            //Reiniciar juego si uno muere
+            if (personaje2.getVidas()== 0){
+                if(personaje.getVidas() == 1) logrosPersonaje1.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
+        this.physics.add.overlap(personaje.weaponSai, personaje2, ()=>{
+            const weapon = personaje.weaponSai;
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
                 this.collisionActiva = true;
@@ -244,7 +317,32 @@ export default class Templo extends Phaser.Scene{
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
             }
+
+             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
+            //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
+            if(personaje.flipX && this.collisionActiva){
+                personaje2.hit(personaje2.speedX);
+            }
+            else if(!personaje.flipX && this.collisionActiva) {
+                personaje2.hit(-personaje2.speedX)
+            }
             
+            //Desactivar colision
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            //Reiniciar juego si uno muere
+            if (personaje2.getVidas()== 0){
+                if(personaje.getVidas() == 1) logrosPersonaje1.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
+
+        this.physics.add.overlap(personaje.weaponKusarigama, personaje2, ()=>{
+            const weapon = personaje.weaponKusarigama;
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
                 this.collisionActiva = true;
                 logrosPersonaje1.cincoGolpesCombo();
@@ -262,7 +360,32 @@ export default class Templo extends Phaser.Scene{
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
             }
+
+             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
+            //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
+            if(personaje.flipX && this.collisionActiva){
+                personaje2.hit(personaje2.speedX);
+            }
+            else if(!personaje.flipX && this.collisionActiva) {
+                personaje2.hit(-personaje2.speedX)
+            }
             
+            //Desactivar colision
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            //Reiniciar juego si uno muere
+            if (personaje2.getVidas()== 0){
+                if(personaje.getVidas() == 1) logrosPersonaje1.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
+            
+        this.physics.add.overlap(personaje.weaponTanegashima, personaje2, ()=>{
+            const weapon = personaje.weaponTanegashima;
             if (!this.collisionActiva && weapon.attackType === 'normalTane') {
                 
             }
@@ -270,8 +393,8 @@ export default class Templo extends Phaser.Scene{
             if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
                 
             }
-            
-            //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
+
+             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
             //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
             if(personaje.flipX && this.collisionActiva){
                 personaje2.hit(personaje2.speedX);
@@ -294,8 +417,8 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.overlap(personaje2.getWeapon(), personaje, ()=>{
-            const weapon = personaje2.getWeapon();
+        this.physics.add.overlap(personaje2.weaponKatana, personaje, ()=>{
+            const weapon = personaje2.weaponKatana;
             //Ataque normal katana
             if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
@@ -306,6 +429,27 @@ export default class Templo extends Phaser.Scene{
                 vidasNC--;
                 //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             }
+
+            if(personaje2.flipX && this.collisionActiva){
+                personaje.hit(personaje.speedX);
+            }
+            else if(!personaje2.flipX && this.collisionActiva) {
+                personaje.hit(-personaje.speedX)
+            }
+            
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            if (personaje.getVidas()== 0){
+                if(personaje2.getVidas() == 1) logrosPersonaje2.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
+        this.physics.add.overlap(personaje2.weaponSai, personaje, ()=>{
+            const weapon = personaje2.weaponSai;
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
                 this.collisionActiva = true;
                 logrosPersonaje2.cincoGolpesCombo();
@@ -324,33 +468,7 @@ export default class Templo extends Phaser.Scene{
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
             }
-            
-            if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
-                this.collisionActiva = true;
-                logrosPersonaje2.cincoGolpesCombo();
-                logrosPersonaje1.ganarNoHit();
-                personaje.hitPersonaje(vidasN);
-                vidasN[vidasNC].setVisible(false);
-                vidasNC--;
-            }
-            
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
-                this.collisionActiva = true;
-                logrosPersonaje2.cincoGolpesCombo();
-                logrosPersonaje1.ganarNoHit();
-                personaje.hitPersonaje(vidasN);
-                vidasN[vidasNC].setVisible(false);
-                vidasNC--;
-            }
-            
-            if (!this.collisionActiva && weapon.attackType === 'normalTane') {
-                
-            }
-            
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
-                
-            }
-            
+
             if(personaje2.flipX && this.collisionActiva){
                 personaje.hit(personaje.speedX);
             }
@@ -368,8 +486,75 @@ export default class Templo extends Phaser.Scene{
                 logrosPersonaje2.escribeLogros();
                 this.scene.restart();
             }
+        });
             
-        });  
+        this.physics.add.overlap(personaje2.weaponKusarigama, personaje, ()=>{
+            const weapon = personaje2.weaponKusarigama;
+            if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
+                this.collisionActiva = true;
+                logrosPersonaje2.cincoGolpesCombo();
+                logrosPersonaje1.ganarNoHit();
+                personaje.hitPersonaje(vidasN);
+                vidasN[vidasNC].setVisible(false);
+                vidasNC--;
+            }
+            
+            if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
+                this.collisionActiva = true;
+                logrosPersonaje2.cincoGolpesCombo();
+                logrosPersonaje1.ganarNoHit();
+                personaje.hitPersonaje(vidasN);
+                vidasN[vidasNC].setVisible(false);
+                vidasNC--;
+            }
+
+            if(personaje2.flipX && this.collisionActiva){
+                personaje.hit(personaje.speedX);
+            }
+            else if(!personaje2.flipX && this.collisionActiva) {
+                personaje.hit(-personaje.speedX)
+            }
+            
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            if (personaje.getVidas()== 0){
+                if(personaje2.getVidas() == 1) logrosPersonaje2.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
+            
+        this.physics.add.overlap(personaje2.weaponTanegashima, personaje, ()=>{
+            const weapon = personaje2.weaponTanegashima;
+            if (!this.collisionActiva && weapon.attackType === 'normalTane') {
+                
+            }
+            
+            if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
+                
+            }
+
+            if(personaje2.flipX && this.collisionActiva){
+                personaje.hit(personaje.speedX);
+            }
+            else if(!personaje2.flipX && this.collisionActiva) {
+                personaje.hit(-personaje.speedX)
+            }
+            
+            this.time.delayedCall(500, () => {
+                this.collisionActiva = false;
+                
+            });
+            if (personaje.getVidas()== 0){
+                if(personaje2.getVidas() == 1) logrosPersonaje2.ganarOneLifeLeft();
+                logrosPersonaje1.escribeLogros();
+                logrosPersonaje2.escribeLogros();
+                this.scene.restart();
+            }
+        });
     }
     
     update(time, delta){
