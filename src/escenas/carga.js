@@ -4,6 +4,8 @@ export default class Carga extends Phaser.Scene{
     }
 
     preload(){
+        this.load.audio('MenuMusic', './audio/MenuMusic.mp3');
+
         this.load.spritesheet('katanaN', './Anim/SpriteSheet_Katana_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma

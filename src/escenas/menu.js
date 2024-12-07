@@ -4,6 +4,7 @@ export default class Menu extends Phaser.Scene{
 
     constructor(){
         super({key: 'menu'});
+        this.music;
     }
     preload(){
         this.load.image('button', './img/Stick-Do_Logo_Blanco (1).png'); // Imagen del botón
@@ -18,16 +19,23 @@ export default class Menu extends Phaser.Scene{
         
         startButton.on('pointerdown', () => {
             console.log('Start Game');
+            this.music.stop();
             this.scene.start('templo'); // Cambia a la escena del juego
         });
         
         startButton.on('pointerover', () => {startButton.setScale(0.04);}); // Verde
         startButton.on('pointerout', () => {startButton.setScale(0.03);});
+
+        // Reproducir música de fondo con volumen más bajo
+        this.music = this.sound.add('MenuMusic', { loop: true });
+        this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)
+        this.music.play();
     }
     
     update(){
         if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
             this.scene.start('templo'); // Cambiar a la Escena
+            this.music.stop();
         }
 
     }
