@@ -1,20 +1,23 @@
 export default class Sai extends Phaser.Physics.Arcade.Sprite{
     constructor(scene,x, y){
         super(scene, x, y,'sai');// Llama al constructor de Phaser.Physics.Arcade.Sprite
-        // this.daño = daño;
-        // this.rango = rango;
         this.tamSprite = 140; //ancho sprite
         this.setScale(0.3);//escala del sprite 
-        //this.setOrigin() su posicion
         this.attackType = null;
         this.attackDuration = 100;
+        this.ataque = scene.sound.add('AtaqueSai', {volume: 0.3});
+        this.dash = scene.sound.add('DashSai', {volume: 0.3});
     }
+
 
     attack(personaje){
         this.attackType = 'normalSai';
         this.scene.physics.add.existing(this);// le mete fisicas al sprite
         this.body.setAllowGravity(false); // quitamos gravedad
 
+        //sonido
+        this.ataque.play(); // Reproduce el sonido del ataque
+    
         //colisiones
         this.body.setSize(170,230);
         if(personaje.flipX){ //si el sprite mira a la drch
@@ -34,9 +37,16 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
                 this.body.setOffset(-this.tamSprite, -110);
             }          
         }
+    
     }
 
     potenciatedAttack(personaje){
+        //sonido
+        this.dash.play();
+        this.dash.once('complete', () => {
+            this.dash.play();  // Iniciar la música de fondo
+        }); 
+        
         this.attackType = 'potenciadoSai';
         this.scene.physics.add.existing(this);// le mete fisicas al sprite
         this.body.setAllowGravity(false); // quitamos gravedad

@@ -57,7 +57,7 @@ export default class Templo extends Phaser.Scene{
     create(){
         // SONIDO
         let luchaSound = this.sound.add('Lucha');
-        luchaSound.setVolume(1);
+        luchaSound.setVolume(0.5);
         luchaSound.play();
 
         luchaSound.on('complete', () => {
