@@ -303,6 +303,7 @@ export default class Templo extends Phaser.Scene{
             }
             
             if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
+                console.log("holiiiii");
                 this.collisionActiva = true;
                 logrosPersonaje1.cincoGolpesCombo();
                 logrosPersonaje2.ganarNoHit();

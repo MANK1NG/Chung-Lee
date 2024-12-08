@@ -5,8 +5,8 @@ export default class Sai extends Phaser.Physics.Arcade.Sprite{
         this.setScale(0.3);//escala del sprite 
         this.attackType = null;
         this.attackDuration = 100;
-        this.ataque = scene.sound.add('AtaqueSai', {volume: 0.3});
-        this.dash = scene.sound.add('DashSai', {volume: 0.3});
+        this.ataque = scene.sound.add('AtaqueSai', {volume: 0.35});
+        this.dash = scene.sound.add('DashSai', {volume: 0.35});
     }
 
 

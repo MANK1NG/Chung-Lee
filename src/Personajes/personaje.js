@@ -42,6 +42,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.obtencionDePosX = 0;
         this.sonidosExtraKatana = scene.sound.add('DeflectKatana', { volume: 0.3 });
         this.setScale(0.4);
+        this.scene = scene;
 
         //Teclas de juego
         this.w = this.scene.input.keyboard.addKey(keys.keyUp);
@@ -300,14 +301,17 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 if(!this.saiDash)
                     return;
                 if(currentFrames >= totalFrames / 2 && this.mitad == 0){
+                    this.scene.collisionActiva = true;
                     this.flipX ? this.flipX = false : this.flipX = true;
                     this.mitad = 1;
                 }
                 if(this.flipX){
                     this.body.setVelocityX(this.speedX * 2);
+                    this.weapon.setOffset(10, 50);
                 }
                 else{
                     this.body.setVelocityX(this.speedX * -2);
+                    this.weapon.setOffset(-this.weapon.tamSprite, 50);
                 }
             });
             
