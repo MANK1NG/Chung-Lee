@@ -413,7 +413,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.weapon.x = this.x + (this.flipX ? 30 : -30); // Ajusta la posición según la dirección
         this.weapon.y = this.y - 20;
 
-        if(Phaser.Input.Keyboard.JustDown(this.pickWeapon) && window.game.canPick ){//para cambiar de arma
+        if(Phaser.Input.Keyboard.JustDown(this.pickWeapon) && window.game.canPick && !this.isAttacking && !this.attack && !this.knockBack && !this.deflect){//para cambiar de arma
+            this.scene.cambioArmaLogros(this.spriteSheetKey);
             window.game.canPick = false;
             this.weaponTypeString = this.carta + '_';
             this.weapon = this.createWeapon(this.scene, this.carta);

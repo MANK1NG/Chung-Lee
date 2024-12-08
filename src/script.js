@@ -2,6 +2,7 @@
 import Menu from './escenas/menu.js'
 import Templo from './escenas/templo.js';
 import Carga from './escenas/carga.js';
+import LogrosScene from './escenas/logrosScene.js';
 
 let z = 1; let x = 3 / z;
 
@@ -17,12 +18,12 @@ const config ={
       zoom: z*/
   },
   
-  scene: [Carga, Menu, Templo],
+  scene: [Carga, Menu, Templo, LogrosScene],
   physics: { 
     default: 'arcade', 
     arcade: { 
         gravity: { y: 200 }, 
-        debug: true,
+        debug: false,
         fps: 144
     },
     checkCollision: {
