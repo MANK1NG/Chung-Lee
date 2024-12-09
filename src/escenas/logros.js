@@ -8,6 +8,8 @@ export default class Logros {
         this.oneLifeLeftP1 = false;
         this.oneLifeLeftP2 = false;
         this.cincoGolpesP1 = 0;
+        this.cincoGolpesBoolP1 = false;
+        this.cincoGolpesBoolP2 = false;
         this.cincoGolpesP2 = 0;
         this.cambioArmaP1 = false;
         this.onlyKatanaP1 = false;
@@ -34,14 +36,21 @@ export default class Logros {
         if(spriteSheetKey == 'personaje1')
             this.oneLifeLeftP1 = true;
         if(spriteSheetKey == 'personaje2')
-            this.noneLifeLeft = true;
+            console.log(spriteSheetKey);
+            this.oneLifeLeftP2 = true;
     }
 
     cincoGolpesCombo(spriteSheetKey){
         if(this.noHitP1 && spriteSheetKey == 'personaje1')
             this.cincoGolpesP1++;
+        if(cincoGolpesP1 >= 5){
+            this.cincoGolpesBoolP1 = true;
+        }
         if(this.noHitP2 && spriteSheetKey == 'personaje2')
             this.cincoGolpesP2++;
+        if(cincoGolpesP2 >= 5){
+            this.cincoGolpesBoolP2 = true;
+        }
     }
 
     cambioDeArma(spriteSheetKey){
@@ -67,22 +76,5 @@ export default class Logros {
             if(unicaArma == 'kusa') this.onlyKusaP2 = true;
             if(unicaArma == 'tanegashima') this.onlyTanegashimaP2 = true;
         }
-    }
-
-    escribeLogros(){
-        console.log(this.noHitP1);
-        console.log(this.noHitP2);
-        console.log(this.oneLifeLeftP1);
-        console.log(this.oneLifeLeftP2);
-        console.log(this.cincoGolpesP1);
-        console.log(this.cincoGolpesP2);
-        console.log(this.onlyKatanaP1);
-        console.log(this.onlySaiP1);
-        console.log(this.onlyKusaP1);
-        console.log(this.onlyTanegashimaP1);
-        console.log(this.onlyKatanaP2);
-        console.log(this.onlySaiP2);
-        console.log(this.onlyKusaP2);
-        console.log(this.onlyTanegashimaP2);
     }
 }

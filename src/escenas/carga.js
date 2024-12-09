@@ -12,13 +12,13 @@ export default class Carga extends Phaser.Scene{
         this.load.image('cincoGolpesP1', './img/insignias/insigniaCincoGolpes.png');
         this.load.image('cincoGolpesP2', './img/insignias/insigniaCincoGolpes.png');
         this.load.image('onlyKatanaP1', './img/insignias/insigniaKatana.png');
-        // this.load.image('onlySaiP1', './img/insignias/insigniaSai.png');
-        // this.load.image('onlyKusaP1', './img/insignias/insigniaKusa.png');
-        // this.load.image('onlyTanegashimaP1', './img/insignias/insigniaTanegashima.png');
+        this.load.image('onlySaiP1', './img/insignias/insigniaSai.png');
+        this.load.image('onlyKusaP1', './img/insignias/insigniaKusa.png');
+        this.load.image('onlyTanegashimaP1', './img/insignias/insigniaTanegashima.png');
         this.load.image('onlyKatanaP2', './img/insignias/insigniaKatana.png');
-        // this.load.image('onlySaiP2', './img/insignias/insigniaSai.png');
-        // this.load.image('onlyKusaP2', './img/insignias/insigniaKusa.png');
-        // this.load.image('onlyTanegashimaP2', './img/insignias/insigniaTanegashima.png');
+        this.load.image('onlySaiP2', './img/insignias/insigniaSai.png');
+        this.load.image('onlyKusaP2', './img/insignias/insigniaKusa.png');
+        this.load.image('onlyTanegashimaP2', './img/insignias/insigniaTanegashima.png');
         //SONIDO
         this.load.audio('MenuMusic', './audio/MenuMusic.mp3');
         this.load.audio('BattleMusic', './audio/BattleMusic.mp3');
