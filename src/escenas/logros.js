@@ -1,5 +1,8 @@
 export default class Logros {
     constructor(){
+        if(Logros.instance){
+            return Logros.instance;
+        }
         this.noHitP1 = true;
         this.noHitP2 = true;
         this.oneLifeLeftP1 = false;
@@ -16,6 +19,8 @@ export default class Logros {
         this.onlySaiP2 = false;
         this.onlyKusaP2 = false;
         this.onlyTanegashimaP2 = false;
+
+        Logros.instance = this;
     }
 
     ganarNoHit(spriteSheetKey){
