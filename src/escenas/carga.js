@@ -82,6 +82,12 @@ export default class Carga extends Phaser.Scene{
             frameHeight: 500 // Alto de cada fotograma
         });
 
+        this.load.spritesheet('textoLucha', './Anim/textoLucha.png', {
+            frameWidth: 100,  // Ancho de cada fotograma
+            frameHeight: 100  // Alto de cada fotograma
+        });
+        console.log("me he cargado");
+
          // Definir el fondo de la barra de progreso
         this.progressBar = this.add.graphics();
         this.progressBox = this.add.graphics();
@@ -513,28 +519,34 @@ export default class Carga extends Phaser.Scene{
             {
                 key: 'idle',//nombre de animacion
                 frames: this.anims.generateFrameNumbers('cartas', {start: 0, end: 0} ),//coge el dibujo entero de esa anim, this es la scene
-                frameRate: 20,//tasa frames
+                frameRate: 24,//tasa frames
                 repeat: -1,//ciclo cíclico
             },
             {   
                key: 'negro',//nombre de animacion
                frames: this.anims.generateFrameNumbers('cartas', {start: 12, end: 23} ),//coge el dibujo entero de esa anim, this es la scene
-               frameRate: 20,//tasa frames
+               frameRate: 24,//tasa frames
                repeat: 0,//ciclo simple
             },
             {   
               key: 'rojo',//nombre de animacion
               frames: this.anims.generateFrameNumbers('cartas', {start: 24, end: 35} ),//coge el dibujo entero de esa anim, this es la scene
-              frameRate: 20,//tasa frames
+              frameRate: 24,//tasa frames
               repeat: 0,//ciclo simple
            },
        
            {   
               key: 'rayo',//nombre de animacion
               frames: this.anims.generateFrameNumbers('cartas', {start: 36, end: 42} ),//coge el dibujo entero de esa anim, this es la scene
-              frameRate: 20,//tasa frames
+              frameRate: 24,//tasa frames
               repeat: 0,//ciclo simple
-           }
+           },
+           {   
+            key: 'lucha',//nombre de animacion
+            frames: this.anims.generateFrameNumbers('textoLucha', {start: 0, end: 2} ),//coge el dibujo entero de esa anim, this es la scene
+            frameRate: 3,//tasa frames
+            repeat: 0,//ciclo simple
+         }
         ];
     }
 

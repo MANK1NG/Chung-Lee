@@ -2,6 +2,7 @@
 import Menu from './escenas/menu.js'
 import Templo from './escenas/templo.js';
 import Carga from './escenas/carga.js';
+import Options from './escenas/options.js';
 import LogrosScene from './escenas/logrosScene.js';
 
 let z = 1; let x = 3 / z;
@@ -18,7 +19,7 @@ const config ={
     resizeEveryFrame: true // Redimensiona automáticamente durante el juego
   },
   
-  scene: [Carga, Menu, Templo, LogrosScene],
+  scene: [Carga, Menu, Options, Templo, LogrosScene],
   physics: { 
     default: 'arcade', 
     arcade: { 
