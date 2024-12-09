@@ -3,28 +3,80 @@ export default class Logros {
         if(Logros.instance){
             return Logros.instance;
         }
-        this.noHitP1 = true;
-        this.noHitP2 = true;
-        this.oneLifeLeftP1 = false;
-        this.oneLifeLeftP2 = false;
-        this.cincoGolpesP1 = 0;
-        this.cincoGolpesBoolP1 = false;
-        this.cincoGolpesBoolP2 = false;
-        this.cincoGolpesP2 = 0;
-        this.cambioArmaP1 = false;
-        this.onlyKatanaP1 = false;
-        this.onlySaiP1 = false;
-        this.onlyKusaP1 = false;
-        this.onlyTanegashimaP1 = false;
-        this.cambioArmaP2 = false;
-        this.onlyKatanaP2 = false;
-        this.onlySaiP2 = false;
-        this.onlyKusaP2 = false;
-        this.onlyTanegashimaP2 = false;
+        this.noHitP1 = true,
+        this.noHitP2 = true,
+        this.cambioArmaP1 = false,
+        this.cambioArmaP2 = false,
+        this.cincoGolpesP1 = 0,
+        this.cincoGolpesP2 = 0,
+        this.defaultState = {
+            oneLifeLeftP1: false,
+            oneLifeLeftP2: false,
+            cincoGolpesBoolP1: false,
+            cincoGolpesBoolP2: false,
+            onlyKatanaP1: false,
+            onlySaiP1: false,
+            onlyKusaP1: false,
+            onlyTanegashimaP1: false,
+            onlyKatanaP2: false,
+            onlySaiP2: false,
+            onlyKusaP2: false,
+            onlyTanegashimaP2: false,
+            showNoHitP1: false,
+            showNoHitP2: false,
+        };
+
+        // Recuperar estado guardado si existe
+        const savedState = this.loadState();
+        Object.assign(this, savedState || this.defaultState);
 
         Logros.instance = this;
     }
 
+    // Guardar el estado actual en LocalStorage
+    saveState() {
+        // Propiedades que deseas excluir del guardado
+        const excludeKeys = [
+            'noHitP1',
+            'noHitP2',
+            'cambioArmaP1',
+            'cambioArmaP2',
+            'cincoGolpesP1',
+            'cincoGolpesP2'
+        ];
+    
+        // Crear una copia del estado excluyendo las claves no deseadas
+        const state = Object.keys(this)
+            .filter(key => !excludeKeys.includes(key)) // Excluir claves específicas
+            .reduce((obj, key) => {
+                obj[key] = this[key];
+                return obj;
+            }, {});
+    
+        localStorage.setItem('logrosState', JSON.stringify(state));
+    }
+
+    // Cargar el estado desde LocalStorage
+    loadState() {
+        const savedState = localStorage.getItem('logrosState');
+        return savedState ? JSON.parse(savedState) : null;
+    }
+
+    // Reiniciar el estado a valores predeterminados
+    resetState() {
+        Object.assign(this, this.defaultState);
+        this.saveState();
+    }
+
+    ganarNoHitcomproveP1(){
+        this.showNoHitP1 = true;
+        this.saveState();
+    }
+
+    ganarNoHitcomproveP2(){
+        this.showNoHitP2 = true;
+        this.saveState();
+    }
     ganarNoHit(spriteSheetKey){
         if(spriteSheetKey == 'personaje1')
             this.noHitP1 = false;
@@ -38,19 +90,21 @@ export default class Logros {
         if(spriteSheetKey == 'personaje2')
             console.log(spriteSheetKey);
             this.oneLifeLeftP2 = true;
+            this.saveState();
     }
 
     cincoGolpesCombo(spriteSheetKey){
         if(this.noHitP1 && spriteSheetKey == 'personaje1')
             this.cincoGolpesP1++;
-        if(cincoGolpesP1 >= 5){
+        if(this.cincoGolpesP1 >= 5){
             this.cincoGolpesBoolP1 = true;
         }
         if(this.noHitP2 && spriteSheetKey == 'personaje2')
             this.cincoGolpesP2++;
-        if(cincoGolpesP2 >= 5){
+        if(this.cincoGolpesP2 >= 5){
             this.cincoGolpesBoolP2 = true;
         }
+        this.saveState();
     }
 
     cambioDeArma(spriteSheetKey){
@@ -67,6 +121,7 @@ export default class Logros {
             if(unicaArma == 'kusa') this.onlyKusaP1 = true;
             if(unicaArma == 'tanegashima') this.onlyTanegashimaP1 = true;
         }
+        this.saveState();
     }
 
     ganarSoloUnArmaP2(unicaArma){
@@ -76,5 +131,6 @@ export default class Logros {
             if(unicaArma == 'kusa') this.onlyKusaP2 = true;
             if(unicaArma == 'tanegashima') this.onlyTanegashimaP2 = true;
         }
+        this.saveState();
     }
 }

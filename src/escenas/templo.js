@@ -163,6 +163,12 @@ export default class Templo extends Phaser.Scene{
         
         let logrosPersonajes = new Logros('Personaje negro');
         this.logros = logrosPersonajes;
+        this.logros.noHitP1 = true;
+        this.logros.noHitP2 = true;
+        this.logros.cincoGolpesP1 = 0;
+        this.logros.cincoGolpesP2 = 0;
+        this.logros.cambioArmaP1 = false;
+        this.logros.cambioArmaP2 = false;
         //Crear personaje 1
         let personaje = new Personaje(this, 120, 400, armaAle, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2

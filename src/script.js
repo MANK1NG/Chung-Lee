@@ -9,13 +9,13 @@ let z = 1; let x = 3 / z;
 const config ={
   title: 'Stick-Do',
   type :Phaser.CANVAS,
+  width: 1024,
+  height: 768,
   canvas: document.getElementById("juego"),
   scale: {
-    width: 1024,
-    height: 768
-      /*width: Math.floor((360 * x)  / 1488 * window.innerWidth),
-      height: Math.floor((189 * x) / 783 * window.innerHeight),
-      zoom: z*/
+    mode: Phaser.Scale.FIT, // Ajusta el contenido a la pantalla
+    autoCenter: Phaser.Scale.CENTER_BOTH, // Centra el juego
+    resizeEveryFrame: true // Redimensiona automáticamente durante el juego
   },
   
   scene: [Carga, Menu, Templo, LogrosScene],
