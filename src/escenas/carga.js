@@ -32,12 +32,16 @@ export default class Carga extends Phaser.Scene{
         this.load.audio('DashSai', './audio/DashSai.mp3');
         //kusa
         //tanegashima
-
+        this.load.spritesheet('menuBackground', './Anim/MenuBackgroundAnim.png', {
+            frameWidth: 1024,
+            frameHeight: 768
+        });
+        
         this.load.spritesheet('katanaN', './Anim/SpriteSheet_Katana_N.png', {
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
-
+        
         this.load.spritesheet('katanaR', './Anim/SpriteSheet_Katana_R.png', {
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
@@ -546,7 +550,13 @@ export default class Carga extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('textoLucha', {start: 0, end: 2} ),//coge el dibujo entero de esa anim, this es la scene
             frameRate: 3,//tasa frames
             repeat: 0,//ciclo simple
-         }
+           },
+           {
+            key: 'menuBGAnim',
+            frames: this.anims.generateFrameNumbers('menuBackground', {start: 0, end: 11} ),
+            frameRate: 24,
+            repeat: -1
+           }
         ];
     }
 
