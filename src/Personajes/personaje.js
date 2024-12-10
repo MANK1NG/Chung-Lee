@@ -45,6 +45,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.sonidosExtraKatana = scene.sound.add('DeflectKatana', { volume: 0.3 });
         this.setScale(0.4);
         this.scene = scene;
+        this.cont = 0;//para colisones del sai
 
         //Teclas de juego
         this.w = this.scene.input.keyboard.addKey(keys.keyUp);
@@ -208,6 +209,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
+                this.saiDash = false;
                 this.isAttacking = false;
                 this.attackMovement = false;
                 this.knockBackSpeedY = 100;
@@ -224,6 +226,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.x = this.obtencionDePosX;
                 this.body.setOffset(200, 200);
             }       
+            if(this.weapon == this.weaponKusarigama)
             if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado'){
                 this.kusaCharge = true;
             }
@@ -286,12 +289,14 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);
 
-        if(this.saiDash){
+        //POTENCIADO SAI
+        if(this.saiDash && !this.knockBack){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
                 if(currentFrames >= totalFrames - 1){
+                    this.cont = 0;
                     this.saiDash = false;
                     this.weapon.body.enable = false;
                     this.isAttacking = false; // Permitir movimiento al completar el ataque
@@ -304,6 +309,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.scene.collisionActiva = true;
                     this.flipX ? this.flipX = false : this.flipX = true;
                     this.mitad = 1;
+                    if(this.cont == 0){
+    
+                        this.scene.collisionActiva = false;
+                        this.cont = 1;
+                    }
                 }
                 if(this.flipX){
                     this.body.setVelocityX(this.speedX * 2);

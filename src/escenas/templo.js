@@ -9,12 +9,15 @@ export default class Templo extends Phaser.Scene{
         this.collisionActiva = false;
         this.cont = 0;
         this.tiempo = 10000;
+        //objetos
         this.cartas;
         this.personaje1;
         this.personaje2;
         this.music;
         this.logros;
         this.text;
+        //booleanos
+        this.colision = false;
     }
     
     preload(){
@@ -178,7 +181,7 @@ export default class Templo extends Phaser.Scene{
         this.logros.cambioArmaP1 = false;
         this.logros.cambioArmaP2 = false;
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, /*Personaje.WeaponType.KUSA palomino chupapollas*/armaAle, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, armaAle, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
@@ -209,6 +212,7 @@ export default class Templo extends Phaser.Scene{
         this.physics.add.collider(personaje.weaponKatana, personaje2.weaponSai, ()=>{
             const weapon = personaje.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
+                console.log("puta")
                 personaje2.getWeapon().body.enable = false;
                 personaje.ActivePotenciadoHitAnim();
             }
@@ -280,16 +284,16 @@ export default class Templo extends Phaser.Scene{
                personaje2.hitPersonaje(vidasR);
                vidasR[vidasRC].setVisible(false);
                vidasRC--;
+               if(personaje.flipX && this.collisionActiva){
+                   personaje2.hit(personaje2.speedX);
+               }
+               else if(!personaje.flipX && this.collisionActiva) {
+                   personaje2.hit(-personaje2.speedX)
+               }
             }
             
             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
             //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
-            if(personaje.flipX && this.collisionActiva){
-                personaje2.hit(personaje2.speedX);
-            }
-            else if(!personaje.flipX && this.collisionActiva) {
-                personaje2.hit(-personaje2.speedX)
-            }
             
             //Desactivar colision
             this.time.delayedCall(500, () => {
@@ -306,33 +310,33 @@ export default class Templo extends Phaser.Scene{
         this.physics.add.overlap(personaje.weaponSai, personaje2, ()=>{
             const weapon = personaje.weaponSai;
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
-            if (!this.collisionActiva && weapon.attackType === 'normalSai') {
+            if (!this.collisionActiva) {
                 this.collisionActiva = true;
                 logrosPersonajes.cincoGolpesCombo('personaje1');
                 logrosPersonajes.ganarNoHit('personaje2');
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
-            }
-            
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
-                this.collisionActiva = true;
-                logrosPersonajes.cincoGolpesCombo('personaje1');
-                logrosPersonajes.ganarNoHit('personaje2');
-                personaje2.hitPersonaje(vidasR);
-                vidasR[vidasRC].setVisible(false);
-                vidasRC--;
-            }
+                console.log("putaQueCoño")
             
             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
             //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
-            if(personaje.flipX && this.collisionActiva){
-                personaje2.hit(personaje2.speedX);
-            }
-            else if(!personaje.flipX && this.collisionActiva) {
-                personaje2.hit(-personaje2.speedX)
-            }
             
+        }
+        // if(this.colision){
+        //     this.colision = false;
+        //     logrosPersonajes.cincoGolpesCombo('personaje1');
+        //     logrosPersonajes.ganarNoHit('personaje2');
+        //     personaje2.hitPersonaje(vidasR);
+        //     vidasR[vidasRC].setVisible(false);
+        //     vidasRC--;
+        // }
+        if(personaje.flipX && this.collisionActiva){
+            personaje2.hit(personaje2.speedX);
+        }
+        else if(!personaje.flipX && this.collisionActiva) {
+            personaje2.hit(-personaje2.speedX)
+        }
             //Desactivar colision
             this.time.delayedCall(500, () => {
                 this.collisionActiva = false;

@@ -35,6 +35,7 @@ export default class Carga extends Phaser.Scene{
         this.load.audio('DashSai', './audio/DashSai.mp3');
         //kusa
         //tanegashima
+
         this.load.spritesheet('menuBackground', './Anim/MenuBackgroundAnim.png', {
             frameWidth: 1024,
             frameHeight: 768
@@ -100,7 +101,7 @@ export default class Carga extends Phaser.Scene{
         this.progressBox = this.add.graphics();
 
         // Fondo de la barra de carga (centrado)
-        this.progressBox.fillStyle(0x222222, 0.8);
+        this.progressBox.fillStyle(0x222222, 0.5);
         this.progressBox.fillRect(362, 345, 310, 50);  // (1024-300)/2 para centrar la barra
 
         // Texto de carga (centrado)
@@ -133,7 +134,7 @@ export default class Carga extends Phaser.Scene{
          this.progressBar.clear();
 
          // Dibujar el progreso (centrado)
-         this.progressBar.fillStyle(0x00ff00, 1);
+         this.progressBar.fillStyle(0xff0000, 1);
          this.progressBar.fillRect(367, 348, this.barWidth * percentage, this.barHeight);
          
          // Actualizar el porcentaje (centrado)
