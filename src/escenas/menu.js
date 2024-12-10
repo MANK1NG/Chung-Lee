@@ -33,11 +33,11 @@ export default class Menu extends Phaser.Scene{
             this.scene.start('options'); // Cambia a la escena del juego
         });
 
-        options.on('pointerover', () => {options.setScale(0.04);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';});
-        options.on('pointerout', () => {options.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        options.on('pointerover', () => {options.setScale(0.04);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';});
+        options.on('pointerout', () => {options.setScale(0.03); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
 
-        startButton.on('pointerover', () => {startButton.setScale(0.04); this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        startButton.on('pointerout', () => {startButton.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        startButton.on('pointerover', () => {startButton.setScale(0.04); this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
+        startButton.on('pointerout', () => {startButton.setScale(0.03); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
 
         // Reproducir música de fondo con volumen más bajo
         if (!this.music) {
