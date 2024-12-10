@@ -5,8 +5,8 @@ export default class Carga extends Phaser.Scene{
 
     preload(){
         //cursor
-        this.load.image('manita', './assests/manita.png');
-        this.load.image('cursor', './assests/cursor.png');
+        this.load.image('manita', '../assests/manita.png');
+        this.load.image('cursor', '../assests/cursor.png');
         //Logros
         this.load.image('noHitP1', './img/insignias/insigniaVidaEntera.png');
         this.load.image('noHitP2', './img/insignias/insigniaVidaEntera.png');
