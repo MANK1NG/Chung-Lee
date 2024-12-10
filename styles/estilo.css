@@ -144,7 +144,9 @@ body {
   max-width: 800px; 
   max-height: 600px; 
 }
-
+#juego[style] {
+  margin-top: 20px !important;
+}
 
 #controles {
   display: flex;
@@ -170,4 +172,20 @@ body {
 }
 .jugador2{
   color: blue;
+}
+.divLicencia {
+  text-align: center;
+  color: red;
+  font-size: 12px; 
+}
+
+a {
+  color: red;
+  display: inline-block;
+}
+
+.cc-icon {
+  height: 12px !important;
+  margin-left: 3px;
+  vertical-align: text-bottom;
 }
