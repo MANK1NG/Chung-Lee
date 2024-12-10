@@ -559,7 +559,7 @@ export default class Carga extends Phaser.Scene{
            {
             key: 'menuBGAnim',
             frames: this.anims.generateFrameNumbers('menuBackground', {start: 0, end: 11} ),
-            frameRate: 1,
+            frameRate: 24,
             repeat: -1
            }
         ];
