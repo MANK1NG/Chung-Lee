@@ -4,6 +4,9 @@ export default class Carga extends Phaser.Scene{
     }
 
     preload(){
+        //cursor
+        this.load.image('manita', './assests/manita.png');
+        this.load.image('cursor', './assests/cursor.png');
         //Logros
         this.load.image('noHitP1', './img/insignias/insigniaVidaEntera.png');
         this.load.image('noHitP2', './img/insignias/insigniaVidaEntera.png');
@@ -554,7 +557,7 @@ export default class Carga extends Phaser.Scene{
            {
             key: 'menuBGAnim',
             frames: this.anims.generateFrameNumbers('menuBackground', {start: 0, end: 11} ),
-            frameRate: 24,
+            frameRate: 1,
             repeat: -1
            }
         ];

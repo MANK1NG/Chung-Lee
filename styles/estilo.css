@@ -173,6 +173,10 @@ body {
 .jugador2{
   color: blue;
 }
+body {
+cursor: url('../assests/cursor.png') 16 16, auto;
+}
+
 .divLicencia {
   text-align: center;
   color: red;
