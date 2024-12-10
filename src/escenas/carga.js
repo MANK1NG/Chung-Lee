@@ -457,13 +457,13 @@ export default class Carga extends Phaser.Scene{
                 key: 'personaje1kusa_ataquePotenciado',
                 frames: this.anims.generateFrameNumbers('kusaN', { start: 96, end: 107 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             {
-                key: 'personaje1kusa_ataquePotenciadoRun',
+                key: 'personaje1kusa_ataquePotenciadoRelease',
                 frames: this.anims.generateFrameNumbers('kusaN3', { start: 0, end: 22}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             
             {
@@ -512,13 +512,13 @@ export default class Carga extends Phaser.Scene{
                 key: 'personaje2kusa_ataquePotenciado',
                 frames: this.anims.generateFrameNumbers('kusaR', { start: 96, end: 107 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             {
-                key: 'personaje2kusa_ataquePotenciadoRun',
+                key: 'personaje2kusa_ataquePotenciadoRelease',
                 frames: this.anims.generateFrameNumbers('kusaR3', { start: 0, end: 2}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             {
                 key: 'idle',//nombre de animacion
