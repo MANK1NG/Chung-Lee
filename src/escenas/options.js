@@ -7,7 +7,7 @@ export default class Options extends Phaser.Scene {
     preload() {
         this.load.image('fullscreen', './img/Stick-Do_Logo_Blanco (1).png'); // Carga el ícono del botón
         this.load.image('sliderBar', './img/teclado.png'); // Barra del slider
-        this.load.image('sliderThumb', './img/Stick-Do_Logo_Blanco (1).png'); // Control del slider
+        this.load.image('sliderThumb', './img/personaje.png'); // Control del slider
     }
 
     create() {
@@ -28,11 +28,11 @@ export default class Options extends Phaser.Scene {
             this.scene.start('menu');
         });
 
-        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(0.04);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
-        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(0.03); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
+        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(0.04);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
+        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
-        menu.on('pointerover', () => {menu.setScale(0.04);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); // Verde
-        menu.on('pointerout', () => {menu.setScale(0.03); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
+        menu.on('pointerover', () => {menu.setScale(0.04);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
+        menu.on('pointerout', () => {menu.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
         // SLIDER PARA EL VOLUMEN
         this.createVolumeSlider(512, 400);
@@ -46,8 +46,8 @@ export default class Options extends Phaser.Scene {
 
         // Añade el control del slider (thumb)
         const sliderThumb = this.add.image(x, y, 'sliderThumb').setInteractive();
-        sliderThumb.displayWidth = 20; // Tamaño del control
-        sliderThumb.displayHeight = 20;
+        sliderThumb.displayWidth = 40; // Tamaño del control
+        sliderThumb.displayHeight = 40;
 
         // Volumen inicial
         const initialVolume = this.game.globalVolume || 1; // Usa un valor global compartido si existe
@@ -71,8 +71,8 @@ export default class Options extends Phaser.Scene {
         this.input.on('pointerup', () => {
             this.input.off('pointermove', updateVolume);
         });
-        sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); // Verde
-        sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
+        sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
+        sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
     }
 
     setGameVolume(volume) {

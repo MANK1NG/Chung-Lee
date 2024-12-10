@@ -5,6 +5,7 @@ export default class LogrosScene extends Phaser.Scene{
         super({key: 'logros'});
         this.logros = new Logros();
         this.esc;
+        this.music = null;
     }
 
     preload(){
@@ -12,10 +13,19 @@ export default class LogrosScene extends Phaser.Scene{
     }
     
     create(){
+        //musica
+        if(!this.music){
+            this.music = this.sound.add('logros', { loop: true });
+            this.music.setVolume(0.1);
+            this.music.play();
+        }
+        //fondo
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.add.image(0, 0, 'logrosBackground').setOrigin(0, 0);
+        //personajes de la escena
         let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        //logros
         console.log(this.logros.showNoHitP1 + " " + this.logros.showNoHitP2)
         if(this.logros.noHitP1 || this.logros.showNoHitP1) {
             this.logros.ganarNoHitcomproveP1();
@@ -150,6 +160,7 @@ export default class LogrosScene extends Phaser.Scene{
 
     update(){
         if(this.esc.isDown){
+            this.music.stop();
             this.scene.start('menu');
         }
     }

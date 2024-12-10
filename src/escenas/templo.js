@@ -13,7 +13,7 @@ export default class Templo extends Phaser.Scene{
         this.cartas;
         this.personaje1;
         this.personaje2;
-        this.music;
+        this.music = null;;
         this.logros;
         this.text;
         //booleanos
@@ -61,16 +61,19 @@ export default class Templo extends Phaser.Scene{
     
     create(){
         // SONIDO
-        let luchaSound = this.sound.add('Lucha');
-        luchaSound.setVolume(0.5);
-        luchaSound.play();
-        
-        
-        luchaSound.on('complete', () => {
-            this.music = this.sound.add('BattleMusic', { loop: true });
-            this.music.setVolume(0.15);  // Ajustar volumen de la música
-            this.music.play();  // Iniciar la música de fondo
-        });
+        if(!this.music){
+
+            let luchaSound = this.sound.add('Lucha');//FIGHT
+            luchaSound.setVolume(0.5);
+            luchaSound.play();
+            
+            //musica de fondo
+            luchaSound.on('complete', () => {
+                this.music = this.sound.add('BattleMusic', { loop: true });
+                this.music.setVolume(0.15);  // Ajustar volumen de la música
+                this.music.play();  // Iniciar la música de fondo
+            });
+        }
         
         //Creacion de mapas
         const nMapa = Math.floor(Math.random() * 3);
@@ -304,6 +307,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -346,6 +350,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -388,6 +393,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -420,6 +426,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -451,6 +458,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -489,6 +497,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -527,6 +536,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });
@@ -555,6 +565,7 @@ export default class Templo extends Phaser.Scene{
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
+                this.music.stop();
                 this.scene.start('logros');
             }
         });

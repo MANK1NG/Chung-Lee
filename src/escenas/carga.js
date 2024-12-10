@@ -5,8 +5,8 @@ export default class Carga extends Phaser.Scene{
 
     preload(){
         //cursor
-        this.load.image('manita', './assests/manita.png');
-        this.load.image('cursor', './assests/cursor.png');
+        this.load.image('manita', '../assests/manita.png');
+        this.load.image('cursor', '../assests/cursor.png');
         //Logros
         this.load.image('noHitP1', './img/insignias/insigniaVidaEntera.png');
         this.load.image('noHitP2', './img/insignias/insigniaVidaEntera.png');
@@ -26,6 +26,7 @@ export default class Carga extends Phaser.Scene{
         this.load.audio('MenuMusic', './audio/MenuMusic.mp3');
         this.load.audio('BattleMusic', './audio/BattleMusic.mp3');
         this.load.audio('Lucha', './audio/LuchaJapones.mp3');
+        this.load.audio('logros', './audio/logrosMusica.mp3');
         //katana
         this.load.audio('GolpeKatana', './audio/GolpeKatana.mp3');
         this.load.audio('DeflectKatana', './audio/DeflectKatana.mp3');

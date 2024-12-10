@@ -174,7 +174,7 @@ body {
   color: blue;
 }
 body {
-cursor: url('./assests/cursor.png') 16 16, auto;
+cursor: url('../assests/cursor.png') 16 16, auto;
 }
 
 .divLicencia {

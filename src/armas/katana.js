@@ -7,7 +7,7 @@ export default class Katana extends Phaser.Physics.Arcade.Sprite {
         this.ataqueKatana;
         this.potenciadoKatana;
 
-        this.ataqueKatana = scene.sound.add('GolpeKatana', { volume: 0.3 });
+        this.ataqueKatana = scene.sound.add('GolpeKatana', { volume: 0.1 });
         this.potenciadoKatana = scene.sound.add('PotenciadoKatana', { volume: 0.3 });
     }
 
