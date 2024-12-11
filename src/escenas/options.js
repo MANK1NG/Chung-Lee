@@ -3,7 +3,7 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
         this.music;
-        this.sliderThumb = null;
+        this.sliderThumb;
         this.sliderBar;
     }
     
@@ -18,6 +18,7 @@ export default class Options extends Phaser.Scene {
     
     init() {
         // Reproducir música de fondo con volumen más bajo
+        this.sliderBar.x = 731;
         this.music = this.sound.add('opciones', { loop: true });
         this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)
         this.music.play();
