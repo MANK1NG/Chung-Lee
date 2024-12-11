@@ -85,6 +85,16 @@ export default class Carga extends Phaser.Scene{
             frameWidth: 1050,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
+        this.load.spritesheet('tanegashimaN', './Anim/SpriteSheet_Tanegashima_N.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+        this.load.spritesheet('tanegashimaR', './Anim/SpriteSheet_Tanegashima_R.png', {
+            frameWidth: 525,  // Ancho de cada fotograma
+            frameHeight: 460  // Alto de cada fotograma
+        });
+        this.load.image('shotN', './Anim/Shot_N.png');
+        this.load.image('shotR', './Anim/Shot_R.png');
 
         this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
             frameWidth: 800, // Ancho de cada fotograma
@@ -524,6 +534,102 @@ export default class Carga extends Phaser.Scene{
                 frames: this.anims.generateFrameNumbers('kusaR3', { start: 0, end: 2}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje1tanegashima_idle',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 0, end: 11 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje1tanegashima_caminar',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 18, end: 33 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje1tanegashima_ataque',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 36, end: 53 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje1tanegashima_salto',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 54, end: 61 }), // Index de frames para la animación
+                frameRate: 12, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje1tanegashima_caida',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 72, end: 81 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje1tanegashima_ataqueAire',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 90, end: 107 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje1tanegashima_knockBack',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', {start: 108, end: 122}),
+                frameRate: 24,
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje1tanegashima_ataquePotenciado',
+                frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 126, end: 157 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje2tanegashima_idle',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 0, end: 11 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje2tanegashima_caminar',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 18, end: 33 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje2tanegashima_ataque',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 36, end: 53 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje2tanegashima_salto',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 54, end: 61 }), // Index de frames para la animación
+                frameRate: 12, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje2tanegashima_caida',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 72, end: 81 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
+            },
+            {
+                key: 'personaje2tanegashima_ataqueAire',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 90, end: 107 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje2tanegashima_knockBack',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', {start: 108, end: 122}),
+                frameRate: 24,
+                repeat: 0 // Repetir hasta que acabe
+            },
+            {
+                key: 'personaje2tanegashima_ataquePotenciado',
+                frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 126, end: 157 }), // Index de frames para la animación
+                frameRate: 24, // Velocidad de la animación
+                repeat: -1 // Repetir indefinidamente
             },
             {
                 key: 'idle',//nombre de animacion
