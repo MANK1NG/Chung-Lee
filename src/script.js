@@ -36,11 +36,6 @@ const config ={
   },
 };
 
-// const game = new Phaser.Game(config);
-// if (game.sound.context.state === 'suspended') {
-//   game.sound.context.resume();
-//   console.log("Audio resumed globally");
-// }
 window.game = new Phaser.Game(config);
 window.game.canPick = false;
 

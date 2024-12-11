@@ -2,19 +2,33 @@ export default class Options extends Phaser.Scene {
 
     constructor() {
         super({ key: 'options' });
+        this.music;
+        this.sliderThumb;
+        this.sliderBar;
     }
-
+    
     preload() {
-        this.load.image('fullscreen', './img/Stick-Do_Logo_Blanco (1).png'); // Carga el ícono del botón
-        this.load.image('sliderBar', './img/teclado.png'); // Barra del slider
-        this.load.image('sliderThumb', './img/personaje.png'); // Control del slider
+        this.load.image('fondoOpciones', './assests/AjustesBackground.png'); // Carga el ícono del botón
+        this.load.image('fullscreen', './assests/BotonFullScreen.png'); // Carga el ícono del botón
+        this.load.image('volver', './assests/BotonVolver.png'); // Carga el ícono del botón
+        this.load.image('sliderBar', './assests/BarraVolumen.png'); // Barra del slider
+        this.load.image('sliderThumb', './assests/FinalVolumen.png'); // Control del slider
+        this.load.image('bola', './assests/PrincipioVolumen.png'); // final barra
+    }
+    
+    init() {
+        // Reproducir música de fondo con volumen más bajo
+        this.music = this.sound.add('opciones', { loop: true });
+        this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)
+        this.music.play();
+
     }
 
     create() {
+        //fondo
+        this.add.image(0, 0, 'fondoOpciones').setOrigin(0,0);
         // PANTALLA COMPLETA
-        const fullscreenButton = this.add.image(512, 300, 'fullscreen').setInteractive().setScale(0.03); // Ajusta la escala si es necesario
-        const menu = this.add.image(512, 500, 'fullscreen').setInteractive().setScale(0.03); // Ajusta la escala si es necesario
-
+        const fullscreenButton = this.add.image(512, 200, 'fullscreen').setInteractive(); // Ajusta la escala si es necesario
         fullscreenButton.on('pointerup', () => {
             if (this.scale.isFullscreen) {
                 this.scale.stopFullscreen();
@@ -23,56 +37,77 @@ export default class Options extends Phaser.Scene {
             }
             this.scale.on('resize', this.onResize, this);
         });
-
-        menu.on('pointerdown', () => {
+        
+        //menu y boton menu
+        const volver = this.add.image(512, 650, 'volver').setInteractive(); // Ajusta la escala si es necesario
+        volver.on('pointerdown', () => {
+            this.music.stop();
             this.scene.start('menu');
         });
 
-        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(0.04);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        //reajuste botones
+        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
+        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
-        menu.on('pointerover', () => {menu.setScale(0.04);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
-        menu.on('pointerout', () => {menu.setScale(0.03); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
+        volver.on('pointerout', () => {volver.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
         // SLIDER PARA EL VOLUMEN
-        this.createVolumeSlider(512, 400);
+        this.createVolumeSlider(292.5, 450);
     }
 
+    saveState() {
+        // Guardar solo las propiedades relevantes, como el volumen
+        const state = {
+            sliderThumb: this.sliderThumb ? this.sliderThumb.x : 731, // Posición del slider
+            sliderBarW: this.sliderBar ? this.sliderBar.displayWidth : 439,
+        };
+        localStorage.setItem('volumeState', JSON.stringify(state));
+    }
+
+    loadState() {
+        const savedState = localStorage.getItem('volumeState');
+        return savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Devuelve un valor predeterminado si no hay datos guardados
+    }
+
+
+
     createVolumeSlider(x, y) {
+        const savedState = this.loadState();
+        Object.assign(this, savedState);
         // Añade la barra del slider
-        const sliderBar = this.add.image(x, y, 'sliderBar').setInteractive();
-        sliderBar.displayWidth = 200; // Ancho de la barra
-        sliderBar.displayHeight = 10; // Alto de la barra
+        this.sliderBar = this.add.image(x, y, 'sliderBar').setInteractive().setOrigin(0,0);
+        this.sliderBar.displayWidth = savedState.sliderBarW; // Ancho de la barra
+        this.sliderBar.displayHeight = 7; // Alto de la barra
+        let bola = this.add.image(x, y, 'bola').setOrigin(0.5, 0.05);//bola final barra
 
         // Añade el control del slider (thumb)
-        const sliderThumb = this.add.image(x, y, 'sliderThumb').setInteractive();
-        sliderThumb.displayWidth = 40; // Tamaño del control
-        sliderThumb.displayHeight = 40;
-
-        // Volumen inicial
-        const initialVolume = this.game.globalVolume || 1; // Usa un valor global compartido si existe
-        sliderThumb.x = x - sliderBar.displayWidth / 2 + initialVolume * sliderBar.displayWidth;
+        this.sliderThumb = this.add.image(savedState.sliderThumb, y, 'sliderThumb').setOrigin(0.25,0.97).setInteractive();
 
         // Función para actualizar el volumen
         const updateVolume = (pointer) => {
-            let newX = Phaser.Math.Clamp(pointer.x, x - sliderBar.displayWidth / 2, x + sliderBar.displayWidth / 2);
-            sliderThumb.x = newX;
-
+            let newX = Phaser.Math.Clamp(pointer.x, this.sliderBar.x, this.sliderBar.x + 439);
+            this.sliderThumb.x = newX;
+            let ancho = this.sliderThumb.x - bola.x;
+            this.sliderBar.displayWidth = ancho;
+           
             // Calcula el volumen basado en la posición del slider
-            const volume = (newX - (x - sliderBar.displayWidth / 2)) / sliderBar.displayWidth;
+            const volume = this.sliderBar.displayWidth / 439;
             this.setGameVolume(volume);
+            this.saveState();
         };
 
         // Eventos del slider
-        sliderThumb.on('pointerdown', () => {
+        this.sliderThumb.on('pointerdown', () => {
             this.input.on('pointermove', updateVolume);
         });
 
         this.input.on('pointerup', () => {
             this.input.off('pointermove', updateVolume);
         });
-        sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
-        sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+
+        this.sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
+        this.sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
     }
 
     setGameVolume(volume) {

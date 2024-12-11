@@ -13,7 +13,7 @@ export default class Templo extends Phaser.Scene{
         this.cartas;
         this.personaje1;
         this.personaje2;
-        this.music = null;;
+        this.music;
         this.logros;
         this.text;
         //booleanos
@@ -59,10 +59,9 @@ export default class Templo extends Phaser.Scene{
         this.load.image('logoTanegashima', './img/armasCartas/Tanegashima.png');
     }
     
-    create(){
-        // SONIDO
-        if(!this.music){
+    init(){
 
+        // SONIDO
             let luchaSound = this.sound.add('Lucha');//FIGHT
             luchaSound.setVolume(0.5);
             luchaSound.play();
@@ -73,7 +72,10 @@ export default class Templo extends Phaser.Scene{
                 this.music.setVolume(0.15);  // Ajustar volumen de la música
                 this.music.play();  // Iniciar la música de fondo
             });
-        }
+    }
+    
+    create(){
+    
         
         //Creacion de mapas
         const nMapa = Math.floor(Math.random() * 3);

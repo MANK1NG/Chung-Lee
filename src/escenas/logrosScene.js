@@ -5,20 +5,22 @@ export default class LogrosScene extends Phaser.Scene{
         super({key: 'logros'});
         this.logros = new Logros();
         this.esc;
-        this.music = null;
+        this.music;
     }
 
     preload(){
         this.load.image('logrosBackground', './img/insignias/LogrosBackground.png');
     }
+
+    init(){
+        //musica
+        this.music = this.sound.add('logros', { loop: true });
+        this.music.setVolume(0.1);
+        this.music.play();
+    }
     
     create(){
-        //musica
-        if(!this.music){
-            this.music = this.sound.add('logros', { loop: true });
-            this.music.setVolume(0.1);
-            this.music.play();
-        }
+        
         //fondo
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.add.image(0, 0, 'logrosBackground').setOrigin(0, 0);
