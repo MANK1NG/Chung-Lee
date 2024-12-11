@@ -15,6 +15,10 @@ export default class LogrosScene extends Phaser.Scene{
     }
 
     init(){
+        const savedState = localStorage.getItem('volumeState');
+        const state = savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Volumen predeterminado
+    
+        this.sound.volume = state.volume; // Configura el volumen global
         //musica
         this.music = this.sound.add('logros', { loop: true });
         this.music.setVolume(0.1);
