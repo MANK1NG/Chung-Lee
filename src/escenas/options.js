@@ -35,7 +35,7 @@ export default class Options extends Phaser.Scene {
             } else {
                 this.scale.startFullscreen();
             }
-            this.scale.on('resize', this.onResize, this);
+            this.scale.on('enterfullscreen', this.onResize, this);
         });
         
         //menu y boton menu
@@ -49,7 +49,7 @@ export default class Options extends Phaser.Scene {
         fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
         fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
-        volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
+        volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
         volver.on('pointerout', () => {volver.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
         // SLIDER PARA EL VOLUMEN
@@ -69,8 +69,6 @@ export default class Options extends Phaser.Scene {
         const savedState = localStorage.getItem('volumeState');
         return savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Devuelve un valor predeterminado si no hay datos guardados
     }
-
-
 
     createVolumeSlider(x, y) {
         const savedState = this.loadState();

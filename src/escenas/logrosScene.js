@@ -10,6 +10,8 @@ export default class LogrosScene extends Phaser.Scene{
 
     preload(){
         this.load.image('logrosBackground', './img/insignias/LogrosBackground.png');
+        this.load.image('volverMenu', './assests/BotonVolverBlanco.png'); // Imagen del botón volver
+        this.load.image('reset', './assests/BotonReinicioLogros.png'); // Imagen del botón reset
     }
 
     init(){
@@ -24,6 +26,23 @@ export default class LogrosScene extends Phaser.Scene{
         //fondo
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.add.image(0, 0, 'logrosBackground').setOrigin(0, 0);
+        //boton volver al menu
+        const volverMenu = this.add.image(512, 400, 'volverMenu').setInteractive(); // Ajusta la escala si es necesario
+        volverMenu.on('pointerdown', () => {
+            this.music.stop();
+            this.scene.start('menu');
+        });
+        //tamaño boton
+        volverMenu.on('pointerover', () => {volverMenu.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
+        volverMenu.on('pointerout', () => {volverMenu.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        //boton reset
+        const reset = this.add.image(512, 300, 'reset').setInteractive(); // Ajusta la escala si es necesario
+        reset.on('pointerdown', () => {
+           this.logros.resetState();
+        });
+        //tamaño boton
+        reset.on('pointerover', () => {reset.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
+        reset.on('pointerout', () => {reset.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         //personajes de la escena
         let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
