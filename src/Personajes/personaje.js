@@ -130,6 +130,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.weapon.attack(this);
                 //Quito gravedad para quedarme estatico en el aire al atacar con el ataque normal
                 this.body.setAllowGravity(false);
+                if (Personaje.WeaponType.TANEGASHIMA)
+                    this.body.setVelocityY(0);
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataque');
@@ -154,7 +156,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 } else {
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataqueAire');
                 }
-                if(!this.body.blocked.down || this.tieneSai){
+                if((!this.body.blocked.down || this.tieneSai) && !Personaje.weaponType.TANEGASHIMA){
                     this.attackMovement = true;
                 }
                
