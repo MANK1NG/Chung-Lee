@@ -476,7 +476,7 @@ export default class Carga extends Phaser.Scene{
                 repeat: 0 // Repetir hasta que acabe
             },
             {
-                key: 'personaje1kusa_ataquePotenciadoRelease',
+                key: 'personaje1kusa_ataquePotenciadoHit',
                 frames: this.anims.generateFrameNumbers('kusaN3', { start: 0, end: 22}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
                 repeat: 0 // Repetir hasta que acabe
@@ -531,10 +531,10 @@ export default class Carga extends Phaser.Scene{
                 repeat: 0 // Repetir indefinidamente
             },
             {
-                key: 'personaje2kusa_ataquePotenciadoRelease',
-                frames: this.anims.generateFrameNumbers('kusaR3', { start: 0, end: 2}), // Index de frames para la animación
+                key: 'personaje2kusa_ataquePotenciadoHit',
+                frames: this.anims.generateFrameNumbers('kusaN3', { start: 0, end: 22}), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: 0 // Repetir indefinidamente
+                repeat: 0 // Repetir hasta que acabe
             },
             {
                 key: 'personaje1tanegashima_idle',
