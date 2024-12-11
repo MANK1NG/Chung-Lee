@@ -51,14 +51,14 @@ export default class Menu extends Phaser.Scene{
         });
 
         //cambio tamaño boton
-        options.on('pointerover', () => {options.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';});
-        options.on('pointerout', () => {options.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        options.on('pointerover', () => {options.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';});
+        options.on('pointerout', () => {options.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
 
-        startButton.on('pointerover', () => {startButton.setScale(1.1); this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        startButton.on('pointerout', () => {startButton.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        startButton.on('pointerover', () => {startButton.setScale(1.1); this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
+        startButton.on('pointerout', () => {startButton.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
 
-        logros.on('pointerover', () => {logros.setScale(1.1); this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        logros.on('pointerout', () => {logros.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        logros.on('pointerover', () => {logros.setScale(1.1); this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
+        logros.on('pointerout', () => {logros.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
 
        
     }

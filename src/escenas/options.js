@@ -47,11 +47,11 @@ export default class Options extends Phaser.Scene {
         });
 
         //reajuste botones
-        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
+        fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
         fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
         
-        volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
-        volver.on('pointerout', () => {volver.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); // Verde
+        volver.on('pointerout', () => {volver.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
         
         // SLIDER PARA EL VOLUMEN
         this.createVolumeSlider(292.5, 450);
@@ -109,8 +109,8 @@ export default class Options extends Phaser.Scene {
             this.input.off('pointermove', updateVolume);
         });
 
-        this.sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); // Verde
-        this.sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        this.sliderThumb.on('pointerover', () => {this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); // Verde
+        this.sliderThumb.on('pointerout', () => {this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
     }
 
     setGameVolume(volume) {
