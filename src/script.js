@@ -5,7 +5,6 @@ import Carga from './escenas/carga.js';
 import Options from './escenas/options.js';
 import LogrosScene from './escenas/logrosScene.js';
 
-let z = 1; let x = 3 / z;
 
 const config ={
   title: 'Stick-Do',

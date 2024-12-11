@@ -388,7 +388,10 @@ export default class Templo extends Phaser.Scene{
             
             //Desactivar colision
             this.time.delayedCall(500, () => {
+                if(!weapon.attackType == 'potenciadoKusa'){
+                    console
                 this.collisionActiva = false;
+            }
                 
             });
             //Reiniciar juego si uno muere
@@ -530,11 +533,16 @@ export default class Templo extends Phaser.Scene{
             else if(!personaje2.flipX && this.collisionActiva) {
                 personaje.hit(-personaje.speedX)
             }
+           
+                this.time.delayedCall(500, () => {
+                    if(!weapon.attackType == 'potenciadoKusa'){
+                        console
+                    this.collisionActiva = false;
+                }
+                    
+                });
             
-            this.time.delayedCall(500, () => {
-                this.collisionActiva = false;
-                
-            });
+            
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);

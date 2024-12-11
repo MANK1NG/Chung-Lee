@@ -33,6 +33,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.tieneSai = false;//poner en true para que vaya ataque sai
         this.tieneKusa = false;
         this.kusaCharge = false,
+        
         this.kusaAtaq = false;
         this.saiDash = false;
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
@@ -185,12 +186,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 if(this.weapon == this.weaponKatana){
                     this.weaponKatana.potenciadoKatana.stop();
                 }
-                if(!this.saiDash){
+                if(!this.saiDash && !this.tieneKusa){
                 this.isAttacking = false;
                 this.potAnims = false;
                 this.weapon.body.enable = false;
                 this.potenciatedAttackStop = false;
                 }
+                
             }
         
             // Desactivar el estado de ataque después de un breve retardo para permitir movimiento
@@ -225,7 +227,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
                 if(this.tieneKusa){
-                    console.log('ewrbgeuoravbal');
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
@@ -241,6 +242,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado'){
                 this.kusaCharge = false;
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+                    this.scene.collisionActiva = false;
 
             }     
             
