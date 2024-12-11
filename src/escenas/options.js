@@ -85,10 +85,10 @@ export default class Options extends Phaser.Scene {
 
         // Añade el control del slider (thumb)
         this.sliderThumb = this.add.image(savedState.sliderThumb, y, 'sliderThumb').setOrigin(0.25,0.97).setInteractive();
-        if(this.sliderThumb == 0){
-            this.sliderBar.x = 731;
+        if(this.sliderThumb.x == 0){
+            this.sliderThumb.x = 731;
+            this.sliderBar.displayWidth = 439;
         }
-        
         // Función para actualizar el volumen
         const updateVolume = (pointer) => {
             let newX = Phaser.Math.Clamp(pointer.x, this.sliderBar.x, this.sliderBar.x + 439);
