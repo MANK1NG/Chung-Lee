@@ -28,6 +28,8 @@ export default class Carga extends Phaser.Scene{
         this.load.audio('Lucha', './audio/LuchaJapones.mp3');
         this.load.audio('logros', './audio/logrosMusica.mp3');
         this.load.audio('opciones', './audio/MusicaOpciones.mp3');
+        this.load.audio('rayoSFX', './audio/lightning_strike.mp3');
+        this.load.audio('whooshCardSFX', './audio/whoosh_card.mp3');
         //katana
         this.load.audio('GolpeKatana', './audio/GolpeKatana.mp3');
         this.load.audio('DeflectKatana', './audio/DeflectKatana.mp3');

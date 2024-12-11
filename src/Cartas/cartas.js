@@ -8,6 +8,10 @@ constructor(scene, x, y, spriteSheetKey){
     this.arma;
     this.armaAleatoria();//segun el aleatorio coge un arma aleatoria
     this.cargaImagen();
+
+    this.rayo = scene.sound.add('rayoSFX', {volume: 1});
+    this.whoosh = scene.sound.add('whooshCardSFX', {volume: 1});
+    
    // this.cargaImgen(this.arma);//carga la imagen
    this.setScale(0.4);
 
@@ -27,6 +31,7 @@ constructor(scene, x, y, spriteSheetKey){
 
 hazanimacion(){
     this.anims.play('rayo',true);
+    this.rayo.play();
     return true;
 }
 armaAleatoria(){

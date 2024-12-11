@@ -8,14 +8,14 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
 
     attack(personaje) {
         // Solo añadir físicas si no se ha añadido previamente
-        this.attackType = 'normalKat';
+        this.attackType = 'normalTane';
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
             this.body.setAllowGravity(false);
         
     }
 
     potenciatedAttack(personaje) {
-        this.attackType = 'potenciadoKat';
+        this.attackType = 'potenciadoTane';
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
     

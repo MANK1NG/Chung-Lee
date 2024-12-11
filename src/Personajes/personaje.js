@@ -32,6 +32,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.deflect = false;//Para activar animacion ataque potenciado katana
         this.tieneSai = false;//poner en true para que vaya ataque sai
         this.tieneKusa = false;
+        this.tieneTanegashima = false;
         this.kusaCharge = false,
         
         this.kusaAtaq = false;
@@ -78,8 +79,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.armasBooleanos == Personaje.WeaponType.SAI){
             this.tieneSai = true;
             this.speedX *= 1.3;
-        } if(this.armasBooleanos == Personaje.WeaponType.KUSA){
+        }
+        else if(this.armasBooleanos == Personaje.WeaponType.KUSA){
             this.tieneKusa = true;
+        }
+        else if(this.armasBooleanos == Personaje.WeaponType.TANEGASHIMA){
+            this.tieneTanegashima = true;
         }
         
     }
@@ -133,7 +138,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.weapon.attack(this);
                 //Quito gravedad para quedarme estatico en el aire al atacar con el ataque normal
                 this.body.setAllowGravity(false);
-                if (Personaje.WeaponType.TANEGASHIMA)
+                if (this.tieneTanegashima)
                     this.body.setVelocityY(0);
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
@@ -159,7 +164,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 } else {
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataqueAire');
                 }
-                if((!this.body.blocked.down || this.tieneSai)/* && /!Personaje.weaponType.TANEGASHIMA*/){
+                if((!this.body.blocked.down || this.tieneSai) && !this.tieneTanegashima){
                     this.attackMovement = true;
                 }
                
@@ -494,12 +499,20 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             else{
                 this.tieneKusa = false;
             }
+            if(this.armasBooleanos == Personaje.WeaponType.TANEGASHIMA){
+                this.tieneTanegashima = true;
+            }
+            else{
+                this.tieneTanegashima = false;
+            }
             if(this.spriteSheetKey == 'personaje1'){
                 this.scene.cartas.anims.play('negro',true);
+                this.scene.cartas.whoosh.play();
                 this.setTexture(this.carta + 'N');
             }
             else{
                 this.scene.cartas.anims.play('rojo',true);
+                this.scene.cartas.whoosh.play();
                 this.setTexture(this.carta + 'R');
             }
         }
