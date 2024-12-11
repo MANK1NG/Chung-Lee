@@ -3,7 +3,7 @@ export default class Options extends Phaser.Scene {
     constructor() {
         super({ key: 'options' });
         this.music;
-        this.sliderThumb;
+        this.sliderThumb = null;
         this.sliderBar;
     }
     
@@ -21,7 +21,7 @@ export default class Options extends Phaser.Scene {
         this.music = this.sound.add('opciones', { loop: true });
         this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)
         this.music.play();
-
+        
     }
 
     create() {
@@ -55,12 +55,13 @@ export default class Options extends Phaser.Scene {
         // SLIDER PARA EL VOLUMEN
         this.createVolumeSlider(292.5, 450);
     }
-
+    
     saveState() {
         // Guardar solo las propiedades relevantes, como el volumen
         const state = {
             sliderThumb: this.sliderThumb ? this.sliderThumb.x : 731, // Posición del slider
             sliderBarW: this.sliderBar ? this.sliderBar.displayWidth : 439,
+            volume: this.sound.volume // Guardar el volumen actual
         };
         localStorage.setItem('volumeState', JSON.stringify(state));
     }
@@ -69,12 +70,13 @@ export default class Options extends Phaser.Scene {
         const savedState = localStorage.getItem('volumeState');
         return savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Devuelve un valor predeterminado si no hay datos guardados
     }
-
-
-
+    
+    
+    
     createVolumeSlider(x, y) {
         const savedState = this.loadState();
         Object.assign(this, savedState);
+        this.sound.volume = savedState.volume;
         // Añade la barra del slider
         this.sliderBar = this.add.image(x, y, 'sliderBar').setInteractive().setOrigin(0,0);
         this.sliderBar.displayWidth = savedState.sliderBarW; // Ancho de la barra
@@ -83,7 +85,7 @@ export default class Options extends Phaser.Scene {
 
         // Añade el control del slider (thumb)
         this.sliderThumb = this.add.image(savedState.sliderThumb, y, 'sliderThumb').setOrigin(0.25,0.97).setInteractive();
-
+        
         // Función para actualizar el volumen
         const updateVolume = (pointer) => {
             let newX = Phaser.Math.Clamp(pointer.x, this.sliderBar.x, this.sliderBar.x + 439);
