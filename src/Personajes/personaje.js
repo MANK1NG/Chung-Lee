@@ -230,7 +230,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
+                    this.scene.collisionActiva = false;
+
                 }
+                
             }
             if (this.tieneKusa &&anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque') {
                 
