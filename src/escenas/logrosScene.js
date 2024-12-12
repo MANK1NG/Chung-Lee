@@ -37,16 +37,16 @@ export default class LogrosScene extends Phaser.Scene{
             this.scene.start('menu');
         });
         //tamaño boton
-        volverMenu.on('pointerover', () => {volverMenu.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        volverMenu.on('pointerout', () => {volverMenu.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        volverMenu.on('pointerover', () => {volverMenu.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
+        volverMenu.on('pointerout', () => {volverMenu.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
         //boton reset
         const reset = this.add.image(512, 300, 'reset').setInteractive(); // Ajusta la escala si es necesario
         reset.on('pointerdown', () => {
            this.logros.resetState();
         });
         //tamaño boton
-        reset.on('pointerover', () => {reset.setScale(1.1);  this.game.canvas.style.cursor = 'url(../assests/manita.png), pointer';}); 
-        reset.on('pointerout', () => {reset.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        reset.on('pointerover', () => {reset.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
+        reset.on('pointerout', () => {reset.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
         //personajes de la escena
         let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
