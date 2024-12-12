@@ -41,6 +41,9 @@ export default class Carga extends Phaser.Scene{
         this.load.audio('AtaqueSai', './audio/AtaqueSai.mp3');
         this.load.audio('DashSai', './audio/DashSai.mp3');
         //kusa
+        this.load.audio('AtaqueKusa', './audio/slash.mp3');
+        this.load.audio('CargaKusa', './audio/swing.mp3');
+        this.load.audio('LanzaKusa', './audio/throw.mp3');
         //tanegashima
         this.load.audio('AtaqueTane', './audio/TaneShot.mp3');
         this.load.audio('SuperAtaqueTane', './audio/TaneSuperShot.mp3');

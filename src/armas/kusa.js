@@ -3,7 +3,9 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
         super(scene,x, y, 'kusa');
 
 
-    
+        this.ataque = scene.sound.add('AtaqueKusa', {volume: 0.35});
+        this.carga = scene.sound.add('CargaKusa', {volume: 0.75});
+        this.lanza = scene.sound.add('LanzaKusa', {volume: 0.35});
     }
    
 
@@ -11,6 +13,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
         // Solo añadir físicas si no se ha añadido previamente
 
         this.attackType = 'normalKusa';
+        this.ataque.play();
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
             
@@ -33,6 +36,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
 
     potenciatedAttack(personaje) {
         this.attackType = 'potenciadoKusa';
+        this.carga.play();
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
     // Activar el cuerpo físico para el ataque
