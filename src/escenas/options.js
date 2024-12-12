@@ -47,7 +47,7 @@ export default class Options extends Phaser.Scene {
 
         //reajuste botones
         fullscreenButton.on('pointerover', () => {fullscreenButton.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
-        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(1); this.game.canvas.style.cursor = 'url(../assests/cursor.png), auto';});
+        fullscreenButton.on('pointerout', () => {fullscreenButton.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
         
         volver.on('pointerover', () => {volver.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); // Verde
         volver.on('pointerout', () => {volver.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
