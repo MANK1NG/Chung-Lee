@@ -78,8 +78,6 @@ export default class Templo extends Phaser.Scene{
     }
     
     create(){
-    
-        
         //Creacion de mapas
         const nMapa = Math.floor(Math.random() * 3);
         if (nMapa === 0){
@@ -192,12 +190,16 @@ export default class Templo extends Phaser.Scene{
         this.logros.cambioArmaP1 = false;
         this.logros.cambioArmaP2 = false;
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.TANEGASHIMA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, armaAle, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
         this.personaje1 = personaje;
         this.personaje2 = personaje2;
+
+        this.personaje1.shot = this.add.image(-200, 0, 'shotN').setScale(0.4);
+        this.personaje2.shot = this.add.image(-200, 0, 'shotR').setScale(0.4);
+        
         this.physics.add.collider(personaje, this.backgroundLayer, () =>{
         });
         this.physics.add.collider(personaje2, this.backgroundLayer, () =>{
@@ -267,6 +269,14 @@ export default class Templo extends Phaser.Scene{
                 personaje.getWeapon().body.enable = false;
                 personaje2.ActivePotenciadoHitAnim();
             }
+        });
+        this.physics.add.collider(personaje.shot, personaje2, ()=>{
+            //personaje2.getWeapon().body.enable = false;
+            personaje.ActivePotenciadoHitAnim();
+        });
+        this.physics.add.collider(personaje2.shot, personaje, ()=>{
+            //personaje.getWeapon().body.enable = false;
+            personaje2.ActivePotenciadoHitAnim();
         });
         
         /*
@@ -409,22 +419,30 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.overlap(personaje.weaponTanegashima, personaje2, ()=>{
-            const weapon = personaje.weaponTanegashima;
-            if (!this.collisionActiva && weapon.attackType === 'normalTane') {
+        this.physics.add.overlap(personaje.shot, personaje2, ()=>{
+            if (!this.collisionActiva)
+            {
+                this.collisionActiva = true;
+                logrosPersonajes.cincoGolpesCombo('personaje1');
+                logrosPersonajes.ganarNoHit('personaje2');
                 
-            }
-            
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
-                
+                if (personaje.shot.scaleX === 1 && personaje2.getVidas() > 1)
+                {
+                    personaje2.hitPersonaje(vidasR);
+                    vidasR[vidasRC].setVisible(false);
+                    vidasRC--;
+                }
+                personaje2.hitPersonaje(vidasR);
+                vidasR[vidasRC].setVisible(false);
+                vidasRC--;
             }
             
             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
             //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
-            if(personaje.flipX && this.collisionActiva){
+            if(personaje.shotDir && this.collisionActiva){
                 personaje2.hit(personaje2.speedX);
             }
-            else if(!personaje.flipX && this.collisionActiva) {
+            else if(!personaje.shotDir && this.collisionActiva) {
                 personaje2.hit(-personaje2.speedX)
             }
             
@@ -434,7 +452,7 @@ export default class Templo extends Phaser.Scene{
                 
             });
             //Reiniciar juego si uno muere
-            if (personaje2.getVidas()== 0){
+            if (personaje2.getVidas()<= 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
@@ -557,30 +575,42 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.overlap(personaje2.weaponTanegashima, personaje, ()=>{
-            const weapon = personaje2.weaponTanegashima;
-            if (!this.collisionActiva && weapon.attackType === 'normalTane') {
+        this.physics.add.overlap(personaje2.shot, personaje, ()=>{
+            if (!this.collisionActiva)
+            {
+                this.collisionActiva = true;
+                logrosPersonajes.cincoGolpesCombo('personaje2');
+                logrosPersonajes.ganarNoHit('personaje1');
                 
+                if (personaje2.shot.scaleX === 1 && personaje.getVidas() > 1)
+                {
+                    personaje.hitPersonaje(vidasN);
+                    vidasN[vidasNC].setVisible(false);
+                    vidasNC--;
+                }
+                personaje.hitPersonaje(vidasN);
+                vidasN[vidasNC].setVisible(false);
+                vidasNC--;
             }
             
-            if (!this.collisionActiva && weapon.attackType === 'potenciadoTane') {
-                
+            //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
+            //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
+            if(personaje2.shotDir && this.collisionActiva){
+                personaje.hit(personaje2.speedX);
+            }
+            else if(!personaje2.shotDir && this.collisionActiva) {
+                personaje.hit(-personaje2.speedX)
             }
             
-            if(personaje2.flipX && this.collisionActiva){
-                personaje.hit(personaje.speedX);
-            }
-            else if(!personaje2.flipX && this.collisionActiva) {
-                personaje.hit(-personaje.speedX)
-            }
-            
+            //Desactivar colision
             this.time.delayedCall(500, () => {
                 this.collisionActiva = false;
                 
             });
-            if (personaje.getVidas()== 0){
+            //Reiniciar juego si uno muere
+            if (personaje.getVidas()<= 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
-                logrosPersonajes.ganarSoloUnArmaP2(armaAle);
+                logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
             }
@@ -593,8 +623,7 @@ export default class Templo extends Phaser.Scene{
             this.texto.destroy();
         });
 
-        this.personaje1.shot = this.add.image(-200, 0, 'shotN').setScale(0.4);
-        this.personaje2.shot = this.add.image(-200, 0, 'shotR').setScale(0.4);
+        
     }
     
     cambioArmaLogros(personajes){
