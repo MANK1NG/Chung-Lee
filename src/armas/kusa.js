@@ -35,7 +35,6 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
         this.attackType = 'potenciadoKusa';
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.body.setAllowGravity(false);
-    
     // Activar el cuerpo físico para el ataque
         this.body.setSize(130, 130); // Ajustar el tamaño del cuerpo si es necesario
         if(personaje.flipX){
