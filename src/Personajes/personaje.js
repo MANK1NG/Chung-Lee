@@ -286,6 +286,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado' && !this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit'){
                 this.kusaRelease= true;
+                this.weapon.lanza.play();
     
                  this.obtencionDePosX = this.x;
                     this.obtencionDePosY = this.y;

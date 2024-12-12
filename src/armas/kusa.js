@@ -4,8 +4,8 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
 
 
         this.ataque = scene.sound.add('AtaqueKusa', {volume: 0.35});
-        this.carga = scene.sound.add('CargaKusa', {volume: 0.75});
-        this.lanza = scene.sound.add('LanzaKusa', {volume: 0.35});
+        this.carga = scene.sound.add('CargaKusa', {volume: 0.6});
+        this.lanza = scene.sound.add('LanzaKusa', {volume: 1});
     }
    
 
