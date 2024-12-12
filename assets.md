@@ -15,4 +15,11 @@ En un princiopio, al sacar la idea del juego, acordamos que toda la estética de
 A partir de eso, todo lo que hemos creado se ha basado en torno a esa idea.
 
 #### TODO EL ARTE DEL JUEGO NOS PERTENECE A NOSOTROS, NADA HA SIDO COPIADO.
-La música la hemos sacado de youtube, todo sin copyright y libre de uso sin necesidas de mención.
+La música la hemos sacado de youtube, todo sin copyright.
+- "Makai Symphony - Orchestral" is under a Creative Commons license (CC BY-SA 3.0)
+- "Darren Curtis - Samurai Sake Showdown" is under a Creative Commons (CC BY 3.0) license:
+   https://creativecommons.org/licenses/...
+   https://www.darrencurtismusic.com/
+- "Rising Sun" by Yoshinori Tanaka / 田中 芳典 |   / yoshinori-tanaka-guitar  
+   Music promoted by https://www.free-stock-music.com
+   Creative Commons Attribution 3.0 Unported License
