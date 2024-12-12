@@ -1,6 +1,6 @@
 # STICK-Dō - CHUNG-LEE - ARTE
 En cuanto al arte, hemos tomado las siguientes decisiones:
-(a licencia usada se encuentra en el apartado de creditos de la pagina web)
+(la licencia usada se encuentra en el apartado de creditos de la pagina web)
 #### PERSONAJES Y CARTAS:
 Todos los dibujos y animaciones tanto de los personajes como de las cartas han sido creados y diseñados por Daniel Sánchez Ramos-Manjavacas.
 #### MAPAS E INSIGNIAS:
