@@ -37,6 +37,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         
         this.kusaAtaq = false;
         this.saiDash = false;
+
+        this.taneCharge = false;
+        this.taneCancel = false;
+        this.superShot = false;
+
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
         this.weaponTypeString = weaponType + '_';
         this.scene.add.existing(this);//Escena necesaria?
@@ -111,7 +116,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.potenciadoTimeout = this.scene.time.delayedCall(this.chargeTimeThreshold, () => {
                     if (this.isCharging) {
                         //Ataque potenciado si he mantenido suficiente
-                        this.weapon.potenciatedAttack(this);
+                        
                         if(this.tieneSai){
                             this.saiDash = true;
                             this.mitad = 0;
@@ -120,13 +125,23 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         if(this.tieneKusa ){
                             this.kusaCharge = true;
                         }
+                        if(this.tieneTanegashima ){
+                            this.taneCancel = true;
+                        }
                         
-                        this.attack = true;
-                        this.isAttacking = true;
-                        this.potenciatedAttackStop = true;
-                        if(!this.saiDash && !this.tieneKusa){this.potAnims = true;}
+                        if (!this.tieneTanegashima || this.body.velocity.y === 0)
+                        {
+                            if(this.tieneTanegashima){
+                                this.taneCharge = true;
+                            }
+                            this.weapon.potenciatedAttack(this);
+                            this.attack = true;
+                            this.isAttacking = true;
+                            this.potenciatedAttackStop = true;
+                            if(!this.saiDash && !this.tieneKusa && !this.tieneTanegashima){this.potAnims = true;}
                         
-                        this.isCharging = false; // Detenemos la carga para evitar múltiples llamadas
+                            this.isCharging = false; // Detenemos la carga para evitar múltiples llamadas
+                        }
                     }
                 });
             }
@@ -134,12 +149,22 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     
         this.v.on('up', () => {
             if (this.isCharging && !this.attack && !this.knockBack) {
+                if (this.tieneTanegashima)
+                {
+                    if (this.taneCharge || this.taneCancel){
+                        this.taneCancel = false;
+                        this.taneCharge = false;
+                        this.isCharging = false;
+                        return;
+                    }
+                    this.body.setVelocityY(0);
+                    
+                }
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
                 //Quito gravedad para quedarme estatico en el aire al atacar con el ataque normal
                 this.body.setAllowGravity(false);
-                if (this.tieneTanegashima)
-                    this.body.setVelocityY(0);
+                
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataque');
@@ -377,7 +402,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
             });
         }
-        if(this.kusaCharge){
+        if(this.kusaCharge || this.taneCharge){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
 
         }

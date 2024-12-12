@@ -584,7 +584,7 @@ export default class Carga extends Phaser.Scene{
                 key: 'personaje1tanegashima_ataquePotenciado',
                 frames: this.anims.generateFrameNumbers('tanegashimaN', { start: 126, end: 157 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             {
                 key: 'personaje2tanegashima_idle',
@@ -632,7 +632,7 @@ export default class Carga extends Phaser.Scene{
                 key: 'personaje2tanegashima_ataquePotenciado',
                 frames: this.anims.generateFrameNumbers('tanegashimaR', { start: 126, end: 157 }), // Index de frames para la animación
                 frameRate: 24, // Velocidad de la animación
-                repeat: -1 // Repetir indefinidamente
+                repeat: 0 // Repetir indefinidamente
             },
             {
                 key: 'idle',//nombre de animacion
