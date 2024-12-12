@@ -14,8 +14,11 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
             if (!personaje.superShot)
                 personaje.shot.setScale(0.4);
             else
+            {
                 personaje.shot.setScale(1);
-            
+                personaje.superShot = false;
+            }
+
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
             this.scene.physics.add.existing(personaje.shot); // Añadir físicas al iniciar el ataque
             personaje.shot.body.setAllowGravity(false);
@@ -34,6 +37,19 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
     }
 
     potenciatedAttack(personaje) {
+        this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.attackType = 'potenciadoTane';
+        this.scene.time.delayedCall(1333, () => {
+            if (personaje.taneCharge)
+            {
+                personaje.superShot = true;
+                personaje.taneCancel = false;
+                personaje.taneCharge = false;
+                personaje.isCharging = false;
+
+                personaje.isAttacking = false;
+                personaje.potenciatedAttackStop = false;
+            }
+        });
     }
 }

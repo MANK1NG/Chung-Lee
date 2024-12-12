@@ -158,12 +158,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.taneCancel = false;
                     this.taneCharge = false;
                     this.isCharging = false;
-                    return;
                 }
                 this.body.setVelocityY(0);
-                    
             }
             if (this.isCharging && !this.attack && !this.knockBack) {
+                //recoil
                 
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
@@ -540,7 +539,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         if (this.shooting)
         {
-            this.shot.x += this.shotDir ? this.shotSpeed : -this.shotSpeed;
+            this.shot.x += this.shotDir ? this.shotSpeed : -this.shotSpeed; //Movimiento bala
         }
         
         //Movimiento del body del ataque pegado al personaje

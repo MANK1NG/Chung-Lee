@@ -179,6 +179,9 @@ export default class Templo extends Phaser.Scene{
         else if(this.cartas.armaInicial() == 'KUSA'){
             armaAle = Personaje.WeaponType.KUSA;
         }
+        else{
+            armaAle = Personaje.WeaponType.TANEGASHIMA;
+        }
         
         let logrosPersonajes = new Logros('Personaje negro');
         this.logros = logrosPersonajes;
@@ -189,7 +192,7 @@ export default class Templo extends Phaser.Scene{
         this.logros.cambioArmaP1 = false;
         this.logros.cambioArmaP2 = false;
         //Crear personaje 1
-        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        let personaje = new Personaje(this, 120, 400, Personaje.WeaponType.TANEGASHIMA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         //Crear personaje 2
         let personaje2 = new Personaje(this, 900, 400, armaAle, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //COLISIONES SUELO
@@ -589,6 +592,9 @@ export default class Templo extends Phaser.Scene{
             console.log('Animación completada. ¡A luchar!');
             this.texto.destroy();
         });
+
+        this.personaje1.shot = this.add.image(-200, 0, 'shotN').setScale(0.4);
+        this.personaje2.shot = this.add.image(-200, 0, 'shotR').setScale(0.4);
     }
     
     cambioArmaLogros(personajes){
