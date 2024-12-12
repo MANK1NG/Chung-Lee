@@ -47,7 +47,7 @@ armaInicial(){
         case "SAI":
             return 'SAI';
         case "TANEGASHIMA":
-            return 'SAI';
+            return 'TANEGASHIMA';
         case "KUSARIGAMA":
             return 'KUSA';
     } 

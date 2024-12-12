@@ -63,7 +63,7 @@ export default class Templo extends Phaser.Scene{
         const savedState = localStorage.getItem('volumeState');
         const state = savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Volumen predeterminado
     
-       // this.sound.volume = state.volume; // Configura el volumen global
+        this.sound.volume = state.volume; // Configura el volumen global
         // SONIDO
             let luchaSound = this.sound.add('Lucha');//FIGHT
             luchaSound.setVolume(0.5);
@@ -183,8 +183,8 @@ export default class Templo extends Phaser.Scene{
         
         let logrosPersonajes = new Logros('Personaje negro');
         this.logros = logrosPersonajes;
-        this.logros.noHitP1 = true;
-        this.logros.noHitP2 = true;
+        this.logros.noHitP1 = false;
+        this.logros.noHitP2 = false;
         this.logros.cincoGolpesP1 = 0;
         this.logros.cincoGolpesP2 = 0;
         this.logros.cambioArmaP1 = false;
@@ -225,7 +225,6 @@ export default class Templo extends Phaser.Scene{
         this.physics.add.collider(personaje.weaponKatana, personaje2.weaponSai, ()=>{
             const weapon = personaje.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
-                console.log("puta")
                 personaje2.getWeapon().body.enable = false;
                 personaje.ActivePotenciadoHitAnim();
             }
@@ -300,8 +299,8 @@ export default class Templo extends Phaser.Scene{
            //Normal katana
            if (!this.collisionActiva  && weapon.attackType === 'normalKat') {
                this.collisionActiva = true;
+               logrosPersonajes.comproveCincoGolpesMethP2();
                logrosPersonajes.cincoGolpesCombo('personaje1');
-               logrosPersonajes.ganarNoHit('personaje2');
                personaje2.hitPersonaje(vidasR);
                vidasR[vidasRC].setVisible(false);
                vidasRC--;
@@ -324,6 +323,7 @@ export default class Templo extends Phaser.Scene{
             //Reiniciar juego si uno muere
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -334,12 +334,11 @@ export default class Templo extends Phaser.Scene{
             //LLamad a las funciones que querais que hagan al ser atacados por uno u otro ataque
             if (!this.collisionActiva) {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP2();
                 logrosPersonajes.cincoGolpesCombo('personaje1');
-                logrosPersonajes.ganarNoHit('personaje2');
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
-                console.log("putaQueCoño")
             
             //Lamada al knockback, en teoria se debe usar para la colision de todas las armas
             //Necesario poner this.collisionActiva en true en cada metodo que quiera usar el knockBack
@@ -367,6 +366,7 @@ export default class Templo extends Phaser.Scene{
             //Reiniciar juego si uno muere
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -377,8 +377,8 @@ export default class Templo extends Phaser.Scene{
             const weapon = personaje.weaponKusarigama;
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP2();
                 logrosPersonajes.cincoGolpesCombo('personaje1');
-                logrosPersonajes.ganarNoHit('personaje2');
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -386,8 +386,8 @@ export default class Templo extends Phaser.Scene{
             
             if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP2();
                 logrosPersonajes.cincoGolpesCombo('personaje1');
-                logrosPersonajes.ganarNoHit('personaje2');
                 personaje2.hitPersonaje(vidasR);
                 vidasR[vidasRC].setVisible(false);
                 vidasRC--;
@@ -413,6 +413,7 @@ export default class Templo extends Phaser.Scene{
             //Reiniciar juego si uno muere
             if (personaje2.getVidas()== 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -423,8 +424,8 @@ export default class Templo extends Phaser.Scene{
             if (!this.collisionActiva)
             {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP2();
                 logrosPersonajes.cincoGolpesCombo('personaje1');
-                logrosPersonajes.ganarNoHit('personaje2');
                 
                 if (personaje.shot.scaleX === 1 && personaje2.getVidas() > 1)
                 {
@@ -454,6 +455,7 @@ export default class Templo extends Phaser.Scene{
             //Reiniciar juego si uno muere
             if (personaje2.getVidas()<= 0){
                 if(personaje.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje1');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje1');
                 logrosPersonajes.ganarSoloUnArmaP1(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -465,8 +467,8 @@ export default class Templo extends Phaser.Scene{
             //Ataque normal katana
             if (!this.collisionActiva && weapon.attackType === 'normalKat') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 personaje.hitPersonaje(vidasN);
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
@@ -486,6 +488,7 @@ export default class Templo extends Phaser.Scene{
             });
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -495,8 +498,8 @@ export default class Templo extends Phaser.Scene{
             const weapon = personaje2.weaponSai;
             if (!this.collisionActiva && weapon.attackType === 'normalSai') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 personaje.hitPersonaje(vidasN);
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
@@ -505,8 +508,8 @@ export default class Templo extends Phaser.Scene{
             
             if (!this.collisionActiva && weapon.attackType === 'potenciadoSai') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 personaje.hitPersonaje(vidasN);
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
@@ -525,6 +528,7 @@ export default class Templo extends Phaser.Scene{
             });
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -535,8 +539,8 @@ export default class Templo extends Phaser.Scene{
             const weapon = personaje2.weaponKusarigama;
             if (!this.collisionActiva && weapon.attackType === 'normalKusa') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 personaje.hitPersonaje(vidasN);
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
@@ -544,8 +548,8 @@ export default class Templo extends Phaser.Scene{
             
             if (!this.collisionActiva && weapon.attackType === 'potenciadoKusa') {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 personaje.hitPersonaje(vidasN);
                 vidasN[vidasNC].setVisible(false);
                 vidasNC--;
@@ -569,6 +573,7 @@ export default class Templo extends Phaser.Scene{
             
             if (personaje.getVidas()== 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje2');
                 logrosPersonajes.ganarSoloUnArmaP2(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
@@ -579,8 +584,8 @@ export default class Templo extends Phaser.Scene{
             if (!this.collisionActiva)
             {
                 this.collisionActiva = true;
+                logrosPersonajes.comproveCincoGolpesMethP1();
                 logrosPersonajes.cincoGolpesCombo('personaje2');
-                logrosPersonajes.ganarNoHit('personaje1');
                 
                 if (personaje2.shot.scaleX === 1 && personaje.getVidas() > 1)
                 {
@@ -610,7 +615,8 @@ export default class Templo extends Phaser.Scene{
             //Reiniciar juego si uno muere
             if (personaje.getVidas()<= 0){
                 if(personaje2.getVidas() == 1) logrosPersonajes.ganarOneLifeLeft('personaje2');
-                logrosPersonajes.ganarSoloUnArmaP1(armaAle);
+                else if(personaje.getVidas() == 8) logrosPersonajes.ganarNoHit('personaje2');
+                logrosPersonajes.ganarSoloUnArmaP2(armaAle);
                 this.music.stop();
                 this.scene.start('logros');
             }

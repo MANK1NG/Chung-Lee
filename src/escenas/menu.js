@@ -18,7 +18,7 @@ export default class Menu extends Phaser.Scene{
         const savedState = localStorage.getItem('volumeState');
         const state = savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Volumen predeterminado
     
-       // this.sound.volume = state.volume; // Configura el volumen global
+        this.sound.volume = state.volume; // Configura el volumen global
         // Reproducir música de fondo con volumen más bajo
         this.music = this.sound.add('MenuMusic', { loop: true });
         this.music.setVolume(0.15);  // Configura el volumen entre 0 (silencio) y 1 (máximo)

@@ -3,12 +3,14 @@ export default class Logros {
         if(Logros.instance){
             return Logros.instance;
         }
-        this.noHitP1 = true,
-        this.noHitP2 = true,
+        this.noHitP1 = false,
+        this.noHitP2 = false,
         this.cambioArmaP1 = false,
         this.cambioArmaP2 = false,
         this.cincoGolpesP1 = 0,
         this.cincoGolpesP2 = 0,
+        this.comproveCincoGolpesP1 = true;
+        this.comproveCincoGolpesP2 = true;
         this.defaultState = {
             oneLifeLeftP1: false,
             oneLifeLeftP2: false,
@@ -29,7 +31,7 @@ export default class Logros {
         // Recuperar estado guardado si existe
         const savedState = this.loadState();
         Object.assign(this, savedState || this.defaultState);
-
+        console.log(this.showNoHitP1 + " " + this.showNoHitP2);
         Logros.instance = this;
     }
 
@@ -65,6 +67,12 @@ export default class Logros {
     // Reiniciar el estado a valores predeterminados
     resetState() {
         Object.assign(this, this.defaultState);
+        this.noHitP1 = false;
+        this.noHitP2 = false;
+        this.cincoGolpesP1 = 0;
+        this.cincoGolpesP2 = 0;
+        this.cambioArmaP1 = false;
+        this.cambioArmaP2 = false;
         this.saveState();
     }
 
@@ -79,9 +87,9 @@ export default class Logros {
     }
     ganarNoHit(spriteSheetKey){
         if(spriteSheetKey == 'personaje1')
-            this.noHitP1 = false;
+            this.noHitP1 = true;
         if(spriteSheetKey == 'personaje2')
-            this.noHitP2 = false;
+            this.noHitP2 = true;
     }
 
     ganarOneLifeLeft(spriteSheetKey){
@@ -93,13 +101,21 @@ export default class Logros {
             this.saveState();
     }
 
+    comproveCincoGolpesMethP1(){
+        this.comproveCincoGolpesP1 = false;
+    }
+
+    comproveCincoGolpesMethP2(){
+        this.comproveCincoGolpesP2 = false;
+    }
+
     cincoGolpesCombo(spriteSheetKey){
-        if(this.noHitP1 && spriteSheetKey == 'personaje1')
+        if(this.comproveCincoGolpesP1 && spriteSheetKey == 'personaje1')
             this.cincoGolpesP1++;
         if(this.cincoGolpesP1 >= 5){
             this.cincoGolpesBoolP1 = true;
         }
-        if(this.noHitP2 && spriteSheetKey == 'personaje2')
+        if(this.comproveCincoGolpesP2 && spriteSheetKey == 'personaje2')
             this.cincoGolpesP2++;
         if(this.cincoGolpesP2 >= 5){
             this.cincoGolpesBoolP2 = true;

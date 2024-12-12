@@ -43,6 +43,8 @@ export default class LogrosScene extends Phaser.Scene{
         const reset = this.add.image(512, 300, 'reset').setInteractive(); // Ajusta la escala si es necesario
         reset.on('pointerdown', () => {
            this.logros.resetState();
+           this.music.stop();
+           this.scene.start(this);
         });
         //tamaño boton
         reset.on('pointerover', () => {reset.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
@@ -51,7 +53,6 @@ export default class LogrosScene extends Phaser.Scene{
         let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
         let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
         //logros
-        console.log(this.logros.showNoHitP1 + " " + this.logros.showNoHitP2)
         if(this.logros.noHitP1 || this.logros.showNoHitP1) {
             this.logros.ganarNoHitcomproveP1();
             this.add.image(60, 120, 'noHitP1').setOrigin(0, 0).setScale(0.15); 
