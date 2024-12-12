@@ -159,7 +159,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.taneCharge = false;
                     this.isCharging = false;
                 }
-                this.body.setVelocityY(0);
+                if (this.canAttack)
+                {
+                    this.body.setVelocityY(0);
+                }
             }
             if (this.isCharging && !this.attack && !this.knockBack) {
                 //recoil
