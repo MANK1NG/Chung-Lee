@@ -117,7 +117,6 @@ export default class Carga extends Phaser.Scene{
             frameWidth: 100,  // Ancho de cada fotograma
             frameHeight: 100  // Alto de cada fotograma
         });
-        console.log("me he cargado");
 
          // Definir el fondo de la barra de progreso
         this.progressBar = this.add.graphics();
