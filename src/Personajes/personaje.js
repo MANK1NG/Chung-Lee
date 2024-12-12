@@ -130,19 +130,20 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         if(this.tieneTanegashima ){
                             this.taneCancel = true;
                         }
-                        
+                        if(this.tieneKusa ){
+                            this.kusaCharge = true;
+                        }
                         if (!this.tieneTanegashima || this.body.velocity.y === 0)
                         {
                             if(this.tieneTanegashima){
                                 this.taneCharge = true;
                             }
-                            if(this.tieneKusa ){
-                                this.kusaCharge = true;
-                            }
+                            
                             this.weapon.potenciatedAttack(this);
                             this.attack = true;
                             this.isAttacking = true;
                             this.potenciatedAttackStop = true;
+                            
                             if(!this.saiDash && !this.tieneKusa && !this.tieneTanegashima){this.potAnims = true;}
                         
                             this.isCharging = false; // Detenemos la carga para evitar múltiples llamadas
@@ -265,7 +266,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
                 if(this.tieneKusa){
-                    this.kusaRelease= false;
+                    this.kusaRelease=false;
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
@@ -277,15 +278,19 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 
             }
             if (this.tieneKusa &&anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque') {
-                this.y = this.obtencionDePosY;
-                this.x = this.obtencionDePosX;
-                this.body.setOffset(200, 200);
+                this.scene.time.delayedCall(1, () => {
+                    this.y = this.obtencionDePosY;
+                    this.x = this.obtencionDePosX;
+                    this.body.setOffset(200, 200);
+                });
             }  
             
-            if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado'){
-                    this.obtencionDePosX = this.x;
+            if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado' && !this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit'){
+                this.kusaRelease= true;
+    
+                 this.obtencionDePosX = this.x;
                     this.obtencionDePosY = this.y;
-                    
+
                     if(this.flipX){
                         this.x =this.x +105;
                       }
@@ -294,11 +299,14 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         this.x =this.x -105;
                         this.body.setOffset(720, 200);
                       }
-                      this.kusaCharge = false;
+                      this.kusaCharge = false
+                      
 
-                      this.kusaRelease = true;
                 this.scene.collisionActiva = false;
-                    
+                if(this.tieneKusa){
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+
+                    }
             }     
             
         });
@@ -403,6 +411,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
+
             if(currentFrames >= totalFrames*3/5){
                 this.kusaAtaq = false;
                 this.weapon.setSize(240, 65); // Ajustar el tamaño del cuerpo si es necesario
@@ -430,25 +439,28 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         }
         if (this.kusaRelease) {
-            this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
-                this.on(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject) => {
-                const totalFrames = anim.getTotalFrames(); 
-                const currentFrame = frame.index; 
-                //ESTA PUESTO +10 por probar
-                let progress = 0;
-                if (currentFrame <= totalFrames / 2) {
-                     progress = progress + 10;
-                    this.weapon.setOffset(progress, 0);
-                   
-                } else {
-                     progress = progress-10;
+            let progress = 0;
+            this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
+                
+                const totalFrames = anim.getTotalFrames();
+                const currentFrames = frame.index;
+                
 
-                    this.weapon.setOffset(progress,0) ;
+                //ESTA PUESTO +10 por probar
+                if (currentFrames <= totalFrames*3/5) {
+                     progress = progress + 5;
+                    this.weapon.setOffset(progress, -30);
+                   console.log('entro1');
+                } else {
+
+                     progress = progress-5;
+                    this.weapon.setOffset(30,-30) ;
+                    console.log('entro2');
+
                 }
                progress = 0;
-              
+               
             });
-            
         }
         //Ejecuta el knockback
         if(this.knockBack){
