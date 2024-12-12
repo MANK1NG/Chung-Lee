@@ -15,7 +15,7 @@ export default class Kusa extends Phaser.Physics.Arcade.Sprite{
         this.body.setAllowGravity(false);
             
             if (personaje.anims.currentAnim && !personaje.body.blocked.down) {
-                this.body.setSize(180,150);
+               this.body.setSize(180,150);
 
                 if(personaje.flipX){
                     this.body.setOffset(-100, -45);

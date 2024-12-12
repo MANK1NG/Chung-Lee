@@ -126,9 +126,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                             this.mitad = 0;
                             console.log("tiene dash");
                         }
-                        if(this.tieneKusa ){
-                            this.kusaCharge = true;
-                        }
+                        
                         if(this.tieneTanegashima ){
                             this.taneCancel = true;
                         }
@@ -137,6 +135,9 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         {
                             if(this.tieneTanegashima){
                                 this.taneCharge = true;
+                            }
+                            if(this.tieneKusa ){
+                                this.kusaCharge = true;
                             }
                             this.weapon.potenciatedAttack(this);
                             this.attack = true;
@@ -251,6 +252,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
+                this.kusaRelease = false;
                 this.kusaCharge = false;
                 this.saiDash = false;
                 this.isAttacking = false;
@@ -263,38 +265,38 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
                 if(this.tieneKusa){
-                    this.kusaRelease = true;
+                    this.kusaRelease= false;
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
                     this.scene.collisionActiva = false;
-                    
+                
                     this.x = this.obtencionDePosX;
                     this.body.setOffset(200, 200);
-
                 }
                 
             }
             if (this.tieneKusa &&anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque') {
-                
                 this.y = this.obtencionDePosY;
                 this.x = this.obtencionDePosX;
                 this.body.setOffset(200, 200);
             }  
             
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado'){
-                this.kusaCharge = false;
                     this.obtencionDePosX = this.x;
                     this.obtencionDePosY = this.y;
+                    
                     if(this.flipX){
                         this.x =this.x +105;
                       }
                       else{
-                        this.setOffset()
+                        
                         this.x =this.x -105;
                         this.body.setOffset(720, 200);
                       }
-                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+                      this.kusaCharge = false;
+
+                      this.kusaRelease = true;
                 this.scene.collisionActiva = false;
                     
             }     
@@ -403,16 +405,15 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 const currentFrames = frame.index;
             if(currentFrames >= totalFrames*3/5){
                 this.kusaAtaq = false;
-
                 this.weapon.setSize(240, 65); // Ajustar el tamaño del cuerpo si es necesario
-                if(this.flipX){
+               if(this.flipX){
                     this.weapon.setOffset(-148, -50); // Ajustar posición del cuerpo en el sprite
                 }
                 else{
                     this.weapon.setOffset(-58, -50);
                 }
             }else{
-                
+               
                 this.weapon.setSize(65, 240);
                 if(this.flipX){
                 this.weapon.setOffset(58, -20);
@@ -420,33 +421,35 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.weapon.setOffset(-88, -20);
                 }
             }
+
             });
+
         }
         if(this.kusaCharge || this.taneCharge){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
 
         }
-        if(this.kusaRelease){
-            this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
-                const totalFrames = anim.getTotalFrames();
-                const currentFrames = frame.index;
-                const maxOffset =20; // Ajusta esto según tus necesidades
-                if(currentFrames <= totalFrames*1/2){
-                    const offset1 = (maxOffset / (totalFrames / 2)) * currentFrames;
-                    this.weapon.setOffset(offset1);
-                    console.log(offset1,'entro');
-                }else if(currentFrames > totalFrames*1/2){
-                    const offset2 = maxOffset - ((maxOffset / (totalFrames / 2)) * (currentFrame - totalFrames / 2));
-                    this.weapon.setOffset(offset2);
-                    console.log(offset2,'salgo');
+        if (this.kusaRelease) {
+            this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+                this.on(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject) => {
+                const totalFrames = anim.getTotalFrames(); 
+                const currentFrame = frame.index; 
+                //ESTA PUESTO +10 por probar
+                let progress = 0;
+                if (currentFrame <= totalFrames / 2) {
+                     progress = progress + 10;
+                    this.weapon.setOffset(progress, 0);
+                   
+                } else {
+                     progress = progress-10;
 
+                    this.weapon.setOffset(progress,0) ;
                 }
-                
-
+               progress = 0;
+              
             });
-            this.kusaRelease= false;
+            
         }
-        
         //Ejecuta el knockback
         if(this.knockBack){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'knockBack', true);
