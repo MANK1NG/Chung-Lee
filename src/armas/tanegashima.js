@@ -4,6 +4,10 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(0.2); // Escalar katana si es necesario
         this.attackType = null;
+        this.ataque = scene.sound.add('AtaqueTane', {volume: 0.35});
+        this.superAtaque = scene.sound.add('SuperAtaqueTane', {volume: 0.5});
+        this.carga = scene.sound.add('CargaTane', {volume: 0.25});
+        this.cargado = scene.sound.add('CargadoTane', {volume: 0.8});
     }
 
     attack(personaje) {
@@ -12,9 +16,13 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
 
         this.scene.time.delayedCall(250, () => {
             if (!personaje.superShot)
+            {
+                this.ataque.play();
                 personaje.shot.setScale(0.4);
+            }
             else
             {
+                this.superAtaque.play();
                 personaje.shot.setScale(1);
                 personaje.superShot = false;
             }
@@ -37,11 +45,13 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
     }
 
     potenciatedAttack(personaje) {
+        this.carga.play();
         this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
         this.attackType = 'potenciadoTane';
         this.scene.time.delayedCall(1333, () => {
             if (personaje.taneCharge)
             {
+                this.cargado.play();
                 personaje.superShot = true;
                 personaje.taneCancel = false;
                 personaje.taneCharge = false;
