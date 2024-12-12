@@ -34,8 +34,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.tieneKusa = false;
         this.tieneTanegashima = false;
         this.kusaCharge = false,
-        
         this.kusaAtaq = false;
+        this.kusaRelease = false;
         this.saiDash = false;
 
         this.taneCharge = false;
@@ -257,10 +257,14 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
                 if(this.tieneKusa){
+                    this.kusaRelease = true;
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
                     this.scene.collisionActiva = false;
+                    
+                    this.x = this.obtencionDePosX;
+                    this.body.setOffset(200, 200);
 
                 }
                 
@@ -274,9 +278,19 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado'){
                 this.kusaCharge = false;
-                    this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
-                    this.scene.collisionActiva = false;
-
+                    this.obtencionDePosX = this.x;
+                    this.obtencionDePosY = this.y;
+                    if(this.flipX){
+                        this.x =this.x +105;
+                      }
+                      else{
+                        this.setOffset()
+                        this.x =this.x -105;
+                        this.body.setOffset(720, 200);
+                      }
+                this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
+                this.scene.collisionActiva = false;
+                    
             }     
             
         });
@@ -405,6 +419,26 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.kusaCharge || this.taneCharge){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
 
+        }
+        if(this.kusaRelease){
+            this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
+                const totalFrames = anim.getTotalFrames();
+                const currentFrames = frame.index;
+                const maxOffset =20; // Ajusta esto según tus necesidades
+                if(currentFrames <= totalFrames*1/2){
+                    const offset1 = (maxOffset / (totalFrames / 2)) * currentFrames;
+                    this.weapon.setOffset(offset1);
+                    console.log(offset1,'entro');
+                }else if(currentFrames > totalFrames*1/2){
+                    const offset2 = maxOffset - ((maxOffset / (totalFrames / 2)) * (currentFrame - totalFrames / 2));
+                    this.weapon.setOffset(offset2);
+                    console.log(offset2,'salgo');
+
+                }
+                
+
+            });
+            this.kusaRelease= false;
         }
         
         //Ejecuta el knockback
