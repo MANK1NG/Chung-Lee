@@ -9,24 +9,31 @@ export default class Tanegashima extends Phaser.Physics.Arcade.Sprite {
     attack(personaje) {
         // Solo añadir físicas si no se ha añadido previamente
         this.attackType = 'normalTane';
+
+        this.scene.time.delayedCall(250, () => {
+            if (!personaje.superShot)
+                personaje.shot.setScale(0.4);
+            else
+                personaje.shot.setScale(1);
+            
             this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
-            this.body.setAllowGravity(false);
-        
+            this.scene.physics.add.existing(personaje.shot); // Añadir físicas al iniciar el ataque
+            personaje.shot.body.setAllowGravity(false);
+            // Activar el cuerpo físico para el ataque
+            personaje.shot.body.setSize(100, 40); // Ajustar el tamaño del cuerpo si es necesario
+            personaje.shotDir = personaje.flipX;
+            personaje.shot.x = personaje.shotDir ? (personaje.x + 80) : (personaje.x - 80);
+            personaje.shot.y = personaje.y + 25;
+            personaje.shooting = true;
+            personaje.shot.body.enable = true; // Habilitar el cuerpo para que sea detectable en la física
+        });
+    }
+
+    create() {
+
     }
 
     potenciatedAttack(personaje) {
         this.attackType = 'potenciadoTane';
-        this.scene.physics.add.existing(this); // Añadir físicas al iniciar el ataque
-        this.body.setAllowGravity(false);
-    
-    // Activar el cuerpo físico para el ataque
-        this.body.setSize(200, 650); // Ajustar el tamaño del cuerpo si es necesario
-        if(personaje.flipX){
-            this.body.setOffset(0, -100); // Ajustar posición del cuerpo en el sprite
-        }
-        else{
-            this.body.setOffset(-160, -100);
-        }
-        this.body.enable = true;
     }
 }

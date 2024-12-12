@@ -22,6 +22,9 @@ export default class Carga extends Phaser.Scene{
         this.load.image('onlySaiP2', './img/insignias/insigniaSai.png');
         this.load.image('onlyKusaP2', './img/insignias/insigniaKusa.png');
         this.load.image('onlyTanegashimaP2', './img/insignias/insigniaTanegashima.png');
+
+        this.load.image('shotN', './Anim/Shot_N.png');
+        this.load.image('shotR', './Anim/Shot_R.png');
         //SONIDO
         this.load.audio('MenuMusic', './audio/MenuMusic.mp3');
         this.load.audio('BattleMusic', './audio/BattleMusic.mp3');
@@ -96,8 +99,6 @@ export default class Carga extends Phaser.Scene{
             frameWidth: 525,  // Ancho de cada fotograma
             frameHeight: 460  // Alto de cada fotograma
         });
-        this.load.image('shotN', './Anim/Shot_N.png');
-        this.load.image('shotR', './Anim/Shot_R.png');
 
         this.load.spritesheet('cartas', './Anim/Cards_SpriteSheet.png', {
             frameWidth: 800, // Ancho de cada fotograma

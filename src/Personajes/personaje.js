@@ -41,6 +41,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.taneCharge = false;
         this.taneCancel = false;
         this.superShot = false;
+        this.shooting = false;
+        this.shot = Image;
+        this.shotDir = false; //False - Izquierda, True - Derecha (En consonancia con flip)
+        this.shotSpeed = 25;
 
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
         this.weaponTypeString = weaponType + '_';
@@ -148,18 +152,19 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         });
     
         this.v.on('up', () => {
-            if (this.isCharging && !this.attack && !this.knockBack) {
-                if (this.tieneTanegashima)
-                {
-                    if (this.taneCharge || this.taneCancel){
-                        this.taneCancel = false;
-                        this.taneCharge = false;
-                        this.isCharging = false;
-                        return;
-                    }
-                    this.body.setVelocityY(0);
-                    
+            if (this.tieneTanegashima)
+            {
+                if (this.taneCharge || this.taneCancel){
+                    this.taneCancel = false;
+                    this.taneCharge = false;
+                    this.isCharging = false;
+                    return;
                 }
+                this.body.setVelocityY(0);
+                    
+            }
+            if (this.isCharging && !this.attack && !this.knockBack) {
+                
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
                 this.weapon.attack(this);
                 //Quito gravedad para quedarme estatico en el aire al atacar con el ataque normal
@@ -168,7 +173,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 //Animaciones ataque normal
                 if(this.body.blocked.down){
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataque');
-                    
                     if (this.tieneKusa) {// Cambio de posicion en el sprite del ataque de la kusa
                         this.obtencionDePosY = this.y;
                         this.y =this.y -52;
@@ -532,6 +536,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         //Parar el personaje si no hay imput y no ataco
         else if(this.attack && !this.potAnims && !this.saiDash){
             this.body.setVelocityX(0);
+        }
+
+        if (this.shooting)
+        {
+            this.shot.x += this.shotDir ? this.shotSpeed : -this.shotSpeed;
         }
         
         //Movimiento del body del ataque pegado al personaje
