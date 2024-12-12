@@ -110,7 +110,7 @@ export default class Carga extends Phaser.Scene{
             frameHeight: 500 // Alto de cada fotograma
         });
 
-        this.load.spritesheet('textoLucha', './Anim/textoLucha.png', {
+        this.load.spritesheet('textoLucha', './assests/textoLucha.png', {
             frameWidth: 100,  // Ancho de cada fotograma
             frameHeight: 100  // Alto de cada fotograma
         });
