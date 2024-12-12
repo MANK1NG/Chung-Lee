@@ -37,7 +37,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.kusaAtaq = false;
         this.kusaRelease = false;
         this.saiDash = false;
-
+        this.progress = 0;
         this.taneCharge = false;
         this.taneCancel = false;
         this.superShot = false;
@@ -124,7 +124,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         if(this.tieneSai){
                             this.saiDash = true;
                             this.mitad = 0;
-                            console.log("tiene dash");
                         }
                         
                         if(this.tieneTanegashima ){
@@ -246,7 +245,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.isAttacking = false; // Permitir movimiento al completar el ataque
                 this.attackMovement = false;
                 this.body.setVelocityX(0);
-                console.log("fin daño");
             }
             if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'knockBack') {
                 this.knockBack = false;
@@ -266,6 +264,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.deflect = false;
                 console.log("fin deflect");
                 if(this.tieneKusa){
+                    this.progress = 0;
                     this.kusaRelease=false;
                     this.isAttacking = false;
                     this.weapon.body.enable = false;
@@ -278,7 +277,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 
             }
             if (this.tieneKusa &&anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataque') {
-                this.scene.time.delayedCall(1, () => {
+                this.scene.time.delayedCall(5, () => {
                     this.y = this.obtencionDePosY;
                     this.x = this.obtencionDePosX;
                     this.body.setOffset(200, 200);
@@ -439,27 +438,29 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         }
         if (this.kusaRelease) {
-            let progress = 0;
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
-                
-                const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
-                
 
                 //ESTA PUESTO +10 por probar
-                if (currentFrames <= totalFrames*3/5) {
-                     progress = progress + 5;
-                    this.weapon.setOffset(progress, -30);
-                   console.log('entro1');
-                } else {
-
-                     progress = progress-5;
-                    this.weapon.setOffset(30,-30) ;
-                    console.log('entro2');
-
+                if (currentFrames >= 5 && currentFrames <=11) {
+                    if(this.flipX){
+                    this.progress +=  1.8;
+                    this.weapon.setOffset(this.progress, -30);
+                    }
+                    else{
+                    this.progress -=  4;
+                    this.weapon.setOffset(this.progress, -30);
+                    
                 }
-               progress = 0;
-               
+                }else  if(currentFrames>=18 && currentFrames <=23){
+                    if(this.flipX){
+                     this.progress -= 1.8;
+                    this.weapon.setOffset(this.progress,-30) ;
+                    }else{
+                        this.progress +=  4;
+                        this.weapon.setOffset(this.progress, -30);
+                    }
+                }
             });
         }
         //Ejecuta el knockback

@@ -404,8 +404,8 @@ export default class Templo extends Phaser.Scene{
             
             //Desactivar colision
             this.time.delayedCall(500, () => {
-                if(!weapon.attackType == 'potenciadoKusa'){
-                    console
+                if(weapon.attackType != 'potenciadoKusa'){
+                    
                 this.collisionActiva = false;
             }
                 
@@ -563,8 +563,8 @@ export default class Templo extends Phaser.Scene{
             }
            
                 this.time.delayedCall(500, () => {
-                    if(!weapon.attackType == 'potenciadoKusa'){
-                        console
+                    if(weapon.attackType != 'potenciadoKusa'){
+                       
                     this.collisionActiva = false;
                 }
                     
@@ -625,7 +625,6 @@ export default class Templo extends Phaser.Scene{
         this.texto.play('lucha');
         
         this.texto.on('animationcomplete', () => {
-            console.log('Animación completada. ¡A luchar!');
             this.texto.destroy();
         });
 
