@@ -7,7 +7,7 @@ El proyecto es un trabajo universitario, los recursos utilizados de otras fuente
 STICK-Dō  es un juego de lucha multijugador local. Cada jugador peleará con un único personaje el cual podrá cambiar su estilo 
 de combate dependiendo de la carta que escoja. Estas cartas irán apareciendo en pantalla y solo un el jugador
 más rápido podrá obtenerla.
-![descripcion](https://github.com/user-attachments/assets/4ec9743b-396e-4f97-a51d-54397f15ef8f)
+![descripcion](https://github.com/user-attachments/assets/b5f64c6b-e7b1-483e-84fa-47c0480645e2)
 
 - [GitHub](https://mank1ng.github.io/Chung-Lee/)
 - [Twitter](https://x.com/ChungLee04)
