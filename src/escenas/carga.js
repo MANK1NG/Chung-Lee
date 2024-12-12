@@ -667,7 +667,7 @@ export default class Carga extends Phaser.Scene{
            },
            {   
             key: 'lucha',//nombre de animacion
-            frames: this.anims.generateFrameNumbers('textoLucha', {start: 0, end: 2} ),//coge el dibujo entero de esa anim, this es la scene
+            frames: this.anims.generateFrameNumbers('textoLucha', {start: 0, end: 3} ),//coge el dibujo entero de esa anim, this es la scene
             frameRate: 3,//tasa frames
             repeat: 0,//ciclo simple
            },

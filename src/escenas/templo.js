@@ -63,7 +63,7 @@ export default class Templo extends Phaser.Scene{
         const savedState = localStorage.getItem('volumeState');
         const state = savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Volumen predeterminado
     
-        this.sound.volume = state.volume; // Configura el volumen global
+       // this.sound.volume = state.volume; // Configura el volumen global
         // SONIDO
             let luchaSound = this.sound.add('Lucha');//FIGHT
             luchaSound.setVolume(0.5);

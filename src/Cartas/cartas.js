@@ -17,7 +17,7 @@ constructor(scene, x, y, spriteSheetKey){
 
      // Añadir el sprite a la escena
      scene.add.existing(this);
-     this.hazanimacion();
+   
 
      //tonterias para ver como queda
      this.on('animationcomplete', (anim, frame) => {

@@ -73,6 +73,7 @@ export default class Options extends Phaser.Scene {
     
     
     
+    
     createVolumeSlider(x, y) {
         const savedState = this.loadState();
         Object.assign(this, savedState);
