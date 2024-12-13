@@ -290,11 +290,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }  
             
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado' && !this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit'){
+                this.kusaCharge = false
                 this.kusaRelease = true;
-                if(this.knockBack){
-                    this.potenciatedAttackStop = false;
-                    this.isAttacking = false;
-                }
                 this.weapon.lanza.play();
                  this.obtencionDePosX = this.x;
                     this.obtencionDePosY = this.y;
@@ -307,7 +304,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         this.x =this.x -105;
                         this.body.setOffset(720, 200);
                       }
-                      this.kusaCharge = false
                       
 
                 this.scene.collisionActiva = false;
@@ -431,8 +427,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             
         }
         if(this.kusaAtaq){
-
-
+            console.log("falla aqui")
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
@@ -460,14 +455,15 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         }
         if(this.kusaCharge || this.taneCharge){
+            console.log("falla aqui")
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
 
         }
         if (this.kusaRelease) {
+            console.log("falla aqui")
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const currentFrames = frame.index;
 
-                //ESTA PUESTO +10 por probar
                 if (currentFrames >= 5 && currentFrames <=11) {
                     if(this.flipX){
                     this.progress +=  1.8;
@@ -491,6 +487,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
         //Ejecuta el knockback
         if(this.knockBack){
+            console.log("Knock")
             this.play(this.spriteSheetKey + this.weaponTypeString + 'knockBack', true);
             this.body.setVelocityX(this.knockBackSpeedX);
             this.body.setVelocityY(-this.knockBackSpeedY);
