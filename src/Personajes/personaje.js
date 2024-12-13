@@ -252,6 +252,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
+                this.progress = 0;
                 this.kusaRelease = false;
                 this.kusaCharge = false;
                 this.saiDash = false;
