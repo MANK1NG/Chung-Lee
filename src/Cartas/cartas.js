@@ -36,7 +36,6 @@ hazanimacion(){
 }
 armaAleatoria(){
     const aleatorio = Math.floor(Math.random() * (this.armas.length));//no incluye ni el 4
-    console.log(aleatorio);
     this.arma =  this.armas[aleatorio];
 }
 

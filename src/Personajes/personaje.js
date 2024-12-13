@@ -38,6 +38,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.kusaRelease = false;
         this.saiDash = false;
         this.progress = 0;
+
         this.taneCharge = false;
         this.taneCancel = false;
         this.superShot = false;
@@ -110,6 +111,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     }
 
     setupAttackEvents() {
+        if(this.scene.attack){
         this.v.on('down', () => {
             if (!this.isCharging && !this.attack && this.canAttack && !this.KnockBack) { // Añadir comprobación de canAttack
                 this.chargeStartTime = Date.now();
@@ -120,17 +122,17 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.potenciadoTimeout = this.scene.time.delayedCall(this.chargeTimeThreshold, () => {
                     if (this.isCharging) {
                         //Ataque potenciado si he mantenido suficiente
-                        
                         if(this.tieneSai){
                             this.saiDash = true;
                             this.mitad = 0;
                         }
                         
-                        if(this.tieneTanegashima ){
+                        if(this.tieneTanegashima){
                             this.taneCancel = true;
                         }
                         if(this.tieneKusa ){
                             this.kusaCharge = true;
+                            this.blockAttacksTemporarilyKusa();
                         }
                         if (!this.tieneTanegashima || this.body.velocity.y === 0)
                         {
@@ -147,6 +149,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         
                             this.isCharging = false; // Detenemos la carga para evitar múltiples llamadas
                         }
+                        if(!this.tieneKusa)
+                        this.blockAttacksTemporarily();
                     }
                 });
             }
@@ -165,7 +169,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.body.setVelocityY(0);
                 }
             }
-            if (this.isCharging && !this.attack && !this.knockBack) {
+            if (this.isCharging && !this.attack && !this.knockBack && this.canAttack) {
                 //recoil
                 
                 // Si no se alcanzó el tiempo del potenciado, ejecuta el ataque básico
@@ -190,29 +194,25 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                             this.body.setOffset(720, 555);
                         }
                         this.kusaAtaq = true;
-
+                        
                     }
-                      
+                    
                 } else {
                     this.play(this.spriteSheetKey + this.weaponTypeString + 'ataqueAire');
                 }
                 if((!this.body.blocked.down || this.tieneSai) && !this.tieneTanegashima){
                     this.attackMovement = true;
                 }
-               
+                
                 
                 
                 this.attack = true;
                 this.isAttacking = true;
-        
+            
                 // Desactivar la capacidad de ataque temporalmente
-                this.canAttack = false;
-                this.scene.time.delayedCall(1000, () => { // Esperar 1 segundo
-                    this.canAttack = true; // Volver a permitir el ataque
-
-                });
+               this.blockAttacksTemporarily();
             }
-        
+            
             // Reiniciar carga y cancelar temporizador si existe
             this.isCharging = false;
             if (this.potenciadoTimeout) {
@@ -224,14 +224,14 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.weaponKatana.potenciadoKatana.stop();
                 }
                 if(!this.saiDash && !this.tieneKusa){
-                this.isAttacking = false;
-                this.potAnims = false;
-                this.weapon.body.enable = false;
-                this.potenciatedAttackStop = false;
+                    this.isAttacking = false;
+                    this.potAnims = false;
+                    this.weapon.body.enable = false;
+                    this.potenciatedAttackStop = false;
                 }
                 
             }
-        
+            
             // Desactivar el estado de ataque después de un breve retardo para permitir movimiento
             this.scene.time.delayedCall(100, () => {
                 this.attack = false;
@@ -248,6 +248,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
             if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'knockBack') {
                 this.knockBack = false;
+                this.canAttack = true;
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
@@ -258,11 +259,12 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.attackMovement = false;
                 this.knockBackSpeedY = 100;
                 this.deflect = false;
-                console.log("fin knock");
             }
             if(anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit') {
                 this.deflect = false;
-                console.log("fin deflect");
+                if(this.weapon == this.weaponKatana){
+                    this.blockAttacksTemporarilyDeflect();
+                }
                 if(this.tieneKusa){
                     this.progress = 0;
                     this.kusaRelease=false;
@@ -270,6 +272,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     this.weapon.body.enable = false;
                     this.potenciatedAttackStop = false;
                     this.scene.collisionActiva = false;
+                    this.scene.collisionActiva2 = false;
                 
                     this.x = this.obtencionDePosX;
                     this.body.setOffset(200, 200);
@@ -285,9 +288,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }  
             
             if(this.tieneKusa && anim.key === this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado' && !this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit'){
-                this.kusaRelease= true;
+                this.kusaRelease = true;
                 this.weapon.lanza.play();
-    
                  this.obtencionDePosX = this.x;
                     this.obtencionDePosY = this.y;
 
@@ -303,12 +305,35 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                       
 
                 this.scene.collisionActiva = false;
+                this.scene.collisionActiva2 = false;
                 if(this.tieneKusa){
                 this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
 
                     }
             }     
             
+        });
+    }
+    }
+
+    blockAttacksTemporarily() {
+        this.canAttack = false;
+        this.scene.time.delayedCall(1000, () => { 
+            this.canAttack = true;
+        });
+    }
+
+    blockAttacksTemporarilyDeflect() {
+        this.canAttack = false;
+        this.scene.time.delayedCall(475, () => { 
+            this.canAttack = true;
+        });
+    }
+
+    blockAttacksTemporarilyKusa() {
+        this.canAttack = false;
+        this.scene.time.delayedCall(1500, () => { 
+            this.canAttack = true;
         });
     }
 
@@ -341,6 +366,8 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     //Activa el knockback
     hit(speed){
         this.knockBackSpeedX = speed;
+        this.potenciatedAttackStop = false;
+        this.potAnims = false;
         this.knockBack = true;
     }
 
@@ -348,25 +375,15 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
     ActivePotenciadoHitAnim(){
         if(this.weapon.attackType === 'potenciadoKat'){
             this.deflect = true;
+            this.canAttack = false;
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciadoHit', true);
             this.sonidosExtraKatana.play();
-        }
-
-        if(this.weapon.attackType === 'potenciadoSai'){
-            
-        }
-
-        if(this.weapon.attackType === 'potenciadoKusa'){
-
-        }
-
-        if(this.weapon.attackType === 'potenciadoTane'){
-
         }
     }
 
     preUpdate(tiempo, tiempoFrames) {
         super.preUpdate(tiempo, tiempoFrames);
+        if(this.scene.personajesMove || this.scene.logrosMovePersonaje){
 
         //POTENCIADO SAI
         if(this.saiDash && !this.knockBack){
@@ -386,11 +403,13 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                     return;
                 if(currentFrames >= totalFrames / 2 && this.mitad == 0){
                     this.scene.collisionActiva = true;
+                    this.scene.collisionActiva2 = false;
                     this.flipX ? this.flipX = false : this.flipX = true;
                     this.mitad = 1;
                     if(this.cont == 0){
     
                         this.scene.collisionActiva = false;
+                        this.scene.collisionActiva2 = false;
                         this.cont = 1;
                     }
                 }
@@ -553,7 +572,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             }
         }
         //Parar el personaje si no hay imput y no ataco
-        else if(this.attack && !this.potAnims && !this.saiDash){
+        else if(this.attack && !this.potAnims && !this.saiDash && !this.knockBack){
             this.body.setVelocityX(0);
         }
 
@@ -603,6 +622,10 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                 this.setTexture(this.carta + 'R');
             }
         }
+    }
+    else{
+        this.body.setAllowGravity(false);
+    }
     }
     
     cambiarArma(armaChange){

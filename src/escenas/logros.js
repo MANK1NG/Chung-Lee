@@ -11,6 +11,14 @@ export default class Logros {
         this.cincoGolpesP2 = 0,
         this.comproveCincoGolpesP1 = true;
         this.comproveCincoGolpesP2 = true;
+        this.win1Kat = false;
+        this.win2Kat = false;
+        this.win1Kusa = false;
+        this.win2Kusa = false;
+        this.win1Sai = false;
+        this.win2Sai = false;
+        this.win1Tane = false;
+        this.win2Tane = false;
         this.defaultState = {
             oneLifeLeftP1: false,
             oneLifeLeftP2: false,
@@ -31,7 +39,6 @@ export default class Logros {
         // Recuperar estado guardado si existe
         const savedState = this.loadState();
         Object.assign(this, savedState || this.defaultState);
-        console.log(this.showNoHitP1 + " " + this.showNoHitP2);
         Logros.instance = this;
     }
 
@@ -44,7 +51,17 @@ export default class Logros {
             'cambioArmaP1',
             'cambioArmaP2',
             'cincoGolpesP1',
-            'cincoGolpesP2'
+            'cincoGolpesP2',
+            'comproveCincoGolpesP1',
+            'comproveCincoGolpesP2',
+            'win1Kat',
+            'win2Kat',
+            'win1Kusa',
+            'win2Kusa',
+            'win1Sai',
+            'win2Sai',
+            'win1Tane',
+            'win2Tane',
         ];
     
         // Crear una copia del estado excluyendo las claves no deseadas
@@ -56,6 +73,33 @@ export default class Logros {
             }, {});
     
         localStorage.setItem('logrosState', JSON.stringify(state));
+    }
+
+    win(gano){
+        if(gano == 'personaje1Kat'){
+            this.win1Kat = true;
+        }
+        if(gano == 'personaje2Kat'){
+            this.win2Kat = true;
+        }
+        if(gano == 'personaje1Kusa'){
+            this.win1Kusa = true;
+        }
+        if(gano == 'personaje2Kusa'){
+            this.win2Kusa = true;
+        }
+        if(gano == 'personaje1Sai'){
+            this.win1Sai = true;
+        }
+        if(gano == 'personaje2Sai'){
+            this.win2Sai = true;
+        }
+        if(gano == 'personaje1Tane'){
+            this.win1Tane = true;
+        }
+        if(gano == 'personaje2Tane'){
+            this.win2Tane = true;
+        }
     }
 
     // Cargar el estado desde LocalStorage
@@ -73,6 +117,16 @@ export default class Logros {
         this.cincoGolpesP2 = 0;
         this.cambioArmaP1 = false;
         this.cambioArmaP2 = false;
+        this.win1Kat = false;
+        this.win2Kat = false;
+        this.win1Kusa = false;
+        this.win2Kusa = false;
+        this.win1Sai = false;
+        this.win2Sai = false;
+        this.win1Tane = false;
+        this.win2Tane = false;
+        this.comproveCincoGolpesP1 = true;
+        this.comproveCincoGolpesP2 = true;
         this.saveState();
     }
 
@@ -96,7 +150,6 @@ export default class Logros {
         if(spriteSheetKey == 'personaje1')
             this.oneLifeLeftP1 = true;
         if(spriteSheetKey == 'personaje2')
-            console.log(spriteSheetKey);
             this.oneLifeLeftP2 = true;
             this.saveState();
     }
@@ -110,15 +163,17 @@ export default class Logros {
     }
 
     cincoGolpesCombo(spriteSheetKey){
-        if(this.comproveCincoGolpesP1 && spriteSheetKey == 'personaje1')
+        if(this.comproveCincoGolpesP1 && spriteSheetKey == 'personaje1'){
             this.cincoGolpesP1++;
-        if(this.cincoGolpesP1 >= 5){
-            this.cincoGolpesBoolP1 = true;
+            if(this.cincoGolpesP1 >= 5){
+                this.cincoGolpesBoolP1 = true;
+            }
         }
-        if(this.comproveCincoGolpesP2 && spriteSheetKey == 'personaje2')
+        if(this.comproveCincoGolpesP2 && spriteSheetKey == 'personaje2'){
             this.cincoGolpesP2++;
-        if(this.cincoGolpesP2 >= 5){
-            this.cincoGolpesBoolP2 = true;
+            if(this.cincoGolpesP2 >= 5){
+                this.cincoGolpesBoolP2 = true;
+            }
         }
         this.saveState();
     }

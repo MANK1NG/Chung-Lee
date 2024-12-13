@@ -6,15 +6,21 @@ export default class LogrosScene extends Phaser.Scene{
         this.logros = new Logros();
         this.esc;
         this.music;
+        this.logrosMovePersonaje = true;
+        this.attack = false;
     }
 
     preload(){
         this.load.image('logrosBackground', './img/insignias/LogrosBackground.png');
         this.load.image('volverMenu', './assests/BotonVolverBlanco.png'); // Imagen del botón volver
         this.load.image('reset', './assests/BotonReinicioLogros.png'); // Imagen del botón reset
+
+        this.load.image('personaje1', './assests/Pixel.png');
+        this.load.image('personaje2', './assests/Pixel.png');
     }
 
     init(){
+        this.logrosMovePersonaje = true;
         const savedState = localStorage.getItem('volumeState');
         const state = savedState ? JSON.parse(savedState) : { volume: 0.15 }; // Volumen predeterminado
     
@@ -50,8 +56,34 @@ export default class LogrosScene extends Phaser.Scene{
         reset.on('pointerover', () => {reset.setScale(1.1);  this.game.canvas.style.cursor = 'url(./assests/manita.png), pointer';}); 
         reset.on('pointerout', () => {reset.setScale(1); this.game.canvas.style.cursor = 'url(./assests/cursor.png), auto';});
         //personajes de la escena
-        let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
-        let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        if(this.logros.win1Kat)
+        {
+            let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KATANA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        }
+        if(this.logros.win2Kat){
+            let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KATANA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        }
+        if(this.logros.win1Sai)
+        {
+            let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.SAI, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        }
+        if(this.logros.win2Sai){
+            let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.SAI, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        }
+        if(this.logros.win1Kusa)
+        {
+            let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.KUSA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        }
+        if(this.logros.win2Kusa){
+            let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.KUSA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        }
+        if(this.logros.win1Tane)
+        {
+            let personaje = new Personaje(this, 230, 600, Personaje.WeaponType.TANEGASHIMA, {keyUp: 'W', keyDown: 'S', keyLeft: 'A', keyRight: 'D', keyAttack: 'V', keyWeapon: 'B'}, 'personaje1', true);
+        }
+        if(this.logros.win2Tane){
+            let personaje2 = new Personaje(this, 790, 600, Personaje.WeaponType.TANEGASHIMA, {keyUp: 'up', keyDown: 'down', keyLeft: 'left', keyRight: 'right', keyAttack: 'P', keyWeapon: 'O'}, 'personaje2',false);
+        }
         //logros
         if(this.logros.noHitP1 || this.logros.showNoHitP1) {
             this.logros.ganarNoHitcomproveP1();
