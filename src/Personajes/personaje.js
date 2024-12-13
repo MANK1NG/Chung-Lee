@@ -45,7 +45,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.shooting = false;
         this.shot = Image;
         this.shotDir = false; //False - Izquierda, True - Derecha (En consonancia con flip)
-        this.shotSpeed = 25;
+        this.shotSpeed = 30;
 
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
         this.weaponTypeString = weaponType + '_';
@@ -249,7 +249,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'knockBack') {
                 this.knockBack = false;
                 this.canAttack = true;
-                this.taneCharge = false;
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
@@ -305,7 +304,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
                         this.x =this.x -105;
                         this.body.setOffset(720, 200);
                       }
-                      
 
                 this.scene.collisionActiva = false;
                 this.scene.collisionActiva2 = false;
