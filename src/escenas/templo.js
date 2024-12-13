@@ -272,7 +272,7 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.collider(personaje.weaponKatana, personaje2.weaponTanegashima, ()=>{
+        this.physics.add.collider(personaje.weaponKatana, personaje2.shot, ()=>{
             const weapon = personaje.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
                 personaje2.getWeapon().body.enable = false;
@@ -280,7 +280,7 @@ export default class Templo extends Phaser.Scene{
             }
         });
         
-        this.physics.add.collider(personaje2.weaponKatana, personaje.weaponTanegashima, ()=>{
+        this.physics.add.collider(personaje2.weaponKatana, personaje.shot, ()=>{
             const weapon = personaje2.getWeapon();
             if (weapon.attackType === 'potenciadoKat') {
                 personaje.getWeapon().body.enable = false;
