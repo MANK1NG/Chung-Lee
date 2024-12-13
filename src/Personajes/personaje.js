@@ -576,7 +576,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         if (this.shooting)
         {
-            this.shot.x += this.shotDir ? this.shotSpeed : -this.shotSpeed; //Movimiento bala
+            this.shot.body.setSpeedX(this.shotDir ? this.shotSpeed : -this.shotSpeed); //Movimiento bala
         }
         
         //Movimiento del body del ataque pegado al personaje
