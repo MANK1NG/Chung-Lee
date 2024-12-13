@@ -427,7 +427,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             
         }
         if(this.kusaAtaq){
-            console.log("falla aqui")
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const totalFrames = anim.getTotalFrames();
                 const currentFrames = frame.index;
@@ -455,12 +454,11 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
 
         }
         if(this.kusaCharge || this.taneCharge){
-            console.log("falla aqui")
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
+            this.kusaCharge = false;
 
         }
         if (this.kusaRelease) {
-            console.log("falla aqui")
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
                 const currentFrames = frame.index;
 
@@ -487,7 +485,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         }
         //Ejecuta el knockback
         if(this.knockBack){
-            console.log("Knock")
             this.play(this.spriteSheetKey + this.weaponTypeString + 'knockBack', true);
             this.body.setVelocityX(this.knockBackSpeedX);
             this.body.setVelocityY(-this.knockBackSpeedY);
