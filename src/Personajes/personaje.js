@@ -45,7 +45,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         this.shooting = false;
         this.shot = Image;
         this.shotDir = false; //False - Izquierda, True - Derecha (En consonancia con flip)
-        this.shotSpeed = 25;
+        this.shotSpeed = 40;
 
         this.mitad = 0;//para que se haga el potenciado del sai de un lado para otro
         this.weaponTypeString = weaponType + '_';
