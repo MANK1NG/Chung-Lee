@@ -456,6 +456,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.kusaCharge || this.taneCharge){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             this.kusaCharge = false;
+            this.taneCharge = false;
 
         }
         if (this.kusaRelease) {
