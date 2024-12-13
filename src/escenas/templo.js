@@ -287,11 +287,11 @@ export default class Templo extends Phaser.Scene{
                 personaje2.ActivePotenciadoHitAnim();
             }
         });
-        this.physics.add.collider(personaje.shot, personaje2, ()=>{
+        this.physics.add.overlap(personaje.shot, personaje2, ()=>{
             //personaje2.getWeapon().body.enable = false;
             personaje.ActivePotenciadoHitAnim();
         });
-        this.physics.add.collider(personaje2.shot, personaje, ()=>{
+        this.physics.add.overlap(personaje2.shot, personaje, ()=>{
             //personaje.getWeapon().body.enable = false;
             personaje2.ActivePotenciadoHitAnim();
         });
