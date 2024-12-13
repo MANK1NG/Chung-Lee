@@ -249,6 +249,7 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
             if (anim.key === this.spriteSheetKey + this.weaponTypeString + 'knockBack') {
                 this.knockBack = false;
                 this.canAttack = true;
+                this.taneCharge = false;
                 if(this.isAttacking){
                     this.weapon.body.enable = false;
                 }
@@ -456,8 +457,6 @@ export default class Personaje extends Phaser.Physics.Arcade.Sprite {
         if(this.kusaCharge || this.taneCharge){
             this.play(this.spriteSheetKey + this.weaponTypeString + 'ataquePotenciado', true);
             this.kusaCharge = false;
-            this.taneCharge = false;
-
         }
         if (this.kusaRelease) {
             this.once(Phaser.Animations.Events.ANIMATION_UPDATE, (anim, frame, gameObject)=> {
